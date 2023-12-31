@@ -115,6 +115,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  node_editor:
+    dependency: "direct main"
+    description:
+      path: "../.."
+      relative: true
+    source: path
+    version: "0.0.1"
   path:
     dependency: transitive
     description:
@@ -186,3 +193,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=3.0.5 <4.0.0"
+  flutter: ">=1.17.0"
