@@ -64,7 +64,7 @@ class Property extends NodeItem {
 class NodeModel {
   Map<String, Port> ports = {};
   Map<String, Property> properties = {};
-  final BlueprintNode blueprintNode;
+  final NodePropWidget blueprintNode;
   final BlueprintNodeInheritedWidget inheritedWidget;
   final GlobalKey globalKey;
   Offset pos;
@@ -169,7 +169,7 @@ class BlueprintController with ChangeNotifier {
     onSelectListener = fn;
   }
 
-  void addNode(BlueprintNode nodeWidget) {
+  void addNode(NodePropWidget nodeWidget) {
     GlobalKey globalKey = GlobalKey();
     NodeModel nodeModel = NodeModel(
         globalKey: globalKey,

@@ -7,8 +7,8 @@ abstract class NodeItemWidgetInterface {
   NodeItem get nodeInfo;
 }
 
-abstract class BlueprintNode {
-  const BlueprintNode(
+abstract class NodePropWidget {
+  const NodePropWidget(
       {this.icon,
       this.title,
       this.arrow,
@@ -38,7 +38,7 @@ class BlueprintNodeInheritedWidget extends InheritedWidget {
               blueprintNode: blueprintNode,
             ));
 
-  final BlueprintNode blueprintNode;
+  final NodePropWidget blueprintNode;
 
   static BlueprintNodeInheritedWidget of(BuildContext context) {
     final BlueprintNodeInheritedWidget? result = context
@@ -53,7 +53,7 @@ class BlueprintNodeInheritedWidget extends InheritedWidget {
   }
 }
 
-class DefaultDarkNode extends BlueprintNode {
+class DefaultDarkNode extends NodePropWidget {
   const DefaultDarkNode(
       {super.icon,
       super.title,
@@ -136,7 +136,7 @@ class DefaultDarkNode extends BlueprintNode {
 class NodeWidget extends StatelessWidget {
   const NodeWidget({Key? key, required this.blueprintNode}) : super(key: key);
 
-  final BlueprintNode blueprintNode;
+  final NodePropWidget blueprintNode;
 
   @override
   Widget build(BuildContext context) {
