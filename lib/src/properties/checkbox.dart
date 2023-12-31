@@ -282,7 +282,7 @@ class _CheckBoxPropertyState extends State<CheckBoxProperty>
 
   @override
   void initState() {
-    register(context, widget.name, false);
+    registerProperty(context, widget.name, false);
     super.initState();
   }
 
@@ -298,6 +298,21 @@ class _CheckBoxPropertyState extends State<CheckBoxProperty>
             setPropertyValue(newValue);
             widget.onChanged?.call(newValue);
           },
+          mouseCursor: widget.mouseCursor,
+          autofocus: widget.autofocus,
+          focusNode: widget.focusNode,
+          hoverColor: widget.hoverColor,
+          fillColor: widget.fillColor,
+          checkColor: widget.checkColor,
+          activeColor: widget.activeColor,
+          focusColor: widget.focusColor,
+          isError: widget.isError,
+          materialTapTargetSize: widget.materialTapTargetSize,
+          overlayColor: widget.overlayColor,
+          shape: widget.shape,
+          side: widget.side,
+          splashRadius: widget.splashRadius,
+          visualDensity: widget.visualDensity,
         );
       },
     );
