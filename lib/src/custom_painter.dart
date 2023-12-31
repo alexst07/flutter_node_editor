@@ -7,16 +7,16 @@ import 'controller.dart';
 import 'inherit.dart';
 import 'line_painter.dart';
 
-class BluePrintWidget extends StatefulWidget {
-  const BluePrintWidget({Key? key, required this.controller}) : super(key: key);
+class NodeEditor extends StatefulWidget {
+  const NodeEditor({Key? key, required this.controller}) : super(key: key);
 
-  final BlueprintController controller;
+  final NodeEditorController controller;
 
   @override
-  State<BluePrintWidget> createState() => _BluePrintWidgetState();
+  State<NodeEditor> createState() => _NodeEditorState();
 }
 
-class _BluePrintWidgetState extends State<BluePrintWidget> {
+class _NodeEditorState extends State<NodeEditor> {
   GlobalKey stackKey = GlobalKey();
   bool afterBuild = false;
   ScrollController horizontalScrollController = ScrollController();
