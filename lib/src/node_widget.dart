@@ -70,7 +70,7 @@ class DefaultDarkNode extends NodePropWidget {
 
   @override
   Widget customBuild(BuildContext context) {
-    BlueprintController controller =
+    NodeEditorController controller =
         ControllerInheritedWidget.of(context).controller;
     return Container(
       width: width,

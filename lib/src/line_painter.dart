@@ -5,7 +5,7 @@ import 'controller.dart';
 class LinePainter extends CustomPainter {
   const LinePainter({required this.controller, required this.context});
 
-  final BlueprintController controller;
+  final NodeEditorController controller;
   final BuildContext context;
 
   @override

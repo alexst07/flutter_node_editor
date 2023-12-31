@@ -47,7 +47,7 @@ class _InPortWidgetState extends State<InPortWidget> {
                 strokeWidth: 1,
               ),
           inputIcon: widget.icon);
-      BlueprintController controller =
+      NodeEditorController controller =
           ControllerInheritedWidget.of(context).controller;
       BlueprintNodeInheritedWidget node =
           BlueprintNodeInheritedWidget.of(context);
@@ -60,7 +60,7 @@ class _InPortWidgetState extends State<InPortWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BlueprintController controller =
+        NodeEditorController controller =
             ControllerInheritedWidget.of(context).controller;
         BlueprintNodeInheritedWidget node =
             BlueprintNodeInheritedWidget.of(context);
@@ -113,7 +113,7 @@ class _OutPortWidgetState extends State<OutPortWidget> {
                 strokeWidth: 1,
               ),
           outputIcon: widget.icon);
-      BlueprintController controller =
+      NodeEditorController controller =
           ControllerInheritedWidget.of(context).controller;
       BlueprintNodeInheritedWidget node =
           BlueprintNodeInheritedWidget.of(context);
@@ -126,7 +126,7 @@ class _OutPortWidgetState extends State<OutPortWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BlueprintController controller =
+        NodeEditorController controller =
             ControllerInheritedWidget.of(context).controller;
         BlueprintNodeInheritedWidget node =
             BlueprintNodeInheritedWidget.of(context);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'controller.dart';
 
 class ControllerInheritedWidget extends InheritedWidget {
-  final BlueprintController controller;
+  final NodeEditorController controller;
 
   const ControllerInheritedWidget({
     Key? key,

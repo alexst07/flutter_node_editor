@@ -147,7 +147,7 @@ class ConnectionPoint {
   ConnectionPoint({required this.outNode, required this.outPort});
 }
 
-class BlueprintController with ChangeNotifier {
+class NodeEditorController with ChangeNotifier {
   Map<String, NodeModel> nodes = {};
   List<Connection> connections = [];
   ConnectionPoint? startConnection;

@@ -7,9 +7,10 @@ import 'node_widget.dart';
 mixin PropertyMixin {
   late Property property;
   late String nodeName;
-  late BlueprintController controller;
+  late NodeEditorController controller;
 
-  void register(BuildContext context, String name, dynamic defaultValue) {
+  void registerProperty(
+      BuildContext context, String name, dynamic defaultValue) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       property = Property(name: name, value: defaultValue);
       controller = ControllerInheritedWidget.of(context).controller;
