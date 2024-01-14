@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'connections.dart';
 import 'controller.dart';
 import 'inherit.dart';
 import 'node_widget.dart';
+import 'nodes.dart';
 
 abstract class PropertyWidgetInterface extends NodeItemWidgetInterface
     implements Widget {}

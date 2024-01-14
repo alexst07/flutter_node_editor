@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                debugPrint('controller.toMap(): ${controller.toMap()}');
+                debugPrint('controller.toMap(): ${controller.toJson()}');
               },
               icon: Icon(Icons.abc))
         ],

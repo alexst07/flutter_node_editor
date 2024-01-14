@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'controller.dart';
 import 'inherit.dart';
 import 'node_widget.dart';
+import 'nodes.dart';
 
 mixin PropertyMixin<T> {
   late Property property;

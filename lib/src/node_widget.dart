@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'controller.dart';
 import 'inherit.dart';
+import 'nodes.dart';
 import 'position.dart';
 
 abstract class NodeItemWidgetInterface {

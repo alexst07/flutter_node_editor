@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'connections.dart';
 import 'controller.dart';
+import 'nodes.dart';
 
 class LinePainter extends CustomPainter {
   const LinePainter({required this.controller, required this.context});
@@ -10,7 +12,6 @@ class LinePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    debugPrint('OnPaint');
     if (controller.startPointConnection != null &&
         controller.mousePoint != null) {
       Offset? pos =
@@ -26,8 +27,6 @@ class LinePainter extends CustomPainter {
               controller.outTheme!.color.blue,
               0.7),
           controller.outTheme!.strokeWidth);
-      debugPrint(
-          'draw line: (${controller.startPointConnection}, ${controller.mousePoint})');
     }
 
     drawConnections(canvas, size);

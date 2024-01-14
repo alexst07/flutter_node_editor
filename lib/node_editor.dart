@@ -1,7 +1,7 @@
 library node_editor;
 
-export 'src/controller.dart'
-    show NodeEditorController, Connection, ConnectionTheme;
+export 'src/connections.dart' show Connection, ConnectionTheme;
+export 'src/controller.dart' show NodeEditorController;
 export 'src/custom_painter.dart' show NodeEditor;
 export 'src/node_widget.dart' show DefaultDarkNode;
 export 'src/port.dart' show InPortWidget, OutPortWidget;
