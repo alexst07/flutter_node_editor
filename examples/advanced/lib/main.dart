@@ -135,6 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: NodeEditor(
         controller: controller,
+        background: const GridBackground(),
       ),
     );
   }

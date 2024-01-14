@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:node_editor/node_editor.dart';
 
-import 'connections.dart';
-import 'controller.dart';
 import 'nodes.dart';
 
 class LinePainter extends CustomPainter {
-  const LinePainter({required this.controller, required this.context});
+  const LinePainter(
+      {required this.controller,
+      required this.context,
+      required this.background});
 
   final NodeEditorController controller;
   final BuildContext context;
+  final NodeEditorBackgroundBase background;
 
   @override
   void paint(Canvas canvas, Size size) {
+    // Draw the background
+    background.paint(canvas, size);
+
     if (controller.startPointConnection != null &&
         controller.mousePoint != null) {
       Offset? pos =

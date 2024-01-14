@@ -2,15 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:node_editor/node_editor.dart';
 
-import 'controller.dart';
 import 'inherit.dart';
 import 'line_painter.dart';
 
 class NodeEditor extends StatefulWidget {
-  const NodeEditor({Key? key, required this.controller}) : super(key: key);
+  const NodeEditor(
+      {Key? key, required this.controller, required this.background})
+      : super(key: key);
 
   final NodeEditorController controller;
+  final NodeEditorBackgroundBase background;
 
   @override
   State<NodeEditor> createState() => _NodeEditorState();
@@ -88,6 +91,7 @@ class _NodeEditorState extends State<NodeEditor> {
                           painter: LinePainter(
                             context: context,
                             controller: widget.controller,
+                            background: widget.background,
                           ),
                           child: Stack(
                             key: stackKey,

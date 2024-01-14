@@ -1,5 +1,7 @@
 library node_editor;
 
+export 'src/background.dart'
+    show NodeEditorBackgroundBase, SolidBackground, GridBackground;
 export 'src/connections.dart' show Connection, ConnectionTheme;
 export 'src/controller.dart' show NodeEditorController;
 export 'src/custom_painter.dart' show NodeEditor;
