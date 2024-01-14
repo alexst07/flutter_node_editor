@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'controller.dart';
 import 'inherit.dart';
+import 'position.dart';
 
 abstract class NodeItemWidgetInterface {
   NodeItem get nodeInfo;
@@ -12,18 +13,20 @@ abstract class NodePropWidget {
       {this.icon,
       this.title,
       this.arrow,
-      this.initPosition = const Offset(10, 10),
+      required this.width,
+      this.initPosition = NodePosition.startScreen,
       required this.name,
       required this.typeName,
       required this.child});
 
-  final Offset initPosition;
+  final NodePosition initPosition;
   final String name;
   final String typeName;
   final Widget? icon;
   final Widget? title;
   final Widget? arrow;
   final Widget child;
+  final double width;
 
   Widget customBuild(BuildContext context);
 }
@@ -58,14 +61,13 @@ class DefaultDarkNode extends NodePropWidget {
       {super.icon,
       super.title,
       super.arrow,
-      super.initPosition = const Offset(10, 10),
-      this.width = 150,
+      super.initPosition = NodePosition.startScreen,
+      super.width = 150,
       this.titleBarColor = Colors.black87,
       required super.name,
       required super.typeName,
       required super.child});
 
-  final double width;
   final Color titleBarColor;
 
   @override

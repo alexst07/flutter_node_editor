@@ -6,7 +6,7 @@ class CheckBoxProperty extends StatefulWidget {
   const CheckBoxProperty({
     Key? key,
     required this.name,
-    this.value,
+    this.startValue,
     this.onChanged,
     this.mouseCursor,
     this.activeColor,
@@ -31,7 +31,7 @@ class CheckBoxProperty extends StatefulWidget {
   ///
   /// When [tristate] is true, a value of null corresponds to the mixed state.
   /// When [tristate] is false, this value must not be null.
-  final bool? value;
+  final bool? startValue;
 
   /// Called when the value of the checkbox should change.
   ///
@@ -75,7 +75,7 @@ class CheckBoxProperty extends StatefulWidget {
   ///  * [MaterialState.disabled].
   /// {@endtemplate}
   ///
-  /// When [value] is null and [tristate] is true, [MaterialState.selected] is
+  /// When [startValue] is null and [tristate] is true, [MaterialState.selected] is
   /// included as a state.
   ///
   /// If null, then the value of [CheckboxThemeData.mouseCursor] is used. If
@@ -277,12 +277,17 @@ class CheckBoxProperty extends StatefulWidget {
 }
 
 class _CheckBoxPropertyState extends State<CheckBoxProperty>
-    with PropertyMixin {
+    with PropertyMixin<bool?> {
   ValueNotifier<bool?> checkValue = ValueNotifier<bool?>(false);
 
   @override
   void initState() {
     registerProperty(context, widget.name, false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // After build, set the value of widget to the start value.
+      // This must be executed just one time.
+      checkValue.value = widget.startValue ?? false;
+    });
     super.initState();
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'curve.dart';
 import 'node_widget.dart';
+import 'position.dart';
 
 abstract class NodeItem {
   final String name;
@@ -158,6 +159,7 @@ class NodeEditorController with ChangeNotifier {
   Offset? startPointConnection;
   Offset? mousePoint;
   Offset? stackPos;
+  Offset _positionAfterLast = Offset.zero;
   Offset canvasSize = Offset.zero;
   Size? currentScreenSize;
   List<Connection> selectedConnections = [];
@@ -169,14 +171,54 @@ class NodeEditorController with ChangeNotifier {
     onSelectListener = fn;
   }
 
+  Offset _calculateInitPos(NodePosition pos) {
+    if (pos.type == NodePositionType.startScreen) {
+      return const Offset(0, 0);
+    } else if (pos.type == NodePositionType.custom) {
+      // In this case NodePosition guarantee that position attribute is filled
+      return pos.position!;
+    }
+
+    return _positionAfterLast;
+  }
+
+  _calculateLastPosition() {
+    double maxPos = 0;
+    double yPos = 0;
+    for (var node in nodes.entries) {
+      double width = getNodeWidgetSize(node.key).width;
+      double posX = node.value.pos.dx;
+      if (maxPos < (posX + width)) {
+        maxPos = posX + width;
+        yPos = node.value.pos.dy;
+      }
+    }
+
+    _positionAfterLast = Offset(maxPos, yPos);
+  }
+
   void addNode(NodePropWidget nodeWidget) {
     GlobalKey globalKey = GlobalKey();
+
+    // Calculate the start position of the widget node
+    Offset initPos = _calculateInitPos(nodeWidget.initPosition);
+
     NodeModel nodeModel = NodeModel(
-        globalKey: globalKey,
-        blueprintNode: nodeWidget,
-        pos: nodeWidget.initPosition);
+        globalKey: globalKey, blueprintNode: nodeWidget, pos: initPos);
 
     nodes[nodeWidget.name] = nodeModel;
+
+    // If the start position of the widget node plus the widget node width is
+    // greater than _positionAfterLast, update _positionAfterLast
+    if ((initPos.dx + nodeWidget.width) > _positionAfterLast.dx) {
+      _positionAfterLast = Offset(initPos.dx + nodeWidget.width, initPos.dy);
+    }
+    notifyListeners();
+  }
+
+  void removeNode(String nodeName) {
+    nodes.remove(nodeName);
+    _calculateLastPosition();
     notifyListeners();
   }
 
@@ -192,7 +234,7 @@ class NodeEditorController with ChangeNotifier {
     nodes[nodeName]?.addProperty(property);
   }
 
-  void addConnection({required String inPort, required String inNode}) {
+  void addConnectionByTap({required String inPort, required String inNode}) {
     if (outNodeName == null || outPortName == null) {
       return;
     }
@@ -232,9 +274,32 @@ class NodeEditorController with ChangeNotifier {
     notifyListeners();
   }
 
+  void removeConnection(
+      {required String inNodeName,
+      required String inPortName,
+      required String outNodeName,
+      required String outPortName}) {
+    connections.removeWhere((conn) =>
+        conn.inNode == inNodeName &&
+        conn.inPort == inPortName &&
+        conn.outNode == outNodeName &&
+        conn.outPort == outPortName);
+  }
+
+  bool isInputPortConnected(String nodeName, String portName) {
+    return connections.any((connection) =>
+        connection.inNode == nodeName && connection.inPort == portName);
+  }
+
+  bool isOutputPortConnected(String nodeName, String portName) {
+    return connections.any((connection) =>
+        connection.outNode == nodeName && connection.outPort == portName);
+  }
+
   void moveNodePosition(String name, Offset delta) {
     debugPrint('moveNodePosition');
     nodes[name]?.pos += delta;
+    _calculateLastPosition();
     notifyListeners();
   }
 

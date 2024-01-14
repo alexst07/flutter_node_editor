@@ -15,13 +15,15 @@ class InPortWidget extends StatefulWidget {
       required this.name,
       required this.icon,
       this.connectionTheme,
-      this.onConnect})
+      this.onConnect,
+      this.iconConnected})
       : super(key: key);
 
   final bool multiConnections;
   final int? maxConnections;
   final String name;
   final Widget icon;
+  final Widget? iconConnected;
   final ConnectionTheme? connectionTheme;
   final bool Function(String, String)? onConnect;
 
@@ -58,18 +60,24 @@ class _InPortWidgetState extends State<InPortWidget> {
 
   @override
   Widget build(BuildContext context) {
+    NodeEditorController controller =
+        ControllerInheritedWidget.of(context).controller;
+    BlueprintNodeInheritedWidget node =
+        BlueprintNodeInheritedWidget.of(context);
+    String nodeName = node.blueprintNode.name;
+    bool connected = controller.isInputPortConnected(nodeName, widget.name);
     return InkWell(
       onTap: () {
         NodeEditorController controller =
             ControllerInheritedWidget.of(context).controller;
         BlueprintNodeInheritedWidget node =
             BlueprintNodeInheritedWidget.of(context);
-        controller.addConnection(
+        controller.addConnectionByTap(
             inNode: node.blueprintNode.name, inPort: widget.name);
       },
       child: SizedBox(
         key: globalKey,
-        child: widget.icon,
+        child: connected ? widget.iconConnected ?? widget.icon : widget.icon,
       ),
     );
   }
@@ -82,13 +90,15 @@ class OutPortWidget extends StatefulWidget {
       this.maxConnections,
       required this.name,
       required this.icon,
-      this.connectionTheme})
+      this.connectionTheme,
+      this.iconConnected})
       : super(key: key);
 
   final bool multiConnections;
   final int? maxConnections;
   final String name;
   final Widget icon;
+  final Widget? iconConnected;
   final ConnectionTheme? connectionTheme;
 
   @override
@@ -124,6 +134,12 @@ class _OutPortWidgetState extends State<OutPortWidget> {
 
   @override
   Widget build(BuildContext context) {
+    NodeEditorController controller =
+        ControllerInheritedWidget.of(context).controller;
+    BlueprintNodeInheritedWidget node =
+        BlueprintNodeInheritedWidget.of(context);
+    String nodeName = node.blueprintNode.name;
+    bool connected = controller.isOutputPortConnected(nodeName, widget.name);
     return InkWell(
       onTap: () {
         NodeEditorController controller =
@@ -134,7 +150,7 @@ class _OutPortWidgetState extends State<OutPortWidget> {
       },
       child: SizedBox(
         key: globalKey,
-        child: widget.icon,
+        child: connected ? widget.iconConnected ?? widget.icon : widget.icon,
       ),
     );
   }

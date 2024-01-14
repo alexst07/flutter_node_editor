@@ -61,6 +61,32 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Row(
             children: [CheckBoxProperty(name: 'check'), Text('my check')],
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 150,
+                height: 30,
+                child: DropdownMenuProperty<int>(
+                  name: 'select',
+                  items: const [
+                    DropdownMenuItem(
+                      child: Text('Teste1'),
+                      value: 0,
+                    ),
+                    DropdownMenuItem(
+                      child: Text('Teste2'),
+                      value: 1,
+                    ),
+                    DropdownMenuItem(
+                      child: Text('Teste3'),
+                      value: 2,
+                    ),
+                  ],
+                  onChanged: (int? v) {},
+                ),
+              ),
+            ],
           )
         ],
       ),
@@ -72,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
     DefaultDarkNode node2 = DefaultDarkNode(
       name: 'test_i_1',
       typeName: 'test_i',
+      initPosition: NodePosition.afterLast,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -515,10 +515,11 @@ class TextEditProperty extends StatefulWidget {
   State<TextEditProperty> createState() => _TextEditState();
 }
 
-class _TextEditState extends State<TextEditProperty> with PropertyMixin {
+class _TextEditState extends State<TextEditProperty>
+    with PropertyMixin<String> {
   @override
   void initState() {
-    registerProperty(context, widget.name, false);
+    registerProperty(context, widget.name, '');
     super.initState();
   }
 
