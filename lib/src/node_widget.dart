@@ -11,10 +11,7 @@ abstract class NodeItemWidgetInterface {
 
 abstract class NodePropWidget {
   const NodePropWidget(
-      {this.icon,
-      this.title,
-      this.arrow,
-      required this.width,
+      {required this.width,
       this.initPosition = NodePosition.startScreen,
       required this.name,
       required this.typeName,
@@ -23,9 +20,6 @@ abstract class NodePropWidget {
   final NodePosition initPosition;
   final String name;
   final String typeName;
-  final Widget? icon;
-  final Widget? title;
-  final Widget? arrow;
   final Widget child;
   final double width;
 
@@ -57,19 +51,44 @@ class BlueprintNodeInheritedWidget extends InheritedWidget {
   }
 }
 
-class DefaultDarkNode extends NodePropWidget {
-  const DefaultDarkNode(
-      {super.icon,
-      super.title,
-      super.arrow,
+class DefaultNode extends NodePropWidget {
+  const DefaultNode(
+      {required this.icon,
+      required this.title,
       super.initPosition = NodePosition.startScreen,
       super.width = 150,
-      this.titleBarColor = Colors.black87,
+      this.titleBarColor,
+      this.backgroundColor,
+      this.boxShadow,
+      this.radius,
+      this.border,
+      this.gradient,
+      this.backgroundBlendMode,
+      this.image,
+      this.titleBarBorder,
+      this.titleBarGradient,
+      this.titleBarBackgroundBlendMode,
+      this.titleBarImage,
+      this.iconTileSpacing,
       required super.name,
       required super.typeName,
       required super.child});
 
-  final Color titleBarColor;
+  final Color? titleBarColor;
+  final Color? backgroundColor;
+  final double? radius;
+  final Widget icon;
+  final Widget title;
+  final List<BoxShadow>? boxShadow;
+  final BoxBorder? border;
+  final Gradient? gradient;
+  final BlendMode? backgroundBlendMode;
+  final DecorationImage? image;
+  final BoxBorder? titleBarBorder;
+  final Gradient? titleBarGradient;
+  final BlendMode? titleBarBackgroundBlendMode;
+  final DecorationImage? titleBarImage;
+  final double? iconTileSpacing;
 
   @override
   Widget customBuild(BuildContext context) {
@@ -78,16 +97,13 @@ class DefaultDarkNode extends NodePropWidget {
     return Container(
       width: width,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(0, 0, 0, 0.7), // Container color
-        borderRadius: BorderRadius.circular(10), // Rounded corners
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5), // Shadow color
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3), // Shadow position
-          ),
-        ],
+        color: backgroundColor, // Container color
+        border: border,
+        gradient: gradient,
+        backgroundBlendMode: backgroundBlendMode,
+        image: image,
+        borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
+        boxShadow: boxShadow,
       ),
       child: Column(
         children: [
@@ -97,10 +113,14 @@ class DefaultDarkNode extends NodePropWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.black54, // Container color
+                color: titleBarColor, // Container color
+                border: titleBarBorder,
+                image: titleBarImage,
+                backgroundBlendMode: titleBarBackgroundBlendMode,
+                gradient: titleBarGradient,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)), // Rounded corners
+                    topLeft: Radius.circular(radius ?? 0),
+                    topRight: Radius.circular(radius ?? 0)), // Rounded corners
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,18 +128,20 @@ class DefaultDarkNode extends NodePropWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        icon ?? SizedBox(),
+                        icon,
+                        SizedBox(
+                          width: iconTileSpacing,
+                        ),
                         DefaultTextStyle(
                           style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.white,
                           ),
-                          child: title ?? Text(''),
+                          child: title,
                         )
                       ],
                     ),
                   ),
-                  arrow ?? Icon(Icons.arrow_drop_down)
                 ],
               ),
             ),

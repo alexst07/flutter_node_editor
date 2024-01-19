@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
     controller.addSelectListener((Connection conn) {
       debugPrint("ON SELECT inNode: ${conn.inNode}, inPort: ${conn.inPort}");
     });
-    DefaultDarkNode node = DefaultDarkNode(
+    DefaultNode node = DefaultNode(
       name: 'test_1',
       typeName: 'test',
       child: Column(
@@ -89,11 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       title: Text('teste'),
-      arrow: Icon(Icons.arrow_drop_down),
       icon: Icon(Icons.add),
     );
 
-    DefaultDarkNode node2 = DefaultDarkNode(
+    DefaultNode node2 = DefaultNode(
       name: 'test_i_1',
       typeName: 'test_i',
       initPosition: NodePosition.afterLast,
@@ -109,7 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       title: Text('teste'),
-      arrow: Icon(Icons.arrow_drop_down),
       icon: Icon(Icons.add),
     );
     controller.addNode(node);
