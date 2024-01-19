@@ -64,9 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Row(
             children: [
-              SizedBox(
-                width: 150,
-                height: 30,
+              Flexible(
                 child: DropdownMenuProperty<int>(
                   name: 'select',
                   items: const [

@@ -76,6 +76,8 @@ class NodeModel {
           blueprintNode: blueprintNode,
         );
 
+  String get name => blueprintNode.name;
+
   addPort(Port port) {
     ports[port.name] = port;
   }

@@ -22,10 +22,7 @@ Offset getObjectPosition(NodeEditorController controller, GlobalKey key) {
           controller.verticalScrollController.offset);
 }
 
-Offset? getPortPosition(
-    NodeEditorController controller, String nodeName, String portName) {
-  Port? port = controller.getPort(nodeName, portName);
-
+Offset? getPortPosition(NodeEditorController controller, Port? port) {
   if (port == null) {
     return null;
   }

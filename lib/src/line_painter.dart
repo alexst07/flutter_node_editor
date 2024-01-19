@@ -115,13 +115,14 @@ class LinePainter extends CustomPainter {
 
   void drawConnections(Canvas canvas, Size size) {
     for (Connection conn in controller.connections) {
-      Offset? startPoint = getPortPosition(conn.outNode, conn.outPort);
-      Offset? endPoint = getPortPosition(conn.inNode, conn.inPort);
+      Offset? startPoint =
+          getPortPosition(conn.outNode.name, conn.outPort.name);
+      Offset? endPoint = getPortPosition(conn.inNode.name, conn.inPort.name);
 
       if (startPoint == null || endPoint == null) continue;
 
-      _drawConnection(canvas, size, startPoint, endPoint, conn.theme.color,
-          conn.theme.strokeWidth + (conn.selected ? 2 : 0));
+      conn.connectionPath.drawConnection(canvas, size,
+          startPoint: startPoint, endPoint: endPoint, selected: conn.selected);
     }
   }
 

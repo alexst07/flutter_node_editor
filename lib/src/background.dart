@@ -20,15 +20,19 @@ class GridBackground extends NodeEditorBackgroundBase {
   final Color backgroundColor;
   final Color lineColor;
   final double spacing;
+  final double strokeWidth;
 
   const GridBackground(
       {this.backgroundColor = const Color.fromRGBO(74, 72, 67, 1.0),
       this.lineColor = const Color.fromRGBO(30, 30, 30, 1.0),
-      this.spacing = 20.0});
+      this.spacing = 20.0,
+      this.strokeWidth = 0.5});
 
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = Paint()..color = lineColor;
+    var paint = Paint()
+      ..color = lineColor
+      ..strokeWidth = strokeWidth;
 
     Paint backgroundPaint = Paint()..color = backgroundColor;
     canvas.drawRect(

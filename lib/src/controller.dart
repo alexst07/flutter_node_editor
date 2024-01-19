@@ -4,8 +4,24 @@ import 'package:node_editor/src/nodes.dart';
 import 'connections.dart';
 import 'node_widget.dart';
 
+/// Main controller
+///
+/// This controller handle all information that is used by Node Editor Widget
+/// The nodes, its ports and its properties is managed by this class
+/// The screen information as canvas size is managed by this class too
 class NodeEditorController with ChangeNotifier {
+  /// Manager the nodes. The nodes represent the widgets node properties
+  /// in the canvas.
+  /// Every node and its properties is inside this manager
+  /// Using nodesManager the user is able to insert and remove nodes, and its
+  /// properties and ports
   final NodesManager nodesManager = NodesManager();
+
+  /// Manager the connections between the ports.
+  /// The connections between the ports of the widget nodes is stored in this
+  /// manager
+  /// Using this manager is possible to add, remover or search by connections
+  /// between the ports of the nodes
   final ConnectionsManager connectionsManager = ConnectionsManager();
 
   /// Store the start position of stack widget in the canvas.
