@@ -63,15 +63,15 @@ class Property extends NodeItem {
 class NodeModel {
   Map<String, Port> ports = {};
   Map<String, Property> properties = {};
-  final NodePropWidget blueprintNode;
-  final BlueprintNodeInheritedWidget inheritedWidget;
+  final NodeWidgetBase blueprintNode;
+  final NodeEditorInheritedWidget inheritedWidget;
   final GlobalKey globalKey;
   Offset pos;
   bool minimized = false;
 
   NodeModel(
       {required this.blueprintNode, required this.globalKey, required this.pos})
-      : inheritedWidget = BlueprintNodeInheritedWidget(
+      : inheritedWidget = NodeEditorInheritedWidget(
           key: globalKey,
           blueprintNode: blueprintNode,
         );
@@ -146,7 +146,7 @@ class NodesManager {
     _positionAfterLast = Offset(maxPos, yPos);
   }
 
-  void addNode(NodePropWidget nodeWidget) {
+  void addNode(NodeWidgetBase nodeWidget) {
     GlobalKey globalKey = GlobalKey();
 
     // Calculate the start position of the widget node

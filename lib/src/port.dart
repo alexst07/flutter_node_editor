@@ -53,8 +53,7 @@ class _InPortWidgetState extends State<InPortWidget> {
           inputIcon: widget.icon);
       NodeEditorController controller =
           ControllerInheritedWidget.of(context).controller;
-      BlueprintNodeInheritedWidget node =
-          BlueprintNodeInheritedWidget.of(context);
+      NodeEditorInheritedWidget node = NodeEditorInheritedWidget.of(context);
       controller.addInPort(node.blueprintNode.name, inPortInfo);
     });
     super.initState();
@@ -64,23 +63,29 @@ class _InPortWidgetState extends State<InPortWidget> {
   Widget build(BuildContext context) {
     NodeEditorController controller =
         ControllerInheritedWidget.of(context).controller;
-    BlueprintNodeInheritedWidget node =
-        BlueprintNodeInheritedWidget.of(context);
+    NodeEditorInheritedWidget node = NodeEditorInheritedWidget.of(context);
     String nodeName = node.blueprintNode.name;
-    bool connected = controller.isInputPortConnected(nodeName, widget.name);
-    return InkWell(
-      onTap: () {
-        NodeEditorController controller =
-            ControllerInheritedWidget.of(context).controller;
-        BlueprintNodeInheritedWidget node =
-            BlueprintNodeInheritedWidget.of(context);
-        controller.addConnectionByTap(
-            inNode: node.blueprintNode.name, inPort: widget.name);
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget? child) {
+        bool connected = controller.isInputPortConnected(nodeName, widget.name);
+        return InkWell(
+          onTap: () {
+            NodeEditorController controller =
+                ControllerInheritedWidget.of(context).controller;
+            NodeEditorInheritedWidget node =
+                NodeEditorInheritedWidget.of(context);
+            controller.addConnectionByTap(
+                inNode: node.blueprintNode.name, inPort: widget.name);
+          },
+          child: SizedBox(
+            key: globalKey,
+            child:
+                connected ? widget.iconConnected ?? widget.icon : widget.icon,
+          ),
+        );
       },
-      child: SizedBox(
-        key: globalKey,
-        child: connected ? widget.iconConnected ?? widget.icon : widget.icon,
-      ),
     );
   }
 }
@@ -127,8 +132,7 @@ class _OutPortWidgetState extends State<OutPortWidget> {
           outputIcon: widget.icon);
       NodeEditorController controller =
           ControllerInheritedWidget.of(context).controller;
-      BlueprintNodeInheritedWidget node =
-          BlueprintNodeInheritedWidget.of(context);
+      NodeEditorInheritedWidget node = NodeEditorInheritedWidget.of(context);
       controller.addOutPort(node.blueprintNode.name, outPortInfo);
     });
     super.initState();
@@ -138,22 +142,31 @@ class _OutPortWidgetState extends State<OutPortWidget> {
   Widget build(BuildContext context) {
     NodeEditorController controller =
         ControllerInheritedWidget.of(context).controller;
-    BlueprintNodeInheritedWidget node =
-        BlueprintNodeInheritedWidget.of(context);
+    NodeEditorInheritedWidget node = NodeEditorInheritedWidget.of(context);
     String nodeName = node.blueprintNode.name;
-    bool connected = controller.isOutputPortConnected(nodeName, widget.name);
-    return InkWell(
-      onTap: () {
-        NodeEditorController controller =
-            ControllerInheritedWidget.of(context).controller;
-        BlueprintNodeInheritedWidget node =
-            BlueprintNodeInheritedWidget.of(context);
-        controller.setConnecting(node.blueprintNode.name, widget.name);
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget? child) {
+        bool connected =
+            controller.isOutputPortConnected(nodeName, widget.name);
+        debugPrint('Check port connected: $connected');
+
+        return InkWell(
+          onTap: () {
+            NodeEditorController controller =
+                ControllerInheritedWidget.of(context).controller;
+            NodeEditorInheritedWidget node =
+                NodeEditorInheritedWidget.of(context);
+            controller.setConnecting(node.blueprintNode.name, widget.name);
+          },
+          child: SizedBox(
+            key: globalKey,
+            child:
+                connected ? widget.iconConnected ?? widget.icon : widget.icon,
+          ),
+        );
       },
-      child: SizedBox(
-        key: globalKey,
-        child: connected ? widget.iconConnected ?? widget.icon : widget.icon,
-      ),
     );
   }
 }

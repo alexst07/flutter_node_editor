@@ -87,7 +87,7 @@ class NodeEditorController with ChangeNotifier {
     return m;
   }
 
-  void addNode(NodePropWidget nodeWidget) {
+  void addNode(NodeWidgetBase nodeWidget) {
     nodesManager.addNode(nodeWidget);
   }
 

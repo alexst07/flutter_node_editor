@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:node_editor/node_editor.dart';
 
+import 'nodes.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -37,60 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
     controller.addSelectListener((Connection conn) {
       debugPrint("ON SELECT inNode: ${conn.inNode}, inPort: ${conn.inPort}");
     });
-    DefaultNode node = DefaultNode(
-      name: 'test_1',
-      typeName: 'test',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text('teste'),
-              OutPortWidget(
-                name: 'PortOut',
-                icon: Icon(
-                  Icons.play_arrow,
-                  color: Colors.red,
-                ),
-                multiConnections: false,
-                connectionTheme:
-                    ConnectionTheme(color: Colors.red, strokeWidth: 1),
-              ),
-            ],
-          ),
-          Row(
-            children: [CheckBoxProperty(name: 'check'), Text('my check')],
-          ),
-          Row(
-            children: [
-              Flexible(
-                child: DropdownMenuProperty<int>(
-                  name: 'select',
-                  items: const [
-                    DropdownMenuItem(
-                      child: Text('Teste1'),
-                      value: 0,
-                    ),
-                    DropdownMenuItem(
-                      child: Text('Teste2'),
-                      value: 1,
-                    ),
-                    DropdownMenuItem(
-                      child: Text('Teste3'),
-                      value: 2,
-                    ),
-                  ],
-                  onChanged: (int? v) {},
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-      title: Text('teste'),
-      icon: Icon(Icons.add),
-    );
 
     DefaultNode node2 = DefaultNode(
       name: 'test_i_1',
@@ -110,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: Text('teste'),
       icon: Icon(Icons.add),
     );
-    controller.addNode(node);
+    controller.addNode(componentNode('node_1_1'));
     controller.addNode(node2);
     super.initState();
   }

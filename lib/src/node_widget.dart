@@ -3,31 +3,30 @@ import 'package:flutter/material.dart';
 import 'controller.dart';
 import 'inherit.dart';
 import 'nodes.dart';
+import 'port.dart';
 import 'position.dart';
 
 abstract class NodeItemWidgetInterface {
   NodeItem get nodeInfo;
 }
 
-abstract class NodePropWidget {
-  const NodePropWidget(
+abstract class NodeWidgetBase {
+  const NodeWidgetBase(
       {required this.width,
       this.initPosition = NodePosition.startScreen,
       required this.name,
-      required this.typeName,
-      required this.child});
+      required this.typeName});
 
   final NodePosition initPosition;
   final String name;
   final String typeName;
-  final Widget child;
   final double width;
 
   Widget customBuild(BuildContext context);
 }
 
-class BlueprintNodeInheritedWidget extends InheritedWidget {
-  BlueprintNodeInheritedWidget({
+class NodeEditorInheritedWidget extends InheritedWidget {
+  NodeEditorInheritedWidget({
     Key? key,
     required this.blueprintNode,
   }) : super(
@@ -36,22 +35,22 @@ class BlueprintNodeInheritedWidget extends InheritedWidget {
               blueprintNode: blueprintNode,
             ));
 
-  final NodePropWidget blueprintNode;
+  final NodeWidgetBase blueprintNode;
 
-  static BlueprintNodeInheritedWidget of(BuildContext context) {
-    final BlueprintNodeInheritedWidget? result = context
-        .dependOnInheritedWidgetOfExactType<BlueprintNodeInheritedWidget>();
-    assert(result != null, 'No BlueprintNodeInheritedWidget found in context');
+  static NodeEditorInheritedWidget of(BuildContext context) {
+    final NodeEditorInheritedWidget? result =
+        context.dependOnInheritedWidgetOfExactType<NodeEditorInheritedWidget>();
+    assert(result != null, 'No NodeEditorInheritedWidget found in context');
     return result!;
   }
 
   @override
-  bool updateShouldNotify(BlueprintNodeInheritedWidget oldWidget) {
+  bool updateShouldNotify(NodeEditorInheritedWidget oldWidget) {
     return blueprintNode != oldWidget.blueprintNode;
   }
 }
 
-class DefaultNode extends NodePropWidget {
+class DefaultNode extends NodeWidgetBase {
   const DefaultNode(
       {required this.icon,
       required this.title,
@@ -70,10 +69,12 @@ class DefaultNode extends NodePropWidget {
       this.titleBarBackgroundBlendMode,
       this.titleBarImage,
       this.iconTileSpacing,
+      this.titleBarPadding,
       required super.name,
       required super.typeName,
-      required super.child});
+      required this.child});
 
+  final Widget child;
   final Color? titleBarColor;
   final Color? backgroundColor;
   final double? radius;
@@ -89,6 +90,7 @@ class DefaultNode extends NodePropWidget {
   final BlendMode? titleBarBackgroundBlendMode;
   final DecorationImage? titleBarImage;
   final double? iconTileSpacing;
+  final EdgeInsetsGeometry? titleBarPadding;
 
   @override
   Widget customBuild(BuildContext context) {
@@ -122,27 +124,30 @@ class DefaultNode extends NodePropWidget {
                     topLeft: Radius.circular(radius ?? 0),
                     topRight: Radius.circular(radius ?? 0)), // Rounded corners
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        icon,
-                        SizedBox(
-                          width: iconTileSpacing,
-                        ),
-                        DefaultTextStyle(
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.white,
+              child: Padding(
+                padding: titleBarPadding ?? const EdgeInsets.all(0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          icon,
+                          SizedBox(
+                            width: iconTileSpacing,
                           ),
-                          child: title,
-                        )
-                      ],
+                          DefaultTextStyle(
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white,
+                            ),
+                            child: title,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -158,13 +163,144 @@ class DefaultNode extends NodePropWidget {
   }
 }
 
+class UnaryOperationNode extends NodeWidgetBase {
+  const UnaryOperationNode(
+      {super.initPosition = NodePosition.startScreen,
+      super.width = 150,
+      this.backgroundColor,
+      this.boxShadow,
+      this.radius,
+      this.border,
+      this.gradient,
+      this.backgroundBlendMode,
+      this.image,
+      required this.inputPort,
+      required this.outputPort,
+      required this.label,
+      required super.name,
+      required super.typeName});
+
+  final Color? backgroundColor;
+  final double? radius;
+  final Widget label;
+  final List<BoxShadow>? boxShadow;
+  final BoxBorder? border;
+  final Gradient? gradient;
+  final BlendMode? backgroundBlendMode;
+  final DecorationImage? image;
+  final InPortWidget inputPort;
+  final OutPortWidget outputPort;
+
+  @override
+  Widget customBuild(BuildContext context) {
+    NodeEditorController controller =
+        ControllerInheritedWidget.of(context).controller;
+    return GestureDetector(
+      onPanUpdate: (DragUpdateDetails details) {
+        controller.moveNodePosition(name, details.delta);
+      },
+      child: Container(
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor, // Container color
+          border: border,
+          gradient: gradient,
+          backgroundBlendMode: backgroundBlendMode,
+          image: image,
+          borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
+          boxShadow: boxShadow,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            inputPort,
+            label,
+            outputPort,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BinaryOperationNode extends NodeWidgetBase {
+  const BinaryOperationNode(
+      {super.initPosition = NodePosition.startScreen,
+      super.width = 150,
+      this.backgroundColor,
+      this.boxShadow,
+      this.radius,
+      this.border,
+      this.gradient,
+      this.backgroundBlendMode,
+      this.image,
+      required this.inputPort1,
+      required this.inputPort2,
+      required this.outputPort,
+      required this.label,
+      required super.name,
+      required super.typeName});
+
+  final Color? backgroundColor;
+  final double? radius;
+  final Widget label;
+  final List<BoxShadow>? boxShadow;
+  final BoxBorder? border;
+  final Gradient? gradient;
+  final BlendMode? backgroundBlendMode;
+  final DecorationImage? image;
+  final InPortWidget inputPort1;
+  final InPortWidget inputPort2;
+  final OutPortWidget outputPort;
+
+  @override
+  Widget customBuild(BuildContext context) {
+    NodeEditorController controller =
+        ControllerInheritedWidget.of(context).controller;
+    return GestureDetector(
+      onPanUpdate: (DragUpdateDetails details) {
+        controller.moveNodePosition(name, details.delta);
+      },
+      child: Container(
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor, // Container color
+          border: border,
+          gradient: gradient,
+          backgroundBlendMode: backgroundBlendMode,
+          image: image,
+          borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
+          boxShadow: boxShadow,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [inputPort1, inputPort2],
+            ),
+            label,
+            outputPort,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class NodeWidget extends StatelessWidget {
   const NodeWidget({Key? key, required this.blueprintNode}) : super(key: key);
 
-  final NodePropWidget blueprintNode;
+  final NodeWidgetBase blueprintNode;
 
   @override
   Widget build(BuildContext context) {
-    return blueprintNode.customBuild(context);
+    NodeEditorController controller =
+        ControllerInheritedWidget.of(context).controller;
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (BuildContext context, Widget? child) {
+        return blueprintNode.customBuild(context);
+      },
+    );
   }
 }
