@@ -143,6 +143,14 @@ class _NodeEditorState extends State<NodeEditor> {
   }
 
   void _onKey(RawKeyEvent event) {
+    bool isShift = event.logicalKey == LogicalKeyboardKey.shiftLeft ||
+        event.logicalKey == LogicalKeyboardKey.shiftRight;
+
+    if (isShift) {
+      widget.controller.connectionsManager.isShiftPressed =
+          event is RawKeyDownEvent;
+    }
+
     if (event is RawKeyDownEvent &&
         event.logicalKey == LogicalKeyboardKey.escape) {
       widget.controller.unsetConnecting();

@@ -51,6 +51,7 @@ class ConnectionsManager {
   Offset? startPointConnection;
   Offset? mousePoint;
   List<Connection> selectedConnections = [];
+  bool isShiftPressed = false;
 
   void addConnectionByTap(Map<String, NodeModel> nodes,
       {required String inPort, required String inNode}) {
@@ -82,16 +83,18 @@ class ConnectionsManager {
     mousePoint = null;
   }
 
-  void removeConnection(
-      {required String inNodeName,
-      required String inPortName,
-      required String outNodeName,
-      required String outPortName}) {
+  void removeConnection(Connection connection) {
     connections.removeWhere((conn) =>
-        conn.inNode.name == inNodeName &&
-        conn.inPort.name == inPortName &&
-        conn.outNode.name == outNodeName &&
-        conn.outPort.name == outPortName);
+        conn.inNode.name == connection.inNode.name &&
+        conn.inPort.name == connection.inPort.name &&
+        conn.outNode.name == connection.outNode.name &&
+        conn.outPort.name == connection.outPort.name);
+  }
+
+  void removeSelected() {
+    for (var connSelected in selectedConnections) {
+      removeConnection(connSelected);
+    }
   }
 
   void setConnecting(NodeEditorController controller,
@@ -153,12 +156,14 @@ class ConnectionsManager {
 
       bool v = conn.connectionPath
           .checkTapInLine(tapPosition, startPoint, endPoint, 5);
-      conn.selected = v;
+      if (!(isShiftPressed && conn.selected)) {
+        conn.selected = v;
+      }
+
       if (v) {
         controller.onSelectListener?.call(conn);
       }
     }
-    controller.notify();
   }
 
   mousePosition(Offset pos) {
