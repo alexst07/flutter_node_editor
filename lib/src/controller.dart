@@ -39,6 +39,11 @@ class NodeEditorController with ChangeNotifier {
   late ScrollController horizontalScrollController;
   late ScrollController verticalScrollController;
 
+  /// Focus node that request a focus when some node is tap or moved
+  /// this attribute must be initialized in the init of the main widget
+  /// node editor
+  late FocusNode focusNode;
+
   /// Listener that is used when the user select a connection
   void Function(Connection conn)? onSelectListener;
 
@@ -116,11 +121,18 @@ class NodeEditorController with ChangeNotifier {
   void setConnecting(String nameNode, String namePort) {
     connectionsManager.setConnecting(
         this, nodesManager.nodes, nameNode, namePort);
+    focusNode.requestFocus();
+    notifyListeners();
+  }
+
+  void unsetConnecting() {
+    connectionsManager.unsetConnecting();
     notifyListeners();
   }
 
   void moveNodePosition(String name, Offset delta) {
     nodesManager.moveNodePosition(name, delta);
+    focusNode.requestFocus();
     notifyListeners();
   }
 
@@ -134,6 +146,7 @@ class NodeEditorController with ChangeNotifier {
 
   void selectOnTap(Offset tapPosition) {
     connectionsManager.selectOnTap(this, tapPosition);
+    focusNode.requestFocus();
     notifyListeners();
   }
 

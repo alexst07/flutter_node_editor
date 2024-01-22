@@ -113,6 +113,13 @@ class ConnectionsManager {
     }
   }
 
+  void unsetConnecting() {
+    outNodeName = null;
+    outPortName = null;
+    startPointConnection = null;
+    mousePoint = null;
+  }
+
   bool isInputPortConnected(String nodeName, String portName) {
     return connections.any((connection) =>
         connection.inNode.name == nodeName &&

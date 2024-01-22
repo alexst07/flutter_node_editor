@@ -33,7 +33,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  NodeEditorController controller = NodeEditorController();
+  final NodeEditorController controller = NodeEditorController();
+  final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     controller.addSelectListener((Connection conn) {
@@ -78,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: NodeEditor(
+        focusNode: _focusNode,
         controller: controller,
         background: const GridBackground(),
       ),
