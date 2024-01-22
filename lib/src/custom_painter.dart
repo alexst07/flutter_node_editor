@@ -155,5 +155,10 @@ class _NodeEditorState extends State<NodeEditor> {
         event.logicalKey == LogicalKeyboardKey.escape) {
       widget.controller.unsetConnecting();
     }
+
+    if (event is RawKeyDownEvent &&
+        event.logicalKey == LogicalKeyboardKey.delete) {
+      widget.controller.deleteSelectedConnections();
+    }
   }
 }

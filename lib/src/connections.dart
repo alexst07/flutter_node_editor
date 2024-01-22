@@ -50,7 +50,6 @@ class ConnectionsManager {
   bool? outDominant;
   Offset? startPointConnection;
   Offset? mousePoint;
-  List<Connection> selectedConnections = [];
   bool isShiftPressed = false;
 
   void addConnectionByTap(Map<String, NodeModel> nodes,
@@ -92,9 +91,7 @@ class ConnectionsManager {
   }
 
   void removeSelected() {
-    for (var connSelected in selectedConnections) {
-      removeConnection(connSelected);
-    }
+    connections.removeWhere((conn) => conn.selected);
   }
 
   void setConnecting(NodeEditorController controller,
