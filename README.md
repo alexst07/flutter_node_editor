@@ -11,8 +11,14 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+<h1 align="center"><b>Node Editor</b></h1>
+
+<p align="center">A highly customizable node editor for Flutter</p>
+
+
+<p align="center">
+        <img src="midia/nodes.png"/>
+</p>
 
 ## Features
 
