@@ -35,33 +35,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final NodeEditorController controller = NodeEditorController();
   final FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode2 = FocusNode();
+  TextEditingController _controller = TextEditingController();
   @override
   void initState() {
     controller.addSelectListener((Connection conn) {
       debugPrint("ON SELECT inNode: ${conn.inNode}, inPort: ${conn.inPort}");
     });
 
-    DefaultNode node2 = DefaultNode(
-      name: 'test_i_1',
-      typeName: 'test_i',
-      initPosition: NodePosition.afterLast,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          InPortWidget(
-            name: 'PortIn',
-            onConnect: (String nodeName, String portName) => true,
-            icon: Icon(Icons.circle),
-            multiConnections: false,
-          )
-        ],
-      ),
-      title: Text('teste'),
-      icon: Icon(Icons.add),
-    );
     controller.addNode(componentNode('node_1_1'));
-    controller.addNode(node2);
+    controller.addNode(receiverNode('node_2_1', _focusNode2, _controller));
+    controller.addNode(binaryNode('node_3_1'));
+    controller.addNode(sinkNode('node_4_1'));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
