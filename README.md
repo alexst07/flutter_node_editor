@@ -22,7 +22,12 @@ and the Flutter guide for
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+* **Flutter Widgets for Nodes & Ports:** Customize nodes and ports with any Flutter widget, offering unparalleled UI flexibility.
+* **Interactive Node Elements:** Embed interactive widgets like text fields and checkboxes directly in nodes for dynamic user input.
+* **Customizable Connections & Backgrounds:** Tailor connections and backgrounds with extensive styling options for visual coherence.
+* **Dynamic Port Logic:** Advanced logic for port connections, including customizable verification and unlimited connection capacities.
+* **Extensible Design:** Easily add new node and port types with your custom widgets, ensuring scalability.
+* **Cross-Platform Compatibility:** Build once, deploy everywhere with Flutter’s cross-platform capabilities.
 
 ## Getting started
 
