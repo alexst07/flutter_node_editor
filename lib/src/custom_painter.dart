@@ -62,12 +62,9 @@ class _NodeEditorState extends State<NodeEditor> {
   Widget build(BuildContext context) {
     return Focus(
       focusNode: widget.focusNode,
-      onFocusChange: (hasFocus) {
-        if (hasFocus) widget.focusNode.requestFocus();
-      },
       onKey: (FocusNode node, RawKeyEvent event) {
         _onKey(event);
-        return KeyEventResult.handled; // Let event propagate
+        return KeyEventResult.ignored; // Let event propagate
       },
       child: MouseRegion(
         onHover: (PointerHoverEvent event) {
@@ -147,8 +144,7 @@ class _NodeEditorState extends State<NodeEditor> {
         event.logicalKey == LogicalKeyboardKey.shiftRight;
 
     if (isShift) {
-      widget.controller.connectionsManager.isShiftPressed =
-          event is RawKeyDownEvent;
+      widget.controller.isShiftPressed = event is RawKeyDownEvent;
     }
 
     if (event is RawKeyDownEvent &&

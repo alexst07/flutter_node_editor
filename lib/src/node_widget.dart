@@ -10,8 +10,12 @@ abstract class NodeItemWidgetInterface {
   NodeItem get nodeInfo;
 }
 
+class NodeWidgetAtt {
+  bool selected = false;
+}
+
 abstract class NodeWidgetBase {
-  const NodeWidgetBase(
+  NodeWidgetBase(
       {required this.width,
       this.initPosition = NodePosition.startScreen,
       required this.name,
@@ -22,7 +26,18 @@ abstract class NodeWidgetBase {
   final String typeName;
   final double width;
 
+  @protected
+  final NodeWidgetAtt att = NodeWidgetAtt();
+
   Widget customBuild(BuildContext context);
+
+  bool get isSelected => att.selected;
+
+  void selectNode(BuildContext context) {
+    NodeEditorController controller =
+        ControllerInheritedWidget.of(context).controller;
+    controller.selectNodeAction(name);
+  }
 }
 
 class NodeEditorInheritedWidget extends InheritedWidget {
@@ -51,7 +66,7 @@ class NodeEditorInheritedWidget extends InheritedWidget {
 }
 
 class DefaultNode extends NodeWidgetBase {
-  const DefaultNode(
+  DefaultNode(
       {required this.icon,
       required this.title,
       super.initPosition = NodePosition.startScreen,
@@ -61,6 +76,7 @@ class DefaultNode extends NodeWidgetBase {
       this.boxShadow,
       this.radius,
       this.border,
+      this.selectedBorder,
       this.gradient,
       this.backgroundBlendMode,
       this.image,
@@ -82,6 +98,7 @@ class DefaultNode extends NodeWidgetBase {
   final Widget title;
   final List<BoxShadow>? boxShadow;
   final BoxBorder? border;
+  final BoxBorder? selectedBorder;
   final Gradient? gradient;
   final BlendMode? backgroundBlendMode;
   final DecorationImage? image;
@@ -100,7 +117,7 @@ class DefaultNode extends NodeWidgetBase {
       width: width,
       decoration: BoxDecoration(
         color: backgroundColor, // Container color
-        border: border,
+        border: isSelected ? selectedBorder : border,
         gradient: gradient,
         backgroundBlendMode: backgroundBlendMode,
         image: image,
@@ -132,7 +149,12 @@ class DefaultNode extends NodeWidgetBase {
                     Expanded(
                       child: Row(
                         children: [
-                          icon,
+                          GestureDetector(
+                            onTap: () {
+                              selectNode(context);
+                            },
+                            child: icon,
+                          ),
                           SizedBox(
                             width: iconTileSpacing,
                           ),
@@ -164,7 +186,7 @@ class DefaultNode extends NodeWidgetBase {
 }
 
 class UnaryOperationNode extends NodeWidgetBase {
-  const UnaryOperationNode(
+  UnaryOperationNode(
       {super.initPosition = NodePosition.startScreen,
       super.width = 150,
       this.backgroundColor,
@@ -224,7 +246,7 @@ class UnaryOperationNode extends NodeWidgetBase {
 }
 
 class BinaryOperationNode extends NodeWidgetBase {
-  const BinaryOperationNode(
+  BinaryOperationNode(
       {super.initPosition = NodePosition.startScreen,
       super.width = 150,
       this.backgroundColor,
@@ -299,6 +321,10 @@ class NodeWidget extends StatelessWidget {
     return AnimatedBuilder(
       animation: controller,
       builder: (BuildContext context, Widget? child) {
+        // check if the node is selected
+        blueprintNode.att.selected =
+            controller.nodesManager.nodes[blueprintNode.name]?.selected ??
+                false;
         return blueprintNode.customBuild(context);
       },
     );

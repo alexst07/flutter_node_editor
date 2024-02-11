@@ -72,8 +72,8 @@ class TextEditProperty extends StatefulWidget {
     this.spellCheckConfiguration,
     this.magnifierConfiguration,
     this.keyboardType,
-    required this.smartDashesType,
-    required this.smartQuotesType,
+    this.smartDashesType,
+    this.smartQuotesType,
   }) : super(key: key);
 
   final String name;
@@ -193,10 +193,10 @@ class TextEditProperty extends StatefulWidget {
   final bool autocorrect;
 
   /// {@macro flutter.services.TextInputConfiguration.smartDashesType}
-  final SmartDashesType smartDashesType;
+  final SmartDashesType? smartDashesType;
 
   /// {@macro flutter.services.TextInputConfiguration.smartQuotesType}
-  final SmartQuotesType smartQuotesType;
+  final SmartQuotesType? smartQuotesType;
 
   /// {@macro flutter.services.TextInputConfiguration.enableSuggestions}
   final bool enableSuggestions;

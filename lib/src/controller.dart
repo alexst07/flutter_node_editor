@@ -44,6 +44,11 @@ class NodeEditorController with ChangeNotifier {
   /// node editor
   late FocusNode focusNode;
 
+  set isShiftPressed(bool v) {
+    connectionsManager.isShiftPressed = v;
+    nodesManager.isShiftPressed = v;
+  }
+
   /// Listener that is used when the user select a connection
   void Function(Connection conn)? onSelectListener;
 
@@ -150,8 +155,14 @@ class NodeEditorController with ChangeNotifier {
   }
 
   void selectOnTap(Offset tapPosition) {
+    nodesManager.unselectAllNodes();
     connectionsManager.selectOnTap(this, tapPosition);
     focusNode.requestFocus();
+    notifyListeners();
+  }
+
+  void selectNodeAction(String nodeName) {
+    nodesManager.selectNodeAction(nodeName);
     notifyListeners();
   }
 

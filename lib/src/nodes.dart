@@ -68,6 +68,7 @@ class NodeModel {
   final GlobalKey globalKey;
   Offset pos;
   bool minimized = false;
+  bool selected = false;
 
   NodeModel(
       {required this.blueprintNode, required this.globalKey, required this.pos})
@@ -119,6 +120,7 @@ class NodeModel {
 class NodesManager {
   Map<String, NodeModel> nodes = {};
   Offset _positionAfterLast = Offset.zero;
+  bool isShiftPressed = false;
 
   Offset _calculateInitPos(NodePosition pos) {
     if (pos.type == NodePositionType.startScreen) {
@@ -164,9 +166,37 @@ class NodesManager {
     }
   }
 
-  void removeNode(String nodeName) {
+  void removeNode(ConnectionsManager connectionManager, String nodeName) {
+    connectionManager.removeConnectionsFromNode(nodeName);
     nodes.remove(nodeName);
     _calculateLastPosition();
+  }
+
+  void removeSelectedNodes(ConnectionsManager connectionManager) {
+    for (var node in nodes.values) {
+      if (node.selected) {
+        connectionManager.removeConnectionsFromNode(node.name);
+      }
+    }
+
+    nodes.removeWhere((key, value) => value.selected);
+  }
+
+  void selectNode(String nodeName) {
+    nodes[nodeName]?.selected = true;
+  }
+
+  void selectNodeAction(String nodeName) {
+    if (!isShiftPressed) {
+      unselectAllNodes();
+    }
+    nodes[nodeName]?.selected = true;
+  }
+
+  void unselectAllNodes() {
+    for (var node in nodes.values) {
+      node.selected = false;
+    }
   }
 
   void addInPort(String nodeName, InPort inPortInfo) {

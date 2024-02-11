@@ -90,6 +90,11 @@ class ConnectionsManager {
         conn.outPort.name == connection.outPort.name);
   }
 
+  void removeConnectionsFromNode(String nodeName) {
+    connections.removeWhere((conn) =>
+        conn.inNode.name == nodeName || conn.outNode.name == nodeName);
+  }
+
   void removeSelected() {
     connections.removeWhere((conn) => conn.selected);
   }
