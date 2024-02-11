@@ -7,6 +7,7 @@ NodeWidgetBase componentNode(String name) {
     typeName: 'node_1',
     backgroundColor: Colors.black87,
     radius: 10,
+    initPosition: NodePosition.afterLast,
     selectedBorder: Border.all(color: Colors.white),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -164,6 +165,7 @@ NodeWidgetBase receiverNode(
     typeName: 'node_2',
     backgroundColor: Colors.black87,
     radius: 10,
+    initPosition: NodePosition.afterLast,
     selectedBorder: Border.all(color: Colors.white),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -269,7 +271,6 @@ NodeWidgetBase receiverNode(
             ),
           ],
         ),
-        Text('end')
       ],
     ),
     title: Text('Receiver'),
@@ -290,6 +291,7 @@ NodeWidgetBase binaryNode(String name) {
     name: name,
     typeName: 'node_3',
     backgroundColor: Colors.blue.shade800,
+    initPosition: NodePosition.afterLast,
     radius: 10,
     width: 200,
     inputPort1: InPortWidget(
@@ -350,7 +352,8 @@ NodeWidgetBase sinkNode(String name) {
   return DefaultNode(
     name: name,
     typeName: 'node_4',
-    backgroundColor: Colors.black87,
+    backgroundColor: Colors.green.shade800,
+    initPosition: NodePosition.afterLast,
     radius: 10,
     selectedBorder: Border.all(color: Colors.white),
     child: Padding(

@@ -44,6 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     controller.addNode(componentNode('node_1_1'));
+    controller.addNode(componentNode('node_1_2'));
+    controller.addNode(componentNode('node_1_3'));
     controller.addNode(receiverNode('node_2_1', _focusNode2, _controller));
     controller.addNode(binaryNode('node_3_1'));
     controller.addNode(sinkNode('node_4_1'));
