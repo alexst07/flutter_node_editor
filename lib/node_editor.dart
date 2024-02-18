@@ -6,7 +6,12 @@ export 'src/connections.dart' show Connection, ConnectionTheme;
 export 'src/controller.dart' show NodeEditorController;
 export 'src/custom_painter.dart' show NodeEditor;
 export 'src/node_widget.dart'
-    show NodeWidgetBase, DefaultNode, BinaryOperationNode, UnaryOperationNode;
+    show
+        NodeWidgetBase,
+        TitleBarNodeWidget,
+        ContainerNodeWidget,
+        BinaryOperationNode,
+        UnaryOperationNode;
 export 'src/port.dart' show InPortWidget, OutPortWidget;
 export 'src/position.dart' show NodePosition, NodePositionType;
 export 'src/properties.dart' show PropertyMixin;

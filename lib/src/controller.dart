@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:node_editor/src/nodes.dart';
 
+import '../node_editor.dart';
 import 'connections.dart';
-import 'node_widget.dart';
 
-/// Main controller
 ///
 /// This controller handle all information that is used by Node Editor Widget
 /// The nodes, its ports and its properties is managed by this class
@@ -97,8 +96,8 @@ class NodeEditorController with ChangeNotifier {
     return m;
   }
 
-  void addNode(NodeWidgetBase nodeWidget) {
-    nodesManager.addNode(nodeWidget);
+  void addNode(NodeWidgetBase nodeWidget, NodePosition position) {
+    nodesManager.addNode(nodeWidget, position);
   }
 
   void addInPort(String nodeName, InPort inPortInfo) {

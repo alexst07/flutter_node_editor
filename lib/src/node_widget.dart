@@ -4,7 +4,6 @@ import 'controller.dart';
 import 'inherit.dart';
 import 'nodes.dart';
 import 'port.dart';
-import 'position.dart';
 
 abstract class NodeItemWidgetInterface {
   NodeItem get nodeInfo;
@@ -14,14 +13,11 @@ class NodeWidgetAtt {
   bool selected = false;
 }
 
+/// Base class to create NodeWidgets
 abstract class NodeWidgetBase {
   NodeWidgetBase(
-      {required this.width,
-      this.initPosition = NodePosition.startScreen,
-      required this.name,
-      required this.typeName});
+      {required this.width, required this.name, required this.typeName});
 
-  final NodePosition initPosition;
   final String name;
   final String typeName;
   final double width;
@@ -31,8 +27,14 @@ abstract class NodeWidgetBase {
 
   Widget customBuild(BuildContext context);
 
+  /// Flag to specify if the node is selected
   bool get isSelected => att.selected;
 
+  /// Mark node as selected
+  ///
+  /// The node must be marked as selected on the controller
+  /// so the controller is called, and the name of the node is given
+  /// as argument, so the controller mark the node as selected
   void selectNode(BuildContext context) {
     NodeEditorController controller =
         ControllerInheritedWidget.of(context).controller;
@@ -65,11 +67,10 @@ class NodeEditorInheritedWidget extends InheritedWidget {
   }
 }
 
-class DefaultNode extends NodeWidgetBase {
-  DefaultNode(
+class TitleBarNodeWidget extends NodeWidgetBase {
+  TitleBarNodeWidget(
       {required this.icon,
       required this.title,
-      super.initPosition = NodePosition.startScreen,
       super.width = 150,
       this.titleBarColor,
       this.backgroundColor,
@@ -185,10 +186,61 @@ class DefaultNode extends NodeWidgetBase {
   }
 }
 
+class ContainerNodeWidget extends NodeWidgetBase {
+  ContainerNodeWidget(
+      {required this.icon,
+      super.width = 150,
+      this.backgroundColor,
+      this.boxShadow,
+      this.radius,
+      this.border,
+      this.selectedBorder,
+      this.gradient,
+      this.backgroundBlendMode,
+      this.image,
+      required super.name,
+      required super.typeName,
+      required this.child});
+
+  final Widget child;
+  final Color? backgroundColor;
+  final double? radius;
+  final Widget icon;
+  final List<BoxShadow>? boxShadow;
+  final BoxBorder? border;
+  final BoxBorder? selectedBorder;
+  final Gradient? gradient;
+  final BlendMode? backgroundBlendMode;
+  final DecorationImage? image;
+
+  @override
+  Widget customBuild(BuildContext context) {
+    NodeEditorController controller =
+        ControllerInheritedWidget.of(context).controller;
+    return Container(
+      width: width,
+      decoration: BoxDecoration(
+        color: backgroundColor, // Container color
+        border: isSelected ? selectedBorder : border,
+        gradient: gradient,
+        backgroundBlendMode: backgroundBlendMode,
+        image: image,
+        borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
+        boxShadow: boxShadow,
+      ),
+      child: DefaultTextStyle(
+        style: TextStyle(
+          color: Color.fromRGBO(255, 255, 255, 0.8),
+        ),
+        child: child,
+      ),
+    );
+  }
+}
+
 class UnaryOperationNode extends NodeWidgetBase {
   UnaryOperationNode(
-      {super.initPosition = NodePosition.startScreen,
-      super.width = 150,
+      {super.width = 150,
       this.backgroundColor,
       this.boxShadow,
       this.radius,
@@ -247,8 +299,7 @@ class UnaryOperationNode extends NodeWidgetBase {
 
 class BinaryOperationNode extends NodeWidgetBase {
   BinaryOperationNode(
-      {super.initPosition = NodePosition.startScreen,
-      super.width = 150,
+      {super.width = 150,
       this.backgroundColor,
       this.boxShadow,
       this.radius,

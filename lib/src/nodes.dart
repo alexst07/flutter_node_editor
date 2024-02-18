@@ -148,11 +148,11 @@ class NodesManager {
     _positionAfterLast = Offset(maxPos, yPos);
   }
 
-  void addNode(NodeWidgetBase nodeWidget) {
+  void addNode(NodeWidgetBase nodeWidget, NodePosition position) {
     GlobalKey globalKey = GlobalKey();
 
     // Calculate the start position of the widget node
-    Offset initPos = _calculateInitPos(nodeWidget.initPosition);
+    Offset initPos = _calculateInitPos(position);
 
     NodeModel nodeModel = NodeModel(
         globalKey: globalKey, blueprintNode: nodeWidget, pos: initPos);

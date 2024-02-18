@@ -43,12 +43,30 @@ class _MyHomePageState extends State<MyHomePage> {
       debugPrint("ON SELECT inNode: ${conn.inNode}, inPort: ${conn.inPort}");
     });
 
-    controller.addNode(componentNode('node_1_1'));
-    controller.addNode(componentNode('node_1_2'));
-    controller.addNode(componentNode('node_1_3'));
-    controller.addNode(receiverNode('node_2_1', _focusNode2, _controller));
-    controller.addNode(binaryNode('node_3_1'));
-    controller.addNode(sinkNode('node_4_1'));
+    controller.addNode(
+      componentNode('node_1_1'),
+      NodePosition.afterLast,
+    );
+    controller.addNode(
+      componentNode('node_1_2'),
+      NodePosition.afterLast,
+    );
+    controller.addNode(
+      componentNode('node_1_3'),
+      NodePosition.afterLast,
+    );
+    controller.addNode(
+      receiverNode('node_2_1', _focusNode2, _controller),
+      NodePosition.afterLast,
+    );
+    controller.addNode(
+      binaryNode('node_3_1'),
+      NodePosition.afterLast,
+    );
+    controller.addNode(
+      sinkNode('node_4_1'),
+      NodePosition.afterLast,
+    );
     super.initState();
   }
 
