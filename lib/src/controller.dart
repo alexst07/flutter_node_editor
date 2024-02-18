@@ -79,7 +79,7 @@ class NodeEditorController with ChangeNotifier {
       py = pos.dy + size.height > py ? pos.dy + size.height : py;
     }
 
-    return Size(px, py);
+    return Size(px + 200, py + 200);
   }
 
   notify() {

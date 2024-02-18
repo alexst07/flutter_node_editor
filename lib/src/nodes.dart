@@ -212,6 +212,10 @@ class NodesManager {
   }
 
   void moveNodePosition(String name, Offset delta) {
+    if ((nodes[name]!.pos + delta).dy < 0 ||
+        (nodes[name]!.pos + delta).dx < 0) {
+      return;
+    }
     nodes[name]?.pos += delta;
     _calculateLastPosition();
   }
