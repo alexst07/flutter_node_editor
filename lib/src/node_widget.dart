@@ -87,6 +87,7 @@ class TitleBarNodeWidget extends NodeWidgetBase {
       this.titleBarImage,
       this.iconTileSpacing,
       this.titleBarPadding,
+      this.contentPadding,
       required super.name,
       required super.typeName,
       required this.child});
@@ -109,6 +110,7 @@ class TitleBarNodeWidget extends NodeWidgetBase {
   final DecorationImage? titleBarImage;
   final double? iconTileSpacing;
   final EdgeInsetsGeometry? titleBarPadding;
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   Widget customBuild(BuildContext context) {
@@ -116,6 +118,7 @@ class TitleBarNodeWidget extends NodeWidgetBase {
         ControllerInheritedWidget.of(context).controller;
     return Container(
       width: width,
+      padding: contentPadding ?? const EdgeInsets.all(0.0),
       decoration: BoxDecoration(
         color: backgroundColor, // Container color
         border: isSelected ? selectedBorder : border,
@@ -188,8 +191,7 @@ class TitleBarNodeWidget extends NodeWidgetBase {
 
 class ContainerNodeWidget extends NodeWidgetBase {
   ContainerNodeWidget(
-      {required this.icon,
-      super.width = 150,
+      {super.width = 150,
       this.backgroundColor,
       this.boxShadow,
       this.radius,
@@ -198,6 +200,7 @@ class ContainerNodeWidget extends NodeWidgetBase {
       this.gradient,
       this.backgroundBlendMode,
       this.image,
+      this.contentPadding,
       required super.name,
       required super.typeName,
       required this.child});
@@ -205,34 +208,40 @@ class ContainerNodeWidget extends NodeWidgetBase {
   final Widget child;
   final Color? backgroundColor;
   final double? radius;
-  final Widget icon;
   final List<BoxShadow>? boxShadow;
   final BoxBorder? border;
   final BoxBorder? selectedBorder;
   final Gradient? gradient;
   final BlendMode? backgroundBlendMode;
   final DecorationImage? image;
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   Widget customBuild(BuildContext context) {
     NodeEditorController controller =
         ControllerInheritedWidget.of(context).controller;
-    return Container(
-      width: width,
-      decoration: BoxDecoration(
-        color: backgroundColor, // Container color
-        border: isSelected ? selectedBorder : border,
-        gradient: gradient,
-        backgroundBlendMode: backgroundBlendMode,
-        image: image,
-        borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
-        boxShadow: boxShadow,
-      ),
-      child: DefaultTextStyle(
-        style: TextStyle(
-          color: Color.fromRGBO(255, 255, 255, 0.8),
+    return GestureDetector(
+      onPanUpdate: (DragUpdateDetails details) {
+        controller.moveNodePosition(name, details.delta);
+      },
+      child: Container(
+        width: width,
+        padding: contentPadding ?? const EdgeInsets.all(0.0),
+        decoration: BoxDecoration(
+          color: backgroundColor, // Container color
+          border: isSelected ? selectedBorder : border,
+          gradient: gradient,
+          backgroundBlendMode: backgroundBlendMode,
+          image: image,
+          borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
+          boxShadow: boxShadow,
         ),
-        child: child,
+        child: DefaultTextStyle(
+          style: TextStyle(
+            color: Color.fromRGBO(255, 255, 255, 0.8),
+          ),
+          child: child,
+        ),
       ),
     );
   }
