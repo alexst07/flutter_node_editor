@@ -139,6 +139,11 @@ class NodeEditorController with ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteSelectedNodes() {
+    nodesManager.removeSelectedNodes(connectionsManager);
+    notifyListeners();
+  }
+
   void moveNodePosition(String name, Offset delta) {
     nodesManager.moveNodePosition(name, delta);
     focusNode.requestFocus();
@@ -161,6 +166,7 @@ class NodeEditorController with ChangeNotifier {
   }
 
   void selectNodeAction(String nodeName) {
+    focusNode.requestFocus();
     nodesManager.selectNodeAction(nodeName);
     notifyListeners();
   }

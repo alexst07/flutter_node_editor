@@ -154,6 +154,7 @@ class _NodeEditorState extends State<NodeEditor> {
 
     if (event is RawKeyDownEvent &&
         event.logicalKey == LogicalKeyboardKey.delete) {
+      widget.controller.deleteSelectedNodes();
       widget.controller.deleteSelectedConnections();
     }
   }

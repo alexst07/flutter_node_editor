@@ -292,6 +292,7 @@ NodeWidgetBase binaryNode(String name) {
     radius: 10,
     width: 200,
     contentPadding: const EdgeInsets.all(4),
+    selectedBorder: Border.all(color: Colors.white),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

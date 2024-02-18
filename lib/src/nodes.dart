@@ -189,8 +189,10 @@ class NodesManager {
   void selectNodeAction(String nodeName) {
     if (!isShiftPressed) {
       unselectAllNodes();
+      nodes[nodeName]?.selected = true;
+    } else {
+      nodes[nodeName]?.selected = !(nodes[nodeName]?.selected ?? false);
     }
-    nodes[nodeName]?.selected = true;
   }
 
   void unselectAllNodes() {

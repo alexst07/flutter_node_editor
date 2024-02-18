@@ -224,6 +224,9 @@ class ContainerNodeWidget extends NodeWidgetBase {
       onPanUpdate: (DragUpdateDetails details) {
         controller.moveNodePosition(name, details.delta);
       },
+      onDoubleTap: () {
+        selectNode(context);
+      },
       child: Container(
         width: width,
         padding: contentPadding ?? const EdgeInsets.all(0.0),
@@ -281,6 +284,9 @@ class UnaryOperationNode extends NodeWidgetBase {
     return GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
         controller.moveNodePosition(name, details.delta);
+      },
+      onDoubleTap: () {
+        selectNode(context);
       },
       child: Container(
         width: width,
@@ -342,6 +348,9 @@ class BinaryOperationNode extends NodeWidgetBase {
     return GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
         controller.moveNodePosition(name, details.delta);
+      },
+      onDoubleTap: () {
+        selectNode(context);
       },
       child: Container(
         width: width,
