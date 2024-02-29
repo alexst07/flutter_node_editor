@@ -211,6 +211,26 @@ InPortWidget provides a graphical representation of an input port on a node, all
 **Customization**: It offers customization through connectionTheme for styling connections and allows different icons for connected and disconnected states, providing visual feedback to the user.\
 **Dynamic State Handling**: The widget uses an AnimatedBuilder to reactively update its appearance based on the connection state, ensuring the UI reflects the current state accurately.
 
+
+##### `OutPortWidget`
+OutPortWidget provides a graphical representation of an output port on a node, allowing users to create connections between nodes. It supports both single and multiple connections, with customization options for appearance and behavior.
+
+**Properties**
+
+**multiConnections**: A bool indicating whether the port can accept multiple connections. If false, the port is limited to a single connection.\
+**maxConnections**: An optional int that specifies the maximum number of connections the port can accept. This is only relevant if multiConnections is true.\
+**name**: A String that uniquely identifies the input port within its node. This is crucial for managing connections programmatically.\
+**icon**: A Widget (typically an Icon) that visually represents the input port when not connected.\
+**iconConnected**: An optional Widget that represents the input port when it is connected. If not provided, icon is used for both connected and disconnected states.\
+**connectionTheme**: An optional ConnectionTheme that defines the visual properties of the connection line, such as color and stroke width.\
+**onConnect**: An optional callback function that is invoked when a connection to this port is made. It allows for custom logic to be executed upon connection, such as validation.\
+
+**Functionality**:
+
+**Connection Management**: InPortWidget integrates with NodeEditorController to manage connections. It supports interactive connection creation by tapping the port, leveraging the addConnectionByTap method of the controller.\
+**Customization**: It offers customization through connectionTheme for styling connections and allows different icons for connected and disconnected states, providing visual feedback to the user.\
+**Dynamic State Handling**: The widget uses an AnimatedBuilder to reactively update its appearance based on the connection state, ensuring the UI reflects the current state accurately.\
+
 ## Additional information
 
 TODO: Tell users more about the package: where to find more information, how to
