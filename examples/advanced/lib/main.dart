@@ -70,6 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  void _addNewNode() {
+    controller.addNode(
+      componentNode('new_node'),
+      NodePosition.afterLast,
+    );
+  }
+  
   @override
   void dispose() {
     _focusNode.dispose();
@@ -93,7 +100,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: NodeEditor(
         focusNode: _focusNode,
         controller: controller,
-        background: const GridBackground(),
+        background: const GridBackground(
+          backgroundColor: Color(0xfdfffd),
+          lineColor: Color.fromARGB(255, 255, 255, 255),
+          strokeWidth: 1,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addNewNode,
+        child: Icon(Icons.add),
       ),
     );
   }
