@@ -1,7 +1,7 @@
 name: node_editor
 description: Node editor package
-version: 0.0.1
-homepage:
+version: 0.0.2
+homepage: https://github.com/alexst07/flutter_node_editor
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
