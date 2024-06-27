@@ -232,15 +232,26 @@ class NodesManager {
     }
   }
 
-  Size getNodeWidgetSize(String nodeName) {
-    GlobalKey? key = nodes[nodeName]?.globalKey;
-
-    if (key == null) {
-      throw Exception('node: $nodeName not found');
-    }
-
-    final RenderBox renderBox =
-        key.currentContext?.findRenderObject() as RenderBox;
-    return renderBox.size;
+Size getNodeWidgetSize(String nodeName) {
+  NodeModel? nodeModel = nodes[nodeName];
+  if (nodeModel == null) {
+    throw Exception('node: $nodeName not found');
   }
+
+  final GlobalKey? key = nodeModel.globalKey;
+  if (key == null) {
+    return Size.zero;
+  }
+
+  Size size = Size.zero;
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    final RenderBox? renderBox =
+        key.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox != null) {
+      size = renderBox.size;
+    }
+  });
+
+  return size;
+}
 }
