@@ -231,8 +231,3 @@ OutPortWidget provides a graphical representation of an output port on a node, a
 **Customization**: It offers customization through connectionTheme for styling connections and allows different icons for connected and disconnected states, providing visual feedback to the user.\
 **Dynamic State Handling**: The widget uses an AnimatedBuilder to reactively update its appearance based on the connection state, ensuring the UI reflects the current state accurately.\
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
