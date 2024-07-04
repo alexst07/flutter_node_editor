@@ -13,12 +13,14 @@ class NodeEditor extends StatefulWidget {
       {Key? key,
       required this.controller,
       required this.background,
-      required this.focusNode})
+      required this.focusNode,
+      required this.infiniteCanvasSize})
       : super(key: key);
 
   final NodeEditorController controller;
   final NodeEditorBackgroundBase background;
   final FocusNode focusNode;
+  final double infiniteCanvasSize;
 
   @override
   State<NodeEditor> createState() => _NodeEditorState();
@@ -55,7 +57,27 @@ class _NodeEditorState extends State<NodeEditor> {
       widget.controller.verticalScrollController = verticalScrollController;
       widget.controller.horizontalScrollController = horizontalScrollController;
     });
+
+    horizontalScrollController.addListener(_onScroll);
+    verticalScrollController.addListener(_onScroll);
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    horizontalScrollController.removeListener(_onScroll);
+    verticalScrollController.removeListener(_onScroll);
+    super.dispose();
+  }
+
+  void _onScroll() {
+    widget.controller.updateViewportOffset(
+      Offset(horizontalScrollController.offset, verticalScrollController.offset)
+    );
+    setState(() {
+      // Redraw the canvas on scroll
+    });
   }
 
   @override
@@ -68,7 +90,11 @@ class _NodeEditorState extends State<NodeEditor> {
       },
       child: MouseRegion(
         onHover: (PointerHoverEvent event) {
-          widget.controller.mousePosition(event.localPosition);
+          Offset adjustedPosition = event.localPosition +
+              Offset(
+                  horizontalScrollController.offset,
+                  verticalScrollController.offset);
+          widget.controller.mousePosition(adjustedPosition);
         },
         child: GestureDetector(
           onTapDown: (TapDownDetails details) {
@@ -85,14 +111,14 @@ class _NodeEditorState extends State<NodeEditor> {
                     // get the required size of the stack
                     Size stackSize = Size.zero;
                     if (afterBuild) {
-                      stackSize = widget.controller.getMaxScreenSize();
+                      stackSize = Size.infinite;
                     }
 
                     widget.controller.currentScreenSize =
                         Size(constraints.maxWidth, constraints.maxHeight);
 
-                    final stackWidth = stackSize.width;
-                    final stackHeight = stackSize.height;
+                   final stackWidth = stackSize.width;
+                   final stackHeight = stackSize.height;
 
                     return SingleChildScrollView(
                       controller: horizontalScrollController,
@@ -104,8 +130,8 @@ class _NodeEditorState extends State<NodeEditor> {
                           constraints: BoxConstraints(
                             minWidth: constraints.maxWidth,
                             minHeight: constraints.maxHeight,
-                            maxWidth: max(constraints.maxWidth, stackWidth),
-                            maxHeight: max(constraints.maxHeight, stackHeight),
+                            maxWidth: widget.infiniteCanvasSize,
+                            maxHeight: widget.infiniteCanvasSize,
                           ),
                           child: CustomPaint(
                             painter: LinePainter(
@@ -118,6 +144,7 @@ class _NodeEditorState extends State<NodeEditor> {
                               children: widget.controller.nodes.values
                                   .map(
                                     (e) => Positioned(
+
                                       left: e.pos.dx,
                                       top: e.pos.dy,
                                       child: e.inheritedWidget,

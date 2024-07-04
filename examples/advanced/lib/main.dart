@@ -100,11 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: NodeEditor(
         focusNode: _focusNode,
         controller: controller,
-        background: const GridBackground(
-          backgroundColor: Color(0xfdfffd),
-          lineColor: Color.fromARGB(255, 255, 255, 255),
-          strokeWidth: 1,
-        ),
+        background: const GridBackground(),
+        infiniteCanvasSize: 5000,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addNewNode,
