@@ -38,6 +38,21 @@ class NodeEditorController with ChangeNotifier {
   late ScrollController horizontalScrollController;
   late ScrollController verticalScrollController;
 
+  Offset _viewportOffset = Offset.zero;
+    void initScrollControllers(ScrollController horizontal, ScrollController vertical) {
+    horizontalScrollController = horizontal;
+    verticalScrollController = vertical;
+  }
+
+  void updateViewportOffset(Offset newOffset) {
+    _viewportOffset = newOffset;
+    notifyListeners();
+  }
+
+  Offset getViewportOffset() {
+    return _viewportOffset;
+  }
+  
   /// Focus node that request a focus when some node is tap or moved
   /// this attribute must be initialized in the init of the main widget
   /// node editor

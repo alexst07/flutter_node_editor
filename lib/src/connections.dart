@@ -149,6 +149,7 @@ class ConnectionsManager {
   }
 
   void selectOnTap(NodeEditorController controller, Offset tapPosition) {
+    Offset viewportOffset = controller.getViewportOffset();
     debugPrint('selectOnTap->tapPosition: $tapPosition');
     for (var conn in connections) {
       Offset? startPoint = getPortPosition(controller, conn.outPort);
@@ -156,8 +157,12 @@ class ConnectionsManager {
 
       if (startPoint == null || endPoint == null) continue;
 
-      bool v = conn.connectionPath
-          .checkTapInLine(tapPosition, startPoint, endPoint, 5);
+      Offset adjustedTapPosition = tapPosition + viewportOffset;
+      Offset adjustedStartPoint = startPoint ;
+      Offset adjustedEndPoint = endPoint;
+
+      bool v = conn.connectionPath.checkTapInLine(
+          adjustedTapPosition, adjustedStartPoint, adjustedEndPoint, 7);
       if (!(isShiftPressed && conn.selected)) {
         conn.selected = v;
       }
