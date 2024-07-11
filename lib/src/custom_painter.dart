@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -72,9 +70,8 @@ class _NodeEditorState extends State<NodeEditor> {
   }
 
   void _onScroll() {
-    widget.controller.updateViewportOffset(
-      Offset(horizontalScrollController.offset, verticalScrollController.offset)
-    );
+    widget.controller.updateViewportOffset(Offset(
+        horizontalScrollController.offset, verticalScrollController.offset));
     setState(() {
       // Redraw the canvas on scroll
     });
@@ -91,8 +88,7 @@ class _NodeEditorState extends State<NodeEditor> {
       child: MouseRegion(
         onHover: (PointerHoverEvent event) {
           Offset adjustedPosition = event.localPosition +
-              Offset(
-                  horizontalScrollController.offset,
+              Offset(horizontalScrollController.offset,
                   verticalScrollController.offset);
           widget.controller.mousePosition(adjustedPosition);
         },
@@ -108,22 +104,14 @@ class _NodeEditorState extends State<NodeEditor> {
                 controller: widget.controller,
                 child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                    // get the required size of the stack
-                    Size stackSize = Size.zero;
-                    if (afterBuild) {
-                      stackSize = Size.infinite;
-                    }
-
                     widget.controller.currentScreenSize =
                         Size(constraints.maxWidth, constraints.maxHeight);
-
-                   final stackWidth = stackSize.width;
-                   final stackHeight = stackSize.height;
-
                     return SingleChildScrollView(
+                      physics: const ClampingScrollPhysics(),
                       controller: horizontalScrollController,
                       scrollDirection: Axis.horizontal,
                       child: SingleChildScrollView(
+                        physics: const ClampingScrollPhysics(),
                         controller: verticalScrollController,
                         scrollDirection: Axis.vertical,
                         child: ConstrainedBox(
@@ -144,7 +132,6 @@ class _NodeEditorState extends State<NodeEditor> {
                               children: widget.controller.nodes.values
                                   .map(
                                     (e) => Positioned(
-
                                       left: e.pos.dx,
                                       top: e.pos.dy,
                                       child: e.inheritedWidget,

@@ -238,10 +238,7 @@ Size getNodeWidgetSize(String nodeName) {
     throw Exception('node: $nodeName not found');
   }
 
-  final GlobalKey? key = nodeModel.globalKey;
-  if (key == null) {
-    return Size.zero;
-  }
+  final GlobalKey key = nodeModel.globalKey;
 
   Size size = Size.zero;
   WidgetsBinding.instance.addPostFrameCallback((_) {

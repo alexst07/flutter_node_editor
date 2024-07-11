@@ -80,6 +80,9 @@ class NodeEditorController with ChangeNotifier {
 
   Map<String, NodeModel> get nodes => nodesManager.nodes;
 
+  List<String> get selecteds => nodes.values.where((node) => node.selected).map((node) => node.name).toList();
+
+
   void addSelectListener(void Function(Connection conn)? fn) {
     onSelectListener = fn;
   }
