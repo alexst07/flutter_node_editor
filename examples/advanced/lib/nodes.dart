@@ -14,15 +14,15 @@ NodeWidgetBase componentNode(String name) {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('Output 1'),
+            const Text('Output 1'),
             OutPortWidget(
               name: 'PortOut1',
-              icon: Icon(
+              icon: const Icon(
                 Icons.play_arrow_outlined,
                 color: Colors.red,
                 size: 24,
               ),
-              iconConnected: Icon(
+              iconConnected: const Icon(
                 Icons.play_arrow,
                 color: Colors.red,
                 size: 24,
@@ -36,18 +36,18 @@ NodeWidgetBase componentNode(String name) {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('Output 2'),
+            const Text('Output 2'),
             SizedBox(
               width: 24,
               height: 24,
               child: OutPortWidget(
                 name: 'PortOut2',
-                icon: Icon(
+                icon: const Icon(
                   Icons.circle_outlined,
                   color: Colors.yellowAccent,
                   size: 20,
                 ),
-                iconConnected: Icon(
+                iconConnected: const Icon(
                   Icons.circle,
                   color: Colors.yellowAccent,
                   size: 20,
@@ -62,16 +62,16 @@ NodeWidgetBase componentNode(String name) {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            CheckBoxProperty(name: 'check_port'),
-            Text('Output 3'),
+            const CheckBoxProperty(name: 'check_port'),
+            const Text('Output 3'),
             OutPortWidget(
               name: 'PortOut3',
-              icon: Icon(
+              icon: const Icon(
                 Icons.play_arrow_outlined,
                 color: Colors.green,
                 size: 24,
               ),
-              iconConnected: Icon(
+              iconConnected: const Icon(
                 Icons.play_arrow,
                 color: Colors.green,
                 size: 24,
@@ -89,7 +89,7 @@ NodeWidgetBase componentNode(String name) {
               child: Container(
                 height: 30,
                 padding: const EdgeInsets.only(left: 4),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white10, // Container color
                   borderRadius:
                       BorderRadius.all(Radius.circular(10)), // Rounded corners
@@ -100,31 +100,31 @@ NodeWidgetBase componentNode(String name) {
                       canvasColor: Colors.black,
                     ),
                     child: DropdownMenuProperty<int>(
-                      underline: SizedBox(),
+                      underline: const SizedBox(),
                       name: 'select',
                       dropdownColor: Colors.white,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       items: const [
                         DropdownMenuItem(
+                          value: 0,
                           child: Text(
                             'Item1',
                             style: TextStyle(color: Colors.black),
                           ),
-                          value: 0,
                         ),
                         DropdownMenuItem(
+                          value: 1,
                           child: Text(
                             'Item2',
                             style: TextStyle(color: Colors.black),
                           ),
-                          value: 1,
                         ),
                         DropdownMenuItem(
+                          value: 2,
                           child: Text(
                             'Item3',
                             style: TextStyle(color: Colors.black),
                           ),
-                          value: 2,
                         ),
                       ],
                       onChanged: (int? v) {},
@@ -135,7 +135,7 @@ NodeWidgetBase componentNode(String name) {
             ),
           ],
         ),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('check 1:'),
@@ -144,12 +144,12 @@ NodeWidgetBase componentNode(String name) {
         ),
       ],
     ),
-    title: Text('Components'),
+    title: const Text('Components'),
     iconTileSpacing: 5,
     titleBarPadding: const EdgeInsets.all(4.0),
-    titleBarGradient: LinearGradient(
+    titleBarGradient: const LinearGradient(
         colors: [Color.fromRGBO(0, 23, 135, 1.0), Colors.lightBlue]),
-    icon: Icon(
+    icon: const Icon(
       Icons.rectangle_outlined,
       color: Colors.white,
     ),
@@ -177,12 +177,12 @@ NodeWidgetBase receiverNode(
                 InPortWidget(
                   name: 'PortIn1',
                   onConnect: (String name, String port) => true,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.play_arrow_outlined,
                     color: Colors.red,
                     size: 24,
                   ),
-                  iconConnected: Icon(
+                  iconConnected: const Icon(
                     Icons.play_arrow,
                     color: Colors.red,
                     size: 24,
@@ -191,21 +191,21 @@ NodeWidgetBase receiverNode(
                   connectionTheme:
                       ConnectionTheme(color: Colors.red, strokeWidth: 2),
                 ),
-                Text('Input 1'),
+                const Text('Input 1'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('Output 3'),
+                const Text('Output 3'),
                 OutPortWidget(
                   name: 'PortOut3',
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.play_arrow_outlined,
                     color: Colors.blue,
                     size: 24,
                   ),
-                  iconConnected: Icon(
+                  iconConnected: const Icon(
                     Icons.play_arrow,
                     color: Colors.blue,
                     size: 24,
@@ -224,12 +224,12 @@ NodeWidgetBase receiverNode(
             InPortWidget(
               name: 'PortIn2',
               onConnect: (String name, String port) => true,
-              icon: Icon(
+              icon: const Icon(
                 Icons.play_arrow_outlined,
                 color: Colors.red,
                 size: 24,
               ),
-              iconConnected: Icon(
+              iconConnected: const Icon(
                 Icons.play_arrow,
                 color: Colors.red,
                 size: 24,
@@ -238,13 +238,13 @@ NodeWidgetBase receiverNode(
               connectionTheme:
                   ConnectionTheme(color: Colors.red, strokeWidth: 2),
             ),
-            Text('Input 2'),
+            const Text('Input 2'),
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Value: '),
+            const Text('Value: '),
             SizedBox(
               width: 50,
               height: 25,
@@ -252,17 +252,17 @@ NodeWidgetBase receiverNode(
                 name: 'text_prop',
                 focusNode: focusNode,
                 controller: controller,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.normal,
                     fontSize: 14),
                 decoration: InputDecoration(
                   filled: true,
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
+                      const EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
                   fillColor: Colors.white10,
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(5)),
                 ),
               ),
@@ -271,12 +271,12 @@ NodeWidgetBase receiverNode(
         ),
       ],
     ),
-    title: Text('Receiver'),
+    title: const Text('Receiver'),
     iconTileSpacing: 5,
     titleBarPadding: const EdgeInsets.all(4.0),
-    titleBarGradient: LinearGradient(
+    titleBarGradient: const LinearGradient(
         colors: [Color.fromRGBO(12, 100, 6, 1.0), Colors.greenAccent]),
-    icon: Icon(
+    icon: const Icon(
       Icons.receipt_rounded,
       color: Colors.white,
     ),
@@ -302,12 +302,12 @@ NodeWidgetBase binaryNode(String name) {
             InPortWidget(
               name: 'PortIn1',
               onConnect: (String name, String port) => true,
-              icon: Icon(
+              icon: const Icon(
                 Icons.circle_outlined,
                 color: Colors.yellowAccent,
                 size: 20,
               ),
-              iconConnected: Icon(
+              iconConnected: const Icon(
                 Icons.circle,
                 color: Colors.yellowAccent,
                 size: 20,
@@ -319,12 +319,12 @@ NodeWidgetBase binaryNode(String name) {
             InPortWidget(
               name: 'PortIn2',
               onConnect: (String name, String port) => true,
-              icon: Icon(
+              icon: const Icon(
                 Icons.circle_outlined,
                 color: Colors.yellowAccent,
                 size: 20,
               ),
-              iconConnected: Icon(
+              iconConnected: const Icon(
                 Icons.circle,
                 color: Colors.yellowAccent,
                 size: 20,
@@ -335,15 +335,15 @@ NodeWidgetBase binaryNode(String name) {
             ),
           ],
         ),
-        Icon(Icons.safety_divider),
+        const Icon(Icons.safety_divider),
         OutPortWidget(
           name: 'PortOut1',
-          icon: Icon(
+          icon: const Icon(
             Icons.pause_circle_outline,
             color: Colors.deepOrange,
             size: 24,
           ),
-          iconConnected: Icon(
+          iconConnected: const Icon(
             Icons.pause_circle,
             color: Colors.deepOrange,
             size: 24,
@@ -378,12 +378,12 @@ NodeWidgetBase sinkNode(String name) {
                   InPortWidget(
                     name: 'PortIn1',
                     onConnect: (String name, String port) => true,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.add_circle_outline,
                       color: Colors.blueAccent,
                       size: 24,
                     ),
-                    iconConnected: Icon(
+                    iconConnected: const Icon(
                       Icons.add_circle_outlined,
                       color: Colors.blueAccent,
                       size: 24,
@@ -392,7 +392,7 @@ NodeWidgetBase sinkNode(String name) {
                     connectionTheme: ConnectionTheme(
                         color: Colors.blueAccent, strokeWidth: 2),
                   ),
-                  Text('Input 2'),
+                  const Text('Input 2'),
                 ],
               ),
             ],
@@ -400,15 +400,15 @@ NodeWidgetBase sinkNode(String name) {
         ],
       ),
     ),
-    title: Text(
+    title: const Text(
       'Sinker',
       style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.bold),
     ),
     iconTileSpacing: 5,
     titleBarPadding: const EdgeInsets.all(4.0),
     titleBarGradient:
-        LinearGradient(colors: [Colors.yellowAccent, Colors.yellow]),
-    icon: Icon(
+        const LinearGradient(colors: [Colors.yellowAccent, Colors.yellow]),
+    icon: const Icon(
       Icons.calculate_rounded,
       color: Colors.deepOrange,
     ),

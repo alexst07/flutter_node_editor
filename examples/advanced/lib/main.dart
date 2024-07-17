@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final NodeEditorController controller = NodeEditorController();
   final FocusNode _focusNode = FocusNode();
   final FocusNode _focusNode2 = FocusNode();
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   @override
   void initState() {
     controller.addSelectListener((Connection conn) {
@@ -72,11 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addNewNode() {
     controller.addNode(
-      componentNode('new_node'),
+      componentNode("new_node"),
       NodePosition.afterLast,
     );
   }
-  
+
   @override
   void dispose() {
     _focusNode.dispose();
@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 debugPrint('controller.toMap(): ${controller.toJson()}');
               },
-              icon: Icon(Icons.abc))
+              icon: const Icon(Icons.abc))
         ],
       ),
       body: NodeEditor(
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addNewNode,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

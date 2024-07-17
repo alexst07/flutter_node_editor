@@ -163,7 +163,7 @@ class TitleBarNodeWidget extends NodeWidgetBase {
                             width: iconTileSpacing,
                           ),
                           DefaultTextStyle(
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14.0,
                               color: Colors.white,
                             ),
@@ -178,7 +178,7 @@ class TitleBarNodeWidget extends NodeWidgetBase {
             ),
           ),
           DefaultTextStyle(
-            style: TextStyle(
+            style: const TextStyle(
               color: Color.fromRGBO(255, 255, 255, 0.8),
             ),
             child: child,
@@ -222,7 +222,9 @@ class ContainerNodeWidget extends NodeWidgetBase {
         ControllerInheritedWidget.of(context).controller;
     return GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
-        controller.moveNodePosition(name, details.delta);
+        for (var nodeName in controller.selecteds) {
+          controller.moveNodePosition(nodeName, details.delta);
+        }
       },
       onDoubleTap: () {
         selectNode(context);
@@ -240,7 +242,7 @@ class ContainerNodeWidget extends NodeWidgetBase {
           boxShadow: boxShadow,
         ),
         child: DefaultTextStyle(
-          style: TextStyle(
+          style: const TextStyle(
             color: Color.fromRGBO(255, 255, 255, 0.8),
           ),
           child: child,
