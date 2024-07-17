@@ -17,7 +17,7 @@ and the Flutter guide for
 
 
 <p align="center">
-        <img src="midia/nodes.png"/>
+        <img src="https://raw.githubusercontent.com/alexst07/flutter_node_editor/master/midia/nodes.png"/>
 </p>
 
 ## Features
@@ -31,8 +31,18 @@ and the Flutter guide for
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+To use the package you just need to add the dependency in your `pubspec.yaml` file.
+
+```yaml
+dependencies:
+  node_editor: ^0.0.5
+```
+
+or use the command:
+
+```bash
+flutter pub add node_editor
+```
 
 ## Usage
 
