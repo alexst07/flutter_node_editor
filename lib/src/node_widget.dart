@@ -132,7 +132,10 @@ class TitleBarNodeWidget extends NodeWidgetBase {
         children: [
           GestureDetector(
             onPanUpdate: (DragUpdateDetails details) {
-              controller.moveNodePosition(name, details.delta);
+              for (var nodeName in controller.selecteds) {
+                controller.moveNodePosition(nodeName, details.delta);
+              }
+              // controller.moveNodePosition(name, details.delta);
             },
             child: Container(
               decoration: BoxDecoration(
@@ -285,7 +288,10 @@ class UnaryOperationNode extends NodeWidgetBase {
         ControllerInheritedWidget.of(context).controller;
     return GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
-        controller.moveNodePosition(name, details.delta);
+        for (var nodeName in controller.selecteds) {
+          controller.moveNodePosition(nodeName, details.delta);
+        }
+        // controller.moveNodePosition(name, details.delta);
       },
       onDoubleTap: () {
         selectNode(context);
@@ -349,7 +355,10 @@ class BinaryOperationNode extends NodeWidgetBase {
         ControllerInheritedWidget.of(context).controller;
     return GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
-        controller.moveNodePosition(name, details.delta);
+        for (var nodeName in controller.selecteds) {
+          controller.moveNodePosition(nodeName, details.delta);
+        }
+        // controller.moveNodePosition(name, details.delta);
       },
       onDoubleTap: () {
         selectNode(context);
