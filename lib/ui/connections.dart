@@ -150,7 +150,6 @@ class ConnectionsManager {
 
   void selectOnTap(NodeEditorController controller, Offset tapPosition) {
     Offset viewportOffset = controller.getViewportOffset();
-    debugPrint('selectOnTap->tapPosition: $tapPosition');
     for (var conn in connections) {
       Offset? startPoint = getPortPosition(controller, conn.outPort);
       Offset? endPoint = getPortPosition(controller, conn.inPort);
@@ -176,7 +175,7 @@ class ConnectionsManager {
   mousePosition(Offset pos) {
     if (startPointConnection != null) {
       mousePoint = pos;
-      debugPrint('Mouse set_pos: $pos');
+      // debugPrint('Mouse set_pos: $pos');
     }
   }
 }
