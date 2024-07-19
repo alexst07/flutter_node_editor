@@ -16,26 +16,32 @@ abstract class Port extends NodeItem {
   final GlobalKey globalKey;
   final bool dominant;
   final ConnectionTheme connectionTheme;
+  dynamic value;
 
-  const Port(
-      {required super.name,
-      required this.globalKey,
-      this.multiConnections = false,
-      this.dominant = false,
-      required this.connectionTheme,
-      this.maxConnections});
+  Port({
+    required super.name,
+    this.value,
+    required this.globalKey,
+    this.multiConnections = false,
+    this.dominant = false,
+    required this.connectionTheme,
+    this.maxConnections,
+  });
 }
 
 class InPort extends Port {
   final Widget inputIcon;
   final bool Function(String, String)? onConnect;
+  final bool optional;
 
-  const InPort(
+  InPort(
       {required super.name,
       required super.globalKey,
       required this.inputIcon,
       required super.connectionTheme,
       this.onConnect,
+      this.optional = false,
+      super.value,
       super.multiConnections = false,
       super.maxConnections});
 }
@@ -43,13 +49,15 @@ class InPort extends Port {
 class OutPort extends Port {
   final Widget outputIcon;
 
-  const OutPort(
-      {required super.name,
-      required super.globalKey,
-      required this.outputIcon,
-      required super.connectionTheme,
-      super.multiConnections = false,
-      super.maxConnections});
+  OutPort({
+    required super.name,
+    required super.globalKey,
+    required this.outputIcon,
+    required super.connectionTheme,
+    super.value,
+    super.multiConnections = true,
+    super.maxConnections,
+  });
 }
 
 class PortData {}
@@ -122,6 +130,10 @@ class NodesManager {
   Offset _positionAfterLast = Offset.zero;
   bool isShiftPressed = false;
 
+  final ValueNotifier<bool> _selectedAny = ValueNotifier<bool>(false);
+
+  ValueNotifier get selectedAnyNotifier => _selectedAny;
+
   Offset _calculateInitPos(NodePosition pos) {
     if (pos.type == NodePositionType.startScreen) {
       return const Offset(0, 0);
@@ -144,7 +156,6 @@ class NodesManager {
         yPos = node.value.pos.dy;
       }
     }
-
     _positionAfterLast = Offset(maxPos, yPos);
   }
 
@@ -184,12 +195,14 @@ class NodesManager {
 
   void selectNode(String nodeName) {
     nodes[nodeName]?.selected = true;
+    selectedAnyNotifier.value = true;
   }
 
   void selectNodeAction(String nodeName) {
     if (!isShiftPressed) {
       unselectAllNodes();
       nodes[nodeName]?.selected = true;
+      selectedAnyNotifier.value = true;
     } else {
       nodes[nodeName]?.selected = !(nodes[nodeName]?.selected ?? false);
     }
@@ -199,6 +212,7 @@ class NodesManager {
     for (var node in nodes.values) {
       node.selected = false;
     }
+    selectedAnyNotifier.value = false;
   }
 
   void addInPort(String nodeName, InPort inPortInfo) {
@@ -207,10 +221,6 @@ class NodesManager {
 
   void addOutPort(String nodeName, OutPort outPortInfo) {
     nodes[nodeName]?.addPort(outPortInfo);
-  }
-
-  void addProperty(String nodeName, Property property) {
-    nodes[nodeName]?.addProperty(property);
   }
 
   void moveNodePosition(String name, Offset delta) {
@@ -232,23 +242,27 @@ class NodesManager {
     }
   }
 
-Size getNodeWidgetSize(String nodeName) {
-  NodeModel? nodeModel = nodes[nodeName];
-  if (nodeModel == null) {
-    throw Exception('node: $nodeName not found');
+  void addProperty(String nodeName, Property property) {
+    nodes[nodeName]?.addProperty(property);
   }
 
-  final GlobalKey key = nodeModel.globalKey;
-
-  Size size = Size.zero;
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    final RenderBox? renderBox =
-        key.currentContext?.findRenderObject() as RenderBox?;
-    if (renderBox != null) {
-      size = renderBox.size;
+  Size getNodeWidgetSize(String nodeName) {
+    NodeModel? nodeModel = nodes[nodeName];
+    if (nodeModel == null) {
+      throw Exception('node: $nodeName not found');
     }
-  });
 
-  return size;
-}
+    final GlobalKey key = nodeModel.globalKey;
+
+    Size size = Size.zero;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox? renderBox =
+          key.currentContext?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        size = renderBox.size;
+      }
+    });
+
+    return size;
+  }
 }
