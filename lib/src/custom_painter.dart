@@ -1,8 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:node_editor/node_editor.dart';
 
+import 'background.dart';
+import 'controller.dart';
 import 'inherit.dart';
 import 'line_painter.dart';
 

@@ -17,10 +17,12 @@ abstract class Port extends NodeItem {
   final bool dominant;
   final ConnectionTheme connectionTheme;
   dynamic value;
+  final bool optional;
 
   Port({
     required super.name,
     this.value,
+    this.optional = false,
     required this.globalKey,
     this.multiConnections = false,
     this.dominant = false,
@@ -32,7 +34,6 @@ abstract class Port extends NodeItem {
 class InPort extends Port {
   final Widget inputIcon;
   final bool Function(String, String)? onConnect;
-  final bool optional;
 
   InPort(
       {required super.name,
@@ -40,7 +41,7 @@ class InPort extends Port {
       required this.inputIcon,
       required super.connectionTheme,
       this.onConnect,
-      this.optional = false,
+      super.optional = false,
       super.value,
       super.multiConnections = false,
       super.maxConnections});
