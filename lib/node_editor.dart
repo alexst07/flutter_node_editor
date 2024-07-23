@@ -1,20 +1,13 @@
 library node_editor;
 
-export 'src/background.dart'
+export 'ui/background.dart'
     show NodeEditorBackgroundBase, SolidBackground, GridBackground;
-export 'src/connections.dart' show Connection, ConnectionTheme;
-export 'src/controller.dart' show NodeEditorController;
-export 'src/custom_painter.dart' show NodeEditor;
-export 'src/node_widget.dart'
-    show
-        NodeWidgetBase,
-        TitleBarNodeWidget,
-        ContainerNodeWidget,
-        BinaryOperationNode,
-        UnaryOperationNode;
-export 'src/port.dart' show InPortWidget, OutPortWidget;
-export 'src/position.dart' show NodePosition, NodePositionType;
-export 'src/properties.dart' show PropertyMixin;
-export 'src/properties/checkbox.dart' show CheckBoxProperty;
-export 'src/properties/dropdown.dart' show DropdownMenuProperty;
-export 'src/properties/text_edit.dart' show TextEditProperty;
+export 'ui/connections.dart' show Connection, ConnectionTheme;
+export 'ui/controller.dart' show NodeEditorController;
+export 'ui/editor.dart' show NodeEditor;
+export 'ui/inherit.dart' show ControllerInheritedWidget;
+export 'ui/node_widget.dart' show NodeWidgetBase, NodeEditorInheritedWidget;
+export 'ui/nodes.dart' show NodeModel;
+export 'ui/port_widget.dart' show InPortWidget, OutPortWidget;
+export 'ui/position.dart' show NodePosition, NodePositionType;
+export 'ui/utils.dart';

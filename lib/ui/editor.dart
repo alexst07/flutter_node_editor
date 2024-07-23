@@ -1,19 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:node_editor/node_editor.dart';
 
+import 'background.dart';
+import 'controller.dart';
 import 'inherit.dart';
 import 'line_painter.dart';
 
 class NodeEditor extends StatefulWidget {
   const NodeEditor(
-      {Key? key,
+      {super.key,
       required this.controller,
       required this.background,
       required this.focusNode,
-      required this.infiniteCanvasSize})
-      : super(key: key);
+      required this.infiniteCanvasSize});
 
   final NodeEditorController controller;
   final NodeEditorBackgroundBase background;
@@ -50,7 +50,7 @@ class _NodeEditorState extends State<NodeEditor> {
       // set the focus in the controller
       widget.controller.focusNode = widget.focusNode;
 
-      debugPrint('Set stackPos');
+      // debugPrint('Set stackPos');
       afterBuild = true;
       widget.controller.verticalScrollController = verticalScrollController;
       widget.controller.horizontalScrollController = horizontalScrollController;
@@ -94,7 +94,7 @@ class _NodeEditorState extends State<NodeEditor> {
         },
         child: GestureDetector(
           onTapDown: (TapDownDetails details) {
-            debugPrint("onTapDown");
+            // debugPrint("onTapDown");
             widget.controller.selectOnTap(details.localPosition);
           },
           child: AnimatedBuilder(

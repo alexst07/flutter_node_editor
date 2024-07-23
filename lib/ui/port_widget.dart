@@ -10,18 +10,20 @@ abstract class PropertyWidgetInterface extends NodeItemWidgetInterface
     implements Widget {}
 
 class InPortWidget extends StatefulWidget {
-  const InPortWidget(
-      {Key? key,
-      required this.multiConnections,
-      this.maxConnections,
-      required this.name,
-      required this.icon,
-      this.connectionTheme,
-      this.onConnect,
-      this.iconConnected})
-      : super(key: key);
+  const InPortWidget({
+    super.key,
+    required this.multiConnections,
+    this.maxConnections,
+    required this.name,
+    required this.icon,
+    this.connectionTheme,
+    this.onConnect,
+    this.iconConnected,
+    this.optional = false,
+  });
 
   final bool multiConnections;
+  final bool? optional;
   final int? maxConnections;
   final String name;
   final Widget icon;
@@ -44,6 +46,7 @@ class _InPortWidgetState extends State<InPortWidget> {
           globalKey: globalKey,
           maxConnections: widget.maxConnections,
           multiConnections: widget.multiConnections,
+          optional: widget.optional ?? false,
           onConnect: widget.onConnect,
           connectionTheme: widget.connectionTheme ??
               ConnectionTheme(
@@ -91,15 +94,15 @@ class _InPortWidgetState extends State<InPortWidget> {
 }
 
 class OutPortWidget extends StatefulWidget {
-  const OutPortWidget(
-      {Key? key,
-      required this.multiConnections,
-      this.maxConnections,
-      required this.name,
-      required this.icon,
-      this.connectionTheme,
-      this.iconConnected})
-      : super(key: key);
+  const OutPortWidget({
+    super.key,
+    required this.multiConnections,
+    this.maxConnections,
+    required this.name,
+    required this.icon,
+    this.connectionTheme,
+    this.iconConnected,
+  });
 
   final bool multiConnections;
   final int? maxConnections;
@@ -150,7 +153,6 @@ class _OutPortWidgetState extends State<OutPortWidget> {
       builder: (BuildContext context, Widget? child) {
         bool connected =
             controller.isOutputPortConnected(nodeName, widget.name);
-        debugPrint('Check port connected: $connected');
 
         return InkWell(
           onTap: () {

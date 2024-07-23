@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'connections.dart';
 import 'node_widget.dart';
 import 'position.dart';
+import 'utils.dart';
 
 abstract class NodeItem {
   final String name;
@@ -16,26 +17,33 @@ abstract class Port extends NodeItem {
   final GlobalKey globalKey;
   final bool dominant;
   final ConnectionTheme connectionTheme;
+  dynamic value;
+  final bool optional;
 
-  const Port(
-      {required super.name,
-      required this.globalKey,
-      this.multiConnections = false,
-      this.dominant = false,
-      required this.connectionTheme,
-      this.maxConnections});
+  Port({
+    required super.name,
+    this.value,
+    this.optional = false,
+    required this.globalKey,
+    this.multiConnections = false,
+    this.dominant = false,
+    required this.connectionTheme,
+    this.maxConnections,
+  });
 }
 
 class InPort extends Port {
   final Widget inputIcon;
   final bool Function(String, String)? onConnect;
 
-  const InPort(
+  InPort(
       {required super.name,
       required super.globalKey,
       required this.inputIcon,
       required super.connectionTheme,
       this.onConnect,
+      super.optional = false,
+      super.value,
       super.multiConnections = false,
       super.maxConnections});
 }
@@ -43,26 +51,23 @@ class InPort extends Port {
 class OutPort extends Port {
   final Widget outputIcon;
 
-  const OutPort(
-      {required super.name,
-      required super.globalKey,
-      required this.outputIcon,
-      required super.connectionTheme,
-      super.multiConnections = false,
-      super.maxConnections});
+  OutPort({
+    required super.name,
+    required super.globalKey,
+    required this.outputIcon,
+    required super.connectionTheme,
+    super.value,
+    super.multiConnections = true,
+    super.maxConnections,
+  });
 }
 
-class PortData {}
-
-class Property extends NodeItem {
-  Property({required super.name, this.value});
-
-  dynamic value;
-}
 
 class NodeModel {
+  dynamic value;
+  late void Function(NodeModel) runner;
+
   Map<String, Port> ports = {};
-  Map<String, Property> properties = {};
   final NodeWidgetBase blueprintNode;
   final NodeEditorInheritedWidget inheritedWidget;
   final GlobalKey globalKey;
@@ -70,21 +75,22 @@ class NodeModel {
   bool minimized = false;
   bool selected = false;
 
-  NodeModel(
-      {required this.blueprintNode, required this.globalKey, required this.pos})
-      : inheritedWidget = NodeEditorInheritedWidget(
+  NodeModel({
+    required this.blueprintNode,
+    required this.globalKey,
+    required this.pos,
+    void Function(NodeModel)? runner,
+  }) : inheritedWidget = NodeEditorInheritedWidget(
           key: globalKey,
           blueprintNode: blueprintNode,
-        );
+        ) {
+    this.runner = runner ?? (node) {};
+  }
 
   String get name => blueprintNode.name;
 
   addPort(Port port) {
     ports[port.name] = port;
-  }
-
-  addProperty(Property property) {
-    properties[property.name] = property;
   }
 
   Map<String, dynamic> getPorts() {
@@ -100,27 +106,48 @@ class NodeModel {
     return portsMap;
   }
 
-  Map<String, dynamic> getProperties() {
-    Map<String, dynamic> propMap = {};
-    for (var p in properties.entries) {
-      propMap[p.key] = p.value.value;
-    }
-
-    return propMap;
-  }
-
   Map<String, dynamic> toMap() {
     return {
-      'ports': getPorts(),
-      'properties': getProperties(),
+      'ports': getPorts()
     };
   }
+
+  void executeRunner(BuildContext context) {
+    try {
+      try {
+        runner(this);
+      } on Exception catch (e) {
+        showDialog(
+            context: context,
+            builder: (BuildContext ctx) {
+              return Dialog(
+                child: Center(child: Text("An exception occured: $e")),
+              );
+            });
+      } catch (k) {
+        showDialog(
+            context: context,
+            builder: (BuildContext ctx) {
+              return showError(context, ["\nAt $name:\n${k.toString()}"],
+                  height: 160);
+            });
+      }
+    } catch (e) {
+      debugPrint(
+          "BuildContext did not passed to EditorController! \n[Error]: $e");
+    }
+  }
+
 }
 
 class NodesManager {
   Map<String, NodeModel> nodes = {};
   Offset _positionAfterLast = Offset.zero;
   bool isShiftPressed = false;
+
+  final ValueNotifier<bool> _selectedAny = ValueNotifier<bool>(false);
+
+  ValueNotifier get selectedAnyNotifier => _selectedAny;
 
   Offset _calculateInitPos(NodePosition pos) {
     if (pos.type == NodePositionType.startScreen) {
@@ -144,7 +171,6 @@ class NodesManager {
         yPos = node.value.pos.dy;
       }
     }
-
     _positionAfterLast = Offset(maxPos, yPos);
   }
 
@@ -184,12 +210,14 @@ class NodesManager {
 
   void selectNode(String nodeName) {
     nodes[nodeName]?.selected = true;
+    selectedAnyNotifier.value = true;
   }
 
   void selectNodeAction(String nodeName) {
     if (!isShiftPressed) {
       unselectAllNodes();
       nodes[nodeName]?.selected = true;
+      selectedAnyNotifier.value = true;
     } else {
       nodes[nodeName]?.selected = !(nodes[nodeName]?.selected ?? false);
     }
@@ -199,6 +227,7 @@ class NodesManager {
     for (var node in nodes.values) {
       node.selected = false;
     }
+    selectedAnyNotifier.value = false;
   }
 
   void addInPort(String nodeName, InPort inPortInfo) {
@@ -207,10 +236,6 @@ class NodesManager {
 
   void addOutPort(String nodeName, OutPort outPortInfo) {
     nodes[nodeName]?.addPort(outPortInfo);
-  }
-
-  void addProperty(String nodeName, Property property) {
-    nodes[nodeName]?.addProperty(property);
   }
 
   void moveNodePosition(String name, Offset delta) {
@@ -232,23 +257,23 @@ class NodesManager {
     }
   }
 
-Size getNodeWidgetSize(String nodeName) {
-  NodeModel? nodeModel = nodes[nodeName];
-  if (nodeModel == null) {
-    throw Exception('node: $nodeName not found');
-  }
-
-  final GlobalKey key = nodeModel.globalKey;
-
-  Size size = Size.zero;
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    final RenderBox? renderBox =
-        key.currentContext?.findRenderObject() as RenderBox?;
-    if (renderBox != null) {
-      size = renderBox.size;
+  Size getNodeWidgetSize(String nodeName) {
+    NodeModel? nodeModel = nodes[nodeName];
+    if (nodeModel == null) {
+      throw Exception('node: $nodeName not found');
     }
-  });
 
-  return size;
-}
+    final GlobalKey key = nodeModel.globalKey;
+
+    Size size = Size.zero;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final RenderBox? renderBox =
+          key.currentContext?.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        size = renderBox.size;
+      }
+    });
+
+    return size;
+  }
 }

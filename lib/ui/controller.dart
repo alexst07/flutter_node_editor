@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:node_editor/src/nodes.dart';
 
-import '../node_editor.dart';
 import 'connections.dart';
+import 'node_widget.dart';
+import 'nodes.dart';
+import 'position.dart';
 
 ///
 /// This controller handle all information that is used by Node Editor Widget
@@ -39,7 +40,8 @@ class NodeEditorController with ChangeNotifier {
   late ScrollController verticalScrollController;
 
   Offset _viewportOffset = Offset.zero;
-    void initScrollControllers(ScrollController horizontal, ScrollController vertical) {
+  void initScrollControllers(
+      ScrollController horizontal, ScrollController vertical) {
     horizontalScrollController = horizontal;
     verticalScrollController = vertical;
   }
@@ -52,11 +54,11 @@ class NodeEditorController with ChangeNotifier {
   Offset getViewportOffset() {
     return _viewportOffset;
   }
-  
+
   /// Focus node that request a focus when some node is tap or moved
   /// this attribute must be initialized in the init of the main widget
   /// node editor
-  late FocusNode focusNode;
+  FocusNode? focusNode;
 
   set isShiftPressed(bool v) {
     connectionsManager.isShiftPressed = v;
@@ -80,8 +82,10 @@ class NodeEditorController with ChangeNotifier {
 
   Map<String, NodeModel> get nodes => nodesManager.nodes;
 
-  List<String> get selecteds => nodes.values.where((node) => node.selected).map((node) => node.name).toList();
-
+  List<String> get selecteds => nodes.values
+      .where((node) => node.selected)
+      .map((node) => node.name)
+      .toList();
 
   void addSelectListener(void Function(Connection conn)? fn) {
     onSelectListener = fn;
@@ -143,7 +147,7 @@ class NodeEditorController with ChangeNotifier {
   void setConnecting(String nameNode, String namePort) {
     connectionsManager.setConnecting(
         this, nodesManager.nodes, nameNode, namePort);
-    focusNode.requestFocus();
+    focusNode!.requestFocus();
     notifyListeners();
   }
 
@@ -164,7 +168,7 @@ class NodeEditorController with ChangeNotifier {
 
   void moveNodePosition(String name, Offset delta) {
     nodesManager.moveNodePosition(name, delta);
-    focusNode.requestFocus();
+    focusNode!.requestFocus();
     notifyListeners();
   }
 
@@ -172,19 +176,15 @@ class NodeEditorController with ChangeNotifier {
     return nodesManager.getPort(nodeName, portName);
   }
 
-  void addProperty(String nodeName, Property property) {
-    nodesManager.addProperty(nodeName, property);
-  }
-
   void selectOnTap(Offset tapPosition) {
     nodesManager.unselectAllNodes();
     connectionsManager.selectOnTap(this, tapPosition);
-    focusNode.requestFocus();
+    focusNode!.requestFocus();
     notifyListeners();
   }
 
   void selectNodeAction(String nodeName) {
-    focusNode.requestFocus();
+    focusNode!.requestFocus();
     nodesManager.selectNodeAction(nodeName);
     notifyListeners();
   }

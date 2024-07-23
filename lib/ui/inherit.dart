@@ -6,10 +6,10 @@ class ControllerInheritedWidget extends InheritedWidget {
   final NodeEditorController controller;
 
   const ControllerInheritedWidget({
-    Key? key,
+    super.key,
     required this.controller,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   static ControllerInheritedWidget of(BuildContext context) {
     final ControllerInheritedWidget? result =
