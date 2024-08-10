@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:node_editor/node_editor.dart';
 
-import 'background.dart';
-import 'connections.dart';
-import 'controller.dart';
 import 'nodes.dart';
 
 class LinePainter extends CustomPainter {

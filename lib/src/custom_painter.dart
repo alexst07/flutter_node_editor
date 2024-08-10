@@ -9,11 +9,12 @@ import 'line_painter.dart';
 
 class NodeEditor extends StatefulWidget {
   const NodeEditor(
-      {super.key,
+      {Key? key,
       required this.controller,
       required this.background,
       required this.focusNode,
-      required this.infiniteCanvasSize});
+      required this.infiniteCanvasSize})
+      : super(key: key);
 
   final NodeEditorController controller;
   final NodeEditorBackgroundBase background;
@@ -50,7 +51,7 @@ class _NodeEditorState extends State<NodeEditor> {
       // set the focus in the controller
       widget.controller.focusNode = widget.focusNode;
 
-      // debugPrint('Set stackPos');
+      debugPrint('Set stackPos');
       afterBuild = true;
       widget.controller.verticalScrollController = verticalScrollController;
       widget.controller.horizontalScrollController = horizontalScrollController;
@@ -94,7 +95,7 @@ class _NodeEditorState extends State<NodeEditor> {
         },
         child: GestureDetector(
           onTapDown: (TapDownDetails details) {
-            // debugPrint("onTapDown");
+            debugPrint("onTapDown");
             widget.controller.selectOnTap(details.localPosition);
           },
           child: AnimatedBuilder(

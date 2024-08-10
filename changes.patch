@@ -1,0 +1,3323 @@
+diff --git a/.gitignore b/.gitignore
+index 5fa1eb9..96486fd 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -28,7 +28,3 @@ migrate_working_dir/
+ .dart_tool/
+ .packages
+ build/
+-
+-Blueprint/
+-Joystick/
+-
+diff --git a/LICENSE b/LICENSE
+index a28d639..66251f2 100644
+--- a/LICENSE
++++ b/LICENSE
+@@ -1,7 +1,3 @@
+-=============================
+-LICENSE 1
+-=============================
+-
+ Copyright 2024 Alex S Torres
+ 
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+@@ -12,20 +8,4 @@ Redistribution and use in source and binary forms, with or without modification,
+ 
+ 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ 
+-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-
+-=============================
+-LICENSE 2
+-=============================
+-
+-Copyright 2024 Pip Doun
+-
+-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+-
+-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+-
+-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+-
+-3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+-
+-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\ No newline at end of file
+diff --git a/README.md b/README.md
+index 7ababc2..2c95aba 100644
+--- a/README.md
++++ b/README.md
+@@ -16,10 +16,9 @@ and the Flutter guide for
+ <p align="center">A highly customizable node editor for Flutter</p>
+ 
+ 
+-https://github.com/user-attachments/assets/60980604-69ad-477f-900f-deec0219b913
+-
+-<img src="https://raw.githubusercontent.com/alexst07/flutter_node_editor/master/midia/nodes.png"/>
+-
++<p align="center">
++        <img src="https://raw.githubusercontent.com/alexst07/flutter_node_editor/master/midia/nodes.png"/>
++</p>
+ 
+ ## Features
+ 
+diff --git a/examples/advanced/lib/main.dart b/examples/advanced/lib/main.dart
+index 248aa85..4788464 100644
+--- a/examples/advanced/lib/main.dart
++++ b/examples/advanced/lib/main.dart
+@@ -1,17 +1,8 @@
+-import 'dart:convert';
+-
+ import 'package:flutter/material.dart';
+ import 'package:node_editor/node_editor.dart';
+ 
+-import 'Blueprint/blueprint.dart';
+-import 'joystick/flutter_joystick.dart';
+-import 'dart:io' show Platform;
++import 'nodes.dart';
+ 
+-//hardcoded
+-String bp =
+-    '{"nodes":[{"name":"adder_1720696047881054","type":"adder","value":70.0,"pos":"Offset(217.1, 14.7)","ports":{"adder_inPort_1720696047881718":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696047881719":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696047881720":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"int_1720695994049152","type":"integer","value":"50","pos":"Offset(9.2, 18.6)","ports":{"int_outPort_1720695994054281":{"type":"output","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696047881054","type":"adder","value":70.0,"pos":"Offset(217.1, 14.7)","ports":{"adder_inPort_1720696047881718":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696047881719":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696047881720":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"int_1720696012552220","type":"integer","value":"20","pos":"Offset(8.9, 68.2)","ports":{"int_outPort_1720696012552244":{"type":"output","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696066246650","type":"adder","value":90.0,"pos":"Offset(22.3, 197.7)","ports":{"adder_inPort_1720696066246671":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696066246673":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696066246675":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696047881054","type":"adder","value":70.0,"pos":"Offset(217.1, 14.7)","ports":{"adder_inPort_1720696047881718":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696047881719":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696047881720":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696066246650","type":"adder","value":90.0,"pos":"Offset(22.3, 197.7)","ports":{"adder_inPort_1720696066246671":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696066246673":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696066246675":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"int_1720696012552220","type":"integer","value":"20","pos":"Offset(8.9, 68.2)","ports":{"int_outPort_1720696012552244":{"type":"output","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696129323395","type":"adder","value":160.0,"pos":"Offset(220.4, 240.0)","ports":{"adder_inPort_1720696129323414":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696129323416":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696129323417":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696066246650","type":"adder","value":90.0,"pos":"Offset(22.3, 197.7)","ports":{"adder_inPort_1720696066246671":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696066246673":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696066246675":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696129323395","type":"adder","value":160.0,"pos":"Offset(220.4, 240.0)","ports":{"adder_inPort_1720696129323414":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696129323416":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696129323417":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696047881054","type":"adder","value":70.0,"pos":"Offset(217.1, 14.7)","ports":{"adder_inPort_1720696047881718":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696047881719":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696047881720":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"print_1720696147104722","type":"print","value":"160.0","pos":"Offset(20.7, 360.4)","ports":{"print_inPort_1720696147104758":{"type":"input","multiConnections":false,"maxConnections":null}}},{"name":"adder_1720696129323395","type":"adder","value":160.0,"pos":"Offset(220.4, 240.0)","ports":{"adder_inPort_1720696129323414":{"type":"input","multiConnections":false,"maxConnections":null},"adder_outPort_1720696129323416":{"type":"output","multiConnections":false,"maxConnections":null},"adder_inPort2_1720696129323417":{"type":"input","multiConnections":false,"maxConnections":null}}}],"connections":[{"outPort":"int_outPort_1720695994054281","inPort":"adder_inPort_1720696047881718"},{"outPort":"int_outPort_1720696012552244","inPort":"adder_inPort2_1720696047881720"},{"outPort":"adder_outPort_1720696047881719","inPort":"adder_inPort_1720696066246671"},{"outPort":"int_outPort_1720696012552244","inPort":"adder_inPort2_1720696066246675"},{"outPort":"adder_outPort_1720696066246673","inPort":"adder_inPort_1720696129323414"},{"outPort":"adder_outPort_1720696047881719","inPort":"adder_inPort2_1720696129323417"},{"outPort":"adder_outPort_1720696129323416","inPort":"print_inPort_1720696147104758"}]}';
+-//
+-//start from here
+ void main() {
+   runApp(const MyApp());
+ }
+@@ -22,42 +13,70 @@ class MyApp extends StatelessWidget {
+   @override
+   Widget build(BuildContext context) {
+     return MaterialApp(
+-      debugShowCheckedModeBanner: false,
+-      title: 'Chains',
++      title: 'Flutter Demo',
+       theme: ThemeData(
+         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+         useMaterial3: true,
+       ),
+-      home: const MyHomePage(),
++      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+     );
+   }
+ }
+ 
+ class MyHomePage extends StatefulWidget {
+-  const MyHomePage({super.key});
++  const MyHomePage({super.key, required this.title});
++
++  final String title;
+ 
+   @override
+   State<MyHomePage> createState() => _MyHomePageState();
+ }
+ 
+ class _MyHomePageState extends State<MyHomePage> {
+-  final BlueprintController controller = BlueprintController();
+-  final JoystickController stickCtrl = JoystickController();
+-
++  final NodeEditorController controller = NodeEditorController();
+   final FocusNode _focusNode = FocusNode();
+-
+-  bool assetsLoaded = false;
+-
++  final FocusNode _focusNode2 = FocusNode();
++  final TextEditingController _controller = TextEditingController();
+   @override
+   void initState() {
+-    controller.joystick = stickCtrl;
+-    controller.context = context;
+-    controller.needUpdate.addListener(() {
+-      setState(() {});
++    controller.addSelectListener((Connection conn) {
++      debugPrint("ON SELECT inNode: ${conn.inNode}, inPort: ${conn.inPort}");
+     });
++
++    controller.addNode(
++      componentNode('node_1_1'),
++      NodePosition.afterLast,
++    );
++    controller.addNode(
++      componentNode('node_1_2'),
++      NodePosition.afterLast,
++    );
++    controller.addNode(
++      componentNode('node_1_3'),
++      NodePosition.afterLast,
++    );
++    controller.addNode(
++      receiverNode('node_2_1', _focusNode2, _controller),
++      NodePosition.afterLast,
++    );
++    controller.addNode(
++      binaryNode('node_3_1'),
++      NodePosition.afterLast,
++    );
++    controller.addNode(
++      sinkNode('node_4_1'),
++      NodePosition.afterLast,
++    );
+     super.initState();
+   }
+ 
++  void _addNewNode() {
++    controller.addNode(
++      componentNode("new_node"),
++      NodePosition.afterLast,
++    );
++  }
++
+   @override
+   void dispose() {
+     _focusNode.dispose();
+@@ -67,102 +86,27 @@ class _MyHomePageState extends State<MyHomePage> {
+   @override
+   Widget build(BuildContext context) {
+     return Scaffold(
+-        appBar: AppBar(
+-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+-          actions: [
+-            //mount asset
+-            Padding(
+-              padding: const EdgeInsets.only(left: 8.0),
+-              child: Row(
+-                children: [
+-                  assetsLoaded ? const Text("Eject") : const Text("Mount"),
+-                  assetsLoaded
+-                      ? IconButton(
+-                          onPressed: () {},
+-                          icon: const Icon(Icons.eject_rounded))
+-                      : IconButton(
+-                          onPressed: () {},
+-                          icon: const Icon(Icons.sd_storage_rounded))
+-                ],
+-              ),
+-            ),
+-            Expanded(child: Container()),
+-            // select all
+-            IconButton(
+-                onPressed: () {
+-                  controller.selectAll();
+-                },
+-                icon: const Icon(Icons.select_all_rounded)),
+-            //mapping
+-            IconButton(
+-                onPressed: () {
+-                  var tree = controller.saveBlueprint();
+-                  String jsonTree = jsonEncode(tree);
+-                  debugPrint(jsonTree);
+-                  // like a tree
+-                },
+-                icon: const Icon(Icons.map_rounded)),
+-            //sideload
+-            IconButton(
+-                onPressed: () {
+-                  controller.cleanBlueprint();
+-                  controller.loadBlueprint(bp);
+-                },
+-                icon: const Icon(Icons.upload_file_rounded)),
+-            //run
+-            IconButton(
+-                onPressed: () {
+-                  debugPrint("Running nodes!");
+-                  controller.runNodes();
+-                },
+-                icon: const Icon(Icons.play_circle_outline_rounded))
+-          ],
+-        ),
+-        body: NodeEditor(
+-          focusNode: _focusNode,
+-          controller: controller,
+-          background: const GridBackground(),
+-          infiniteCanvasSize: 5000,
+-        ),
+-        floatingActionButton: Padding(
+-          padding: const EdgeInsets.only(left: 40.0),
+-          child: Row(
+-            crossAxisAlignment: CrossAxisAlignment.end,
+-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+-            children: [
+-              !(Platform.isWindows || Platform.isMacOS)
+-                  ? SizedBox(
+-                      width: 100,
+-                      height: 100,
+-                      child: Joystick(
+-                        stick: const JoystickStick(
+-                          decoration: null,
+-                        ),
+-                        controller: stickCtrl,
+-                        listener: (details) {
+-                          for (var name in controller.selecteds) {
+-                            controller.moveNodePosition(
+-                                name, Offset(details.x * 12, details.y * 12));
+-                          }
+-                        },
+-                      ),
+-                    )
+-                  : Container(),
+-              ValueListenableBuilder(
+-                valueListenable: controller.selectedAny,
+-                builder: (context, selectedAny, child) {
+-                  return selectedAny
+-                      ? FloatingActionButton(
+-                          onPressed: () {
+-                            controller.deleteSelectedNodes();
+-                          },
+-                          child: const Icon(Icons.delete_outline_rounded),
+-                        )
+-                      : Container();
+-                },
+-              ),
+-            ],
+-          ),
+-        ));
++      appBar: AppBar(
++        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
++        title: Text(widget.title),
++        actions: [
++          IconButton(
++              onPressed: () {
++                debugPrint('controller.toMap(): ${controller.toJson()}');
++              },
++              icon: const Icon(Icons.abc))
++        ],
++      ),
++      body: NodeEditor(
++        focusNode: _focusNode,
++        controller: controller,
++        background: const GridBackground(),
++        infiniteCanvasSize: 5000,
++      ),
++      floatingActionButton: FloatingActionButton(
++        onPressed: _addNewNode,
++        child: const Icon(Icons.add),
++      ),
++    );
+   }
+ }
+diff --git a/examples/advanced/lib/nodes.dart b/examples/advanced/lib/nodes.dart
+new file mode 100644
+index 0000000..06b493b
+--- /dev/null
++++ b/examples/advanced/lib/nodes.dart
+@@ -0,0 +1,417 @@
++import 'package:flutter/material.dart';
++import 'package:node_editor/node_editor.dart';
++
++NodeWidgetBase componentNode(String name) {
++  return TitleBarNodeWidget(
++    name: name,
++    typeName: 'node_1',
++    backgroundColor: Colors.black87,
++    radius: 10,
++    selectedBorder: Border.all(color: Colors.white),
++    child: Column(
++      crossAxisAlignment: CrossAxisAlignment.end,
++      children: [
++        Row(
++          mainAxisAlignment: MainAxisAlignment.end,
++          children: [
++            const Text('Output 1'),
++            OutPortWidget(
++              name: 'PortOut1',
++              icon: const Icon(
++                Icons.play_arrow_outlined,
++                color: Colors.red,
++                size: 24,
++              ),
++              iconConnected: const Icon(
++                Icons.play_arrow,
++                color: Colors.red,
++                size: 24,
++              ),
++              multiConnections: false,
++              connectionTheme:
++                  ConnectionTheme(color: Colors.red, strokeWidth: 2),
++            ),
++          ],
++        ),
++        Row(
++          mainAxisAlignment: MainAxisAlignment.end,
++          children: [
++            const Text('Output 2'),
++            SizedBox(
++              width: 24,
++              height: 24,
++              child: OutPortWidget(
++                name: 'PortOut2',
++                icon: const Icon(
++                  Icons.circle_outlined,
++                  color: Colors.yellowAccent,
++                  size: 20,
++                ),
++                iconConnected: const Icon(
++                  Icons.circle,
++                  color: Colors.yellowAccent,
++                  size: 20,
++                ),
++                multiConnections: false,
++                connectionTheme:
++                    ConnectionTheme(color: Colors.yellowAccent, strokeWidth: 2),
++              ),
++            ),
++          ],
++        ),
++        Row(
++          mainAxisAlignment: MainAxisAlignment.end,
++          children: [
++            const CheckBoxProperty(name: 'check_port'),
++            const Text('Output 3'),
++            OutPortWidget(
++              name: 'PortOut3',
++              icon: const Icon(
++                Icons.play_arrow_outlined,
++                color: Colors.green,
++                size: 24,
++              ),
++              iconConnected: const Icon(
++                Icons.play_arrow,
++                color: Colors.green,
++                size: 24,
++              ),
++              multiConnections: false,
++              connectionTheme:
++                  ConnectionTheme(color: Colors.green, strokeWidth: 2),
++            ),
++          ],
++        ),
++        Row(
++          mainAxisAlignment: MainAxisAlignment.center,
++          children: [
++            Flexible(
++              child: Container(
++                height: 30,
++                padding: const EdgeInsets.only(left: 4),
++                decoration: const BoxDecoration(
++                  color: Colors.white10, // Container color
++                  borderRadius:
++                      BorderRadius.all(Radius.circular(10)), // Rounded corners
++                ),
++                child: Builder(builder: (context) {
++                  return Theme(
++                    data: Theme.of(context).copyWith(
++                      canvasColor: Colors.black,
++                    ),
++                    child: DropdownMenuProperty<int>(
++                      underline: const SizedBox(),
++                      name: 'select',
++                      dropdownColor: Colors.white,
++                      style: const TextStyle(color: Colors.white),
++                      items: const [
++                        DropdownMenuItem(
++                          value: 0,
++                          child: Text(
++                            'Item1',
++                            style: TextStyle(color: Colors.black),
++                          ),
++                        ),
++                        DropdownMenuItem(
++                          value: 1,
++                          child: Text(
++                            'Item2',
++                            style: TextStyle(color: Colors.black),
++                          ),
++                        ),
++                        DropdownMenuItem(
++                          value: 2,
++                          child: Text(
++                            'Item3',
++                            style: TextStyle(color: Colors.black),
++                          ),
++                        ),
++                      ],
++                      onChanged: (int? v) {},
++                    ),
++                  );
++                }),
++              ),
++            ),
++          ],
++        ),
++        const Row(
++          mainAxisAlignment: MainAxisAlignment.center,
++          children: [
++            Text('check 1:'),
++            CheckBoxProperty(name: 'check_prop1'),
++          ],
++        ),
++      ],
++    ),
++    title: const Text('Components'),
++    iconTileSpacing: 5,
++    titleBarPadding: const EdgeInsets.all(4.0),
++    titleBarGradient: const LinearGradient(
++        colors: [Color.fromRGBO(0, 23, 135, 1.0), Colors.lightBlue]),
++    icon: const Icon(
++      Icons.rectangle_outlined,
++      color: Colors.white,
++    ),
++    width: 200,
++  );
++}
++
++NodeWidgetBase receiverNode(
++    String name, FocusNode focusNode, TextEditingController controller) {
++  return TitleBarNodeWidget(
++    name: name,
++    typeName: 'node_2',
++    backgroundColor: Colors.black87,
++    radius: 10,
++    selectedBorder: Border.all(color: Colors.white),
++    child: Column(
++      crossAxisAlignment: CrossAxisAlignment.end,
++      children: [
++        Row(
++          mainAxisAlignment: MainAxisAlignment.spaceBetween,
++          children: [
++            Row(
++              mainAxisAlignment: MainAxisAlignment.start,
++              children: [
++                InPortWidget(
++                  name: 'PortIn1',
++                  onConnect: (String name, String port) => true,
++                  icon: const Icon(
++                    Icons.play_arrow_outlined,
++                    color: Colors.red,
++                    size: 24,
++                  ),
++                  iconConnected: const Icon(
++                    Icons.play_arrow,
++                    color: Colors.red,
++                    size: 24,
++                  ),
++                  multiConnections: false,
++                  connectionTheme:
++                      ConnectionTheme(color: Colors.red, strokeWidth: 2),
++                ),
++                const Text('Input 1'),
++              ],
++            ),
++            Row(
++              mainAxisAlignment: MainAxisAlignment.end,
++              children: [
++                const Text('Output 3'),
++                OutPortWidget(
++                  name: 'PortOut3',
++                  icon: const Icon(
++                    Icons.play_arrow_outlined,
++                    color: Colors.blue,
++                    size: 24,
++                  ),
++                  iconConnected: const Icon(
++                    Icons.play_arrow,
++                    color: Colors.blue,
++                    size: 24,
++                  ),
++                  multiConnections: false,
++                  connectionTheme:
++                      ConnectionTheme(color: Colors.blue, strokeWidth: 2),
++                ),
++              ],
++            ),
++          ],
++        ),
++        Row(
++          mainAxisAlignment: MainAxisAlignment.start,
++          children: [
++            InPortWidget(
++              name: 'PortIn2',
++              onConnect: (String name, String port) => true,
++              icon: const Icon(
++                Icons.play_arrow_outlined,
++                color: Colors.red,
++                size: 24,
++              ),
++              iconConnected: const Icon(
++                Icons.play_arrow,
++                color: Colors.red,
++                size: 24,
++              ),
++              multiConnections: false,
++              connectionTheme:
++                  ConnectionTheme(color: Colors.red, strokeWidth: 2),
++            ),
++            const Text('Input 2'),
++          ],
++        ),
++        Row(
++          mainAxisAlignment: MainAxisAlignment.center,
++          children: [
++            const Text('Value: '),
++            SizedBox(
++              width: 50,
++              height: 25,
++              child: TextEditProperty(
++                name: 'text_prop',
++                focusNode: focusNode,
++                controller: controller,
++                style: const TextStyle(
++                    color: Colors.white,
++                    fontWeight: FontWeight.normal,
++                    fontSize: 14),
++                decoration: InputDecoration(
++                  filled: true,
++                  contentPadding:
++                      const EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
++                  fillColor: Colors.white10,
++                  border: OutlineInputBorder(
++                      borderSide: const BorderSide(color: Colors.white),
++                      borderRadius: BorderRadius.circular(5)),
++                ),
++              ),
++            ),
++          ],
++        ),
++      ],
++    ),
++    title: const Text('Receiver'),
++    iconTileSpacing: 5,
++    titleBarPadding: const EdgeInsets.all(4.0),
++    titleBarGradient: const LinearGradient(
++        colors: [Color.fromRGBO(12, 100, 6, 1.0), Colors.greenAccent]),
++    icon: const Icon(
++      Icons.receipt_rounded,
++      color: Colors.white,
++    ),
++    width: 200,
++  );
++}
++
++NodeWidgetBase binaryNode(String name) {
++  return ContainerNodeWidget(
++    name: name,
++    typeName: 'node_3',
++    backgroundColor: Colors.blue.shade800,
++    radius: 10,
++    width: 200,
++    contentPadding: const EdgeInsets.all(4),
++    selectedBorder: Border.all(color: Colors.white),
++    child: Row(
++      mainAxisAlignment: MainAxisAlignment.spaceBetween,
++      children: [
++        Column(
++          mainAxisAlignment: MainAxisAlignment.spaceBetween,
++          children: [
++            InPortWidget(
++              name: 'PortIn1',
++              onConnect: (String name, String port) => true,
++              icon: const Icon(
++                Icons.circle_outlined,
++                color: Colors.yellowAccent,
++                size: 20,
++              ),
++              iconConnected: const Icon(
++                Icons.circle,
++                color: Colors.yellowAccent,
++                size: 20,
++              ),
++              multiConnections: false,
++              connectionTheme:
++                  ConnectionTheme(color: Colors.yellowAccent, strokeWidth: 2),
++            ),
++            InPortWidget(
++              name: 'PortIn2',
++              onConnect: (String name, String port) => true,
++              icon: const Icon(
++                Icons.circle_outlined,
++                color: Colors.yellowAccent,
++                size: 20,
++              ),
++              iconConnected: const Icon(
++                Icons.circle,
++                color: Colors.yellowAccent,
++                size: 20,
++              ),
++              multiConnections: false,
++              connectionTheme:
++                  ConnectionTheme(color: Colors.yellowAccent, strokeWidth: 2),
++            ),
++          ],
++        ),
++        const Icon(Icons.safety_divider),
++        OutPortWidget(
++          name: 'PortOut1',
++          icon: const Icon(
++            Icons.pause_circle_outline,
++            color: Colors.deepOrange,
++            size: 24,
++          ),
++          iconConnected: const Icon(
++            Icons.pause_circle,
++            color: Colors.deepOrange,
++            size: 24,
++          ),
++          multiConnections: false,
++          connectionTheme:
++              ConnectionTheme(color: Colors.deepOrange, strokeWidth: 2),
++        ),
++      ],
++    ),
++  );
++}
++
++NodeWidgetBase sinkNode(String name) {
++  return TitleBarNodeWidget(
++    name: name,
++    typeName: 'node_4',
++    backgroundColor: Colors.green.shade800,
++    radius: 10,
++    selectedBorder: Border.all(color: Colors.white),
++    child: Padding(
++      padding: const EdgeInsets.only(top: 8, bottom: 8),
++      child: Column(
++        crossAxisAlignment: CrossAxisAlignment.end,
++        children: [
++          Row(
++            mainAxisAlignment: MainAxisAlignment.spaceBetween,
++            children: [
++              Row(
++                mainAxisAlignment: MainAxisAlignment.start,
++                children: [
++                  InPortWidget(
++                    name: 'PortIn1',
++                    onConnect: (String name, String port) => true,
++                    icon: const Icon(
++                      Icons.add_circle_outline,
++                      color: Colors.blueAccent,
++                      size: 24,
++                    ),
++                    iconConnected: const Icon(
++                      Icons.add_circle_outlined,
++                      color: Colors.blueAccent,
++                      size: 24,
++                    ),
++                    multiConnections: false,
++                    connectionTheme: ConnectionTheme(
++                        color: Colors.blueAccent, strokeWidth: 2),
++                  ),
++                  const Text('Input 2'),
++                ],
++              ),
++            ],
++          ),
++        ],
++      ),
++    ),
++    title: const Text(
++      'Sinker',
++      style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.bold),
++    ),
++    iconTileSpacing: 5,
++    titleBarPadding: const EdgeInsets.all(4.0),
++    titleBarGradient:
++        const LinearGradient(colors: [Colors.yellowAccent, Colors.yellow]),
++    icon: const Icon(
++      Icons.calculate_rounded,
++      color: Colors.deepOrange,
++    ),
++    width: 200,
++  );
++}
+diff --git a/lib/node_editor.dart b/lib/node_editor.dart
+index 0b1afbd..92d8034 100644
+--- a/lib/node_editor.dart
++++ b/lib/node_editor.dart
+@@ -1,13 +1,23 @@
+ library node_editor;
+ 
+-export 'ui/background.dart'
++export 'src/background.dart'
+     show NodeEditorBackgroundBase, SolidBackground, GridBackground;
+-export 'ui/connections.dart' show Connection, ConnectionTheme;
+-export 'ui/controller.dart' show NodeEditorController;
+-export 'ui/editor.dart' show NodeEditor;
+-export 'ui/inherit.dart' show ControllerInheritedWidget;
+-export 'ui/node_widget.dart' show NodeWidgetBase, NodeEditorInheritedWidget;
+-export 'ui/nodes.dart' show NodeModel;
+-export 'ui/port_widget.dart' show InPortWidget, OutPortWidget;
+-export 'ui/position.dart' show NodePosition, NodePositionType;
+-export 'ui/utils.dart';
++export 'src/connections.dart' show Connection, ConnectionTheme;
++export 'src/controller.dart' show NodeEditorController;
++export 'src/custom_painter.dart' show NodeEditor;
++export 'src/inherit.dart' show ControllerInheritedWidget;
++export 'src/node_widget.dart'
++    show
++        NodeWidgetBase,
++        NodeEditorInheritedWidget,
++        TitleBarNodeWidget,
++        ContainerNodeWidget,
++        BinaryOperationNode,
++        UnaryOperationNode;
++export 'src/nodes.dart' show NodeModel;
++export 'src/port.dart' show InPortWidget, OutPortWidget;
++export 'src/position.dart' show NodePosition, NodePositionType;
++export 'src/properties.dart' show PropertyMixin;
++export 'src/properties/checkbox.dart' show CheckBoxProperty;
++export 'src/properties/dropdown.dart' show DropdownMenuProperty;
++export 'src/properties/text_edit.dart' show TextEditProperty;
+diff --git a/lib/ui/background.dart b/lib/src/background.dart
+similarity index 100%
+rename from lib/ui/background.dart
+rename to lib/src/background.dart
+diff --git a/lib/ui/connections.dart b/lib/src/connections.dart
+similarity index 98%
+rename from lib/ui/connections.dart
+rename to lib/src/connections.dart
+index 761f56f..91abe3c 100644
+--- a/lib/ui/connections.dart
++++ b/lib/src/connections.dart
+@@ -150,6 +150,7 @@ class ConnectionsManager {
+ 
+   void selectOnTap(NodeEditorController controller, Offset tapPosition) {
+     Offset viewportOffset = controller.getViewportOffset();
++    debugPrint('selectOnTap->tapPosition: $tapPosition');
+     for (var conn in connections) {
+       Offset? startPoint = getPortPosition(controller, conn.outPort);
+       Offset? endPoint = getPortPosition(controller, conn.inPort);
+@@ -175,7 +176,7 @@ class ConnectionsManager {
+   mousePosition(Offset pos) {
+     if (startPointConnection != null) {
+       mousePoint = pos;
+-      // debugPrint('Mouse set_pos: $pos');
++      debugPrint('Mouse set_pos: $pos');
+     }
+   }
+ }
+diff --git a/lib/ui/controller.dart b/lib/src/controller.dart
+similarity index 97%
+rename from lib/ui/controller.dart
+rename to lib/src/controller.dart
+index e46eb5e..0c432d4 100644
+--- a/lib/ui/controller.dart
++++ b/lib/src/controller.dart
+@@ -176,6 +176,13 @@ class NodeEditorController with ChangeNotifier {
+     return nodesManager.getPort(nodeName, portName);
+   }
+ 
++  void addProperty(
++    String nodeName,
++    Property property,
++  ) {
++    nodesManager.nodes[nodeName]!.addProperty(property);
++  }
++
+   void selectOnTap(Offset tapPosition) {
+     nodesManager.unselectAllNodes();
+     connectionsManager.selectOnTap(this, tapPosition);
+diff --git a/lib/ui/curve.dart b/lib/src/curve.dart
+similarity index 100%
+rename from lib/ui/curve.dart
+rename to lib/src/curve.dart
+diff --git a/lib/ui/editor.dart b/lib/src/custom_painter.dart
+similarity index 97%
+rename from lib/ui/editor.dart
+rename to lib/src/custom_painter.dart
+index 6d4abac..5d3255c 100644
+--- a/lib/ui/editor.dart
++++ b/lib/src/custom_painter.dart
+@@ -9,11 +9,12 @@ import 'line_painter.dart';
+ 
+ class NodeEditor extends StatefulWidget {
+   const NodeEditor(
+-      {super.key,
++      {Key? key,
+       required this.controller,
+       required this.background,
+       required this.focusNode,
+-      required this.infiniteCanvasSize});
++      required this.infiniteCanvasSize})
++      : super(key: key);
+ 
+   final NodeEditorController controller;
+   final NodeEditorBackgroundBase background;
+@@ -50,7 +51,7 @@ class _NodeEditorState extends State<NodeEditor> {
+       // set the focus in the controller
+       widget.controller.focusNode = widget.focusNode;
+ 
+-      // debugPrint('Set stackPos');
++      debugPrint('Set stackPos');
+       afterBuild = true;
+       widget.controller.verticalScrollController = verticalScrollController;
+       widget.controller.horizontalScrollController = horizontalScrollController;
+@@ -94,7 +95,7 @@ class _NodeEditorState extends State<NodeEditor> {
+         },
+         child: GestureDetector(
+           onTapDown: (TapDownDetails details) {
+-            // debugPrint("onTapDown");
++            debugPrint("onTapDown");
+             widget.controller.selectOnTap(details.localPosition);
+           },
+           child: AnimatedBuilder(
+diff --git a/lib/ui/inherit.dart b/lib/src/inherit.dart
+similarity index 89%
+rename from lib/ui/inherit.dart
+rename to lib/src/inherit.dart
+index dd148e0..50faf91 100644
+--- a/lib/ui/inherit.dart
++++ b/lib/src/inherit.dart
+@@ -6,10 +6,10 @@ class ControllerInheritedWidget extends InheritedWidget {
+   final NodeEditorController controller;
+ 
+   const ControllerInheritedWidget({
+-    super.key,
++    Key? key,
+     required this.controller,
+-    required super.child,
+-  });
++    required Widget child,
++  }) : super(key: key, child: child);
+ 
+   static ControllerInheritedWidget of(BuildContext context) {
+     final ControllerInheritedWidget? result =
+diff --git a/lib/ui/line_painter.dart b/lib/src/line_painter.dart
+similarity index 98%
+rename from lib/ui/line_painter.dart
+rename to lib/src/line_painter.dart
+index 50540bb..f4bd640 100644
+--- a/lib/ui/line_painter.dart
++++ b/lib/src/line_painter.dart
+@@ -1,8 +1,6 @@
+ import 'package:flutter/material.dart';
++import 'package:node_editor/node_editor.dart';
+ 
+-import 'background.dart';
+-import 'connections.dart';
+-import 'controller.dart';
+ import 'nodes.dart';
+ 
+ class LinePainter extends CustomPainter {
+diff --git a/lib/src/node_widget.dart b/lib/src/node_widget.dart
+new file mode 100644
+index 0000000..027d21e
+--- /dev/null
++++ b/lib/src/node_widget.dart
+@@ -0,0 +1,412 @@
++import 'package:flutter/material.dart';
++
++import 'controller.dart';
++import 'inherit.dart';
++import 'nodes.dart';
++import 'port.dart';
++
++abstract class NodeItemWidgetInterface {
++  NodeItem get nodeInfo;
++}
++
++class NodeWidgetAtt {
++  bool selected = false;
++}
++
++/// Base class to create NodeWidgets
++abstract class NodeWidgetBase {
++  NodeWidgetBase(
++      {required this.width, required this.name, required this.typeName});
++
++  final String name;
++  final String typeName;
++  final double width;
++
++  @protected
++  final NodeWidgetAtt att = NodeWidgetAtt();
++
++  Widget customBuild(BuildContext context);
++
++  /// Flag to specify if the node is selected
++  bool get isSelected => att.selected;
++
++  /// Mark node as selected
++  ///
++  /// The node must be marked as selected on the controller
++  /// so the controller is called, and the name of the node is given
++  /// as argument, so the controller mark the node as selected
++  void selectNode(BuildContext context) {
++    NodeEditorController controller =
++        ControllerInheritedWidget.of(context).controller;
++    controller.selectNodeAction(name);
++  }
++}
++
++class NodeEditorInheritedWidget extends InheritedWidget {
++  NodeEditorInheritedWidget({
++    Key? key,
++    required this.blueprintNode,
++  }) : super(
++            key: key,
++            child: NodeWidget(
++              blueprintNode: blueprintNode,
++            ));
++
++  final NodeWidgetBase blueprintNode;
++
++  static NodeEditorInheritedWidget of(BuildContext context) {
++    final NodeEditorInheritedWidget? result =
++        context.dependOnInheritedWidgetOfExactType<NodeEditorInheritedWidget>();
++    assert(result != null, 'No NodeEditorInheritedWidget found in context');
++    return result!;
++  }
++
++  @override
++  bool updateShouldNotify(NodeEditorInheritedWidget oldWidget) {
++    return blueprintNode != oldWidget.blueprintNode;
++  }
++}
++
++class TitleBarNodeWidget extends NodeWidgetBase {
++  TitleBarNodeWidget(
++      {required this.icon,
++      required this.title,
++      super.width = 150,
++      this.titleBarColor,
++      this.backgroundColor,
++      this.boxShadow,
++      this.radius,
++      this.border,
++      this.selectedBorder,
++      this.gradient,
++      this.backgroundBlendMode,
++      this.image,
++      this.titleBarBorder,
++      this.titleBarGradient,
++      this.titleBarBackgroundBlendMode,
++      this.titleBarImage,
++      this.iconTileSpacing,
++      this.titleBarPadding,
++      this.contentPadding,
++      required super.name,
++      required super.typeName,
++      required this.child});
++
++  final Widget child;
++  final Color? titleBarColor;
++  final Color? backgroundColor;
++  final double? radius;
++  final Widget icon;
++  final Widget title;
++  final List<BoxShadow>? boxShadow;
++  final BoxBorder? border;
++  final BoxBorder? selectedBorder;
++  final Gradient? gradient;
++  final BlendMode? backgroundBlendMode;
++  final DecorationImage? image;
++  final BoxBorder? titleBarBorder;
++  final Gradient? titleBarGradient;
++  final BlendMode? titleBarBackgroundBlendMode;
++  final DecorationImage? titleBarImage;
++  final double? iconTileSpacing;
++  final EdgeInsetsGeometry? titleBarPadding;
++  final EdgeInsetsGeometry? contentPadding;
++
++  @override
++  Widget customBuild(BuildContext context) {
++    NodeEditorController controller =
++        ControllerInheritedWidget.of(context).controller;
++    return Container(
++      width: width,
++      padding: contentPadding ?? const EdgeInsets.all(0.0),
++      decoration: BoxDecoration(
++        color: backgroundColor, // Container color
++        border: isSelected ? selectedBorder : border,
++        gradient: gradient,
++        backgroundBlendMode: backgroundBlendMode,
++        image: image,
++        borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
++        boxShadow: boxShadow,
++      ),
++      child: Column(
++        children: [
++          GestureDetector(
++            onPanUpdate: (DragUpdateDetails details) {
++              for (var nodeName in controller.selecteds) {
++                controller.moveNodePosition(nodeName, details.delta);
++              }
++              // controller.moveNodePosition(name, details.delta);
++            },
++            child: Container(
++              decoration: BoxDecoration(
++                color: titleBarColor, // Container color
++                border: titleBarBorder,
++                image: titleBarImage,
++                backgroundBlendMode: titleBarBackgroundBlendMode,
++                gradient: titleBarGradient,
++                borderRadius: BorderRadius.only(
++                    topLeft: Radius.circular(radius ?? 0),
++                    topRight: Radius.circular(radius ?? 0)), // Rounded corners
++              ),
++              child: Padding(
++                padding: titleBarPadding ?? const EdgeInsets.all(0.0),
++                child: Row(
++                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
++                  children: [
++                    Expanded(
++                      child: Row(
++                        children: [
++                          GestureDetector(
++                            onTap: () {
++                              selectNode(context);
++                            },
++                            child: icon,
++                          ),
++                          SizedBox(
++                            width: iconTileSpacing,
++                          ),
++                          DefaultTextStyle(
++                            style: const TextStyle(
++                              fontSize: 14.0,
++                              color: Colors.white,
++                            ),
++                            child: title,
++                          )
++                        ],
++                      ),
++                    ),
++                  ],
++                ),
++              ),
++            ),
++          ),
++          DefaultTextStyle(
++            style: const TextStyle(
++              color: Color.fromRGBO(255, 255, 255, 0.8),
++            ),
++            child: child,
++          ),
++        ],
++      ),
++    );
++  }
++}
++
++class ContainerNodeWidget extends NodeWidgetBase {
++  ContainerNodeWidget(
++      {super.width = 150,
++      this.backgroundColor,
++      this.boxShadow,
++      this.radius,
++      this.border,
++      this.selectedBorder,
++      this.gradient,
++      this.backgroundBlendMode,
++      this.image,
++      this.contentPadding,
++      required super.name,
++      required super.typeName,
++      required this.child});
++
++  final Widget child;
++  final Color? backgroundColor;
++  final double? radius;
++  final List<BoxShadow>? boxShadow;
++  final BoxBorder? border;
++  final BoxBorder? selectedBorder;
++  final Gradient? gradient;
++  final BlendMode? backgroundBlendMode;
++  final DecorationImage? image;
++  final EdgeInsetsGeometry? contentPadding;
++
++  @override
++  Widget customBuild(BuildContext context) {
++    NodeEditorController controller =
++        ControllerInheritedWidget.of(context).controller;
++    return GestureDetector(
++      onPanUpdate: (DragUpdateDetails details) {
++        for (var nodeName in controller.selecteds) {
++          controller.moveNodePosition(nodeName, details.delta);
++        }
++      },
++      onDoubleTap: () {
++        selectNode(context);
++      },
++      child: Container(
++        width: width,
++        padding: contentPadding ?? const EdgeInsets.all(0.0),
++        decoration: BoxDecoration(
++          color: backgroundColor, // Container color
++          border: isSelected ? selectedBorder : border,
++          gradient: gradient,
++          backgroundBlendMode: backgroundBlendMode,
++          image: image,
++          borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
++          boxShadow: boxShadow,
++        ),
++        child: DefaultTextStyle(
++          style: const TextStyle(
++            color: Color.fromRGBO(255, 255, 255, 0.8),
++          ),
++          child: child,
++        ),
++      ),
++    );
++  }
++}
++
++class UnaryOperationNode extends NodeWidgetBase {
++  UnaryOperationNode(
++      {super.width = 150,
++      this.backgroundColor,
++      this.boxShadow,
++      this.radius,
++      this.border,
++      this.gradient,
++      this.backgroundBlendMode,
++      this.image,
++      required this.inputPort,
++      required this.outputPort,
++      required this.label,
++      required super.name,
++      required super.typeName});
++
++  final Color? backgroundColor;
++  final double? radius;
++  final Widget label;
++  final List<BoxShadow>? boxShadow;
++  final BoxBorder? border;
++  final Gradient? gradient;
++  final BlendMode? backgroundBlendMode;
++  final DecorationImage? image;
++  final InPortWidget inputPort;
++  final OutPortWidget outputPort;
++
++  @override
++  Widget customBuild(BuildContext context) {
++    NodeEditorController controller =
++        ControllerInheritedWidget.of(context).controller;
++    return GestureDetector(
++      onPanUpdate: (DragUpdateDetails details) {
++        for (var nodeName in controller.selecteds) {
++          controller.moveNodePosition(nodeName, details.delta);
++        }
++        // controller.moveNodePosition(name, details.delta);
++      },
++      onDoubleTap: () {
++        selectNode(context);
++      },
++      child: Container(
++        width: width,
++        decoration: BoxDecoration(
++          color: backgroundColor, // Container color
++          border: border,
++          gradient: gradient,
++          backgroundBlendMode: backgroundBlendMode,
++          image: image,
++          borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
++          boxShadow: boxShadow,
++        ),
++        child: Row(
++          mainAxisAlignment: MainAxisAlignment.spaceBetween,
++          children: [
++            inputPort,
++            label,
++            outputPort,
++          ],
++        ),
++      ),
++    );
++  }
++}
++
++class BinaryOperationNode extends NodeWidgetBase {
++  BinaryOperationNode(
++      {super.width = 150,
++      this.backgroundColor,
++      this.boxShadow,
++      this.radius,
++      this.border,
++      this.gradient,
++      this.backgroundBlendMode,
++      this.image,
++      required this.inputPort1,
++      required this.inputPort2,
++      required this.outputPort,
++      required this.label,
++      required super.name,
++      required super.typeName});
++
++  final Color? backgroundColor;
++  final double? radius;
++  final Widget label;
++  final List<BoxShadow>? boxShadow;
++  final BoxBorder? border;
++  final Gradient? gradient;
++  final BlendMode? backgroundBlendMode;
++  final DecorationImage? image;
++  final InPortWidget inputPort1;
++  final InPortWidget inputPort2;
++  final OutPortWidget outputPort;
++
++  @override
++  Widget customBuild(BuildContext context) {
++    NodeEditorController controller =
++        ControllerInheritedWidget.of(context).controller;
++    return GestureDetector(
++      onPanUpdate: (DragUpdateDetails details) {
++        for (var nodeName in controller.selecteds) {
++          controller.moveNodePosition(nodeName, details.delta);
++        }
++        // controller.moveNodePosition(name, details.delta);
++      },
++      onDoubleTap: () {
++        selectNode(context);
++      },
++      child: Container(
++        width: width,
++        decoration: BoxDecoration(
++          color: backgroundColor, // Container color
++          border: border,
++          gradient: gradient,
++          backgroundBlendMode: backgroundBlendMode,
++          image: image,
++          borderRadius: BorderRadius.circular(radius ?? 0), // Rounded corners
++          boxShadow: boxShadow,
++        ),
++        child: Row(
++          mainAxisAlignment: MainAxisAlignment.spaceBetween,
++          children: [
++            Column(
++              children: [inputPort1, inputPort2],
++            ),
++            label,
++            outputPort,
++          ],
++        ),
++      ),
++    );
++  }
++}
++
++class NodeWidget extends StatelessWidget {
++  const NodeWidget({Key? key, required this.blueprintNode}) : super(key: key);
++
++  final NodeWidgetBase blueprintNode;
++
++  @override
++  Widget build(BuildContext context) {
++    NodeEditorController controller =
++        ControllerInheritedWidget.of(context).controller;
++    return AnimatedBuilder(
++      animation: controller,
++      builder: (BuildContext context, Widget? child) {
++        // check if the node is selected
++        blueprintNode.att.selected =
++            controller.nodesManager.nodes[blueprintNode.name]?.selected ??
++                false;
++        return blueprintNode.customBuild(context);
++      },
++    );
++  }
++}
+diff --git a/lib/ui/nodes.dart b/lib/src/nodes.dart
+similarity index 85%
+rename from lib/ui/nodes.dart
+rename to lib/src/nodes.dart
+index 42e4d6d..9be88a4 100644
+--- a/lib/ui/nodes.dart
++++ b/lib/src/nodes.dart
+@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
+ import 'connections.dart';
+ import 'node_widget.dart';
+ import 'position.dart';
+-import 'utils.dart';
+ 
+ abstract class NodeItem {
+   final String name;
+@@ -62,12 +61,17 @@ class OutPort extends Port {
+   });
+ }
+ 
++class PortData {}
++
++class Property extends NodeItem {
++  Property({required super.name, this.value});
+ 
+-class NodeModel {
+   dynamic value;
+-  late void Function(NodeModel) runner;
++}
+ 
++class NodeModel {
+   Map<String, Port> ports = {};
++  Map<String, Property> properties = {};
+   final NodeWidgetBase blueprintNode;
+   final NodeEditorInheritedWidget inheritedWidget;
+   final GlobalKey globalKey;
+@@ -75,17 +79,12 @@ class NodeModel {
+   bool minimized = false;
+   bool selected = false;
+ 
+-  NodeModel({
+-    required this.blueprintNode,
+-    required this.globalKey,
+-    required this.pos,
+-    void Function(NodeModel)? runner,
+-  }) : inheritedWidget = NodeEditorInheritedWidget(
++  NodeModel(
++      {required this.blueprintNode, required this.globalKey, required this.pos})
++      : inheritedWidget = NodeEditorInheritedWidget(
+           key: globalKey,
+           blueprintNode: blueprintNode,
+-        ) {
+-    this.runner = runner ?? (node) {};
+-  }
++        );
+ 
+   String get name => blueprintNode.name;
+ 
+@@ -93,6 +92,10 @@ class NodeModel {
+     ports[port.name] = port;
+   }
+ 
++  addProperty(Property property) {
++    properties[property.name] = property;
++  }
++
+   Map<String, dynamic> getPorts() {
+     Map<String, dynamic> portsMap = {};
+     for (var p in ports.entries) {
+@@ -106,38 +109,21 @@ class NodeModel {
+     return portsMap;
+   }
+ 
++  Map<String, dynamic> getProperties() {
++    Map<String, dynamic> propMap = {};
++    for (var p in properties.entries) {
++      propMap[p.key] = p.value.value;
++    }
++
++    return propMap;
++  }
++
+   Map<String, dynamic> toMap() {
+     return {
+-      'ports': getPorts()
++      'ports': getPorts(),
++      'properties': getProperties(),
+     };
+   }
+-
+-  void executeRunner(BuildContext context) {
+-    try {
+-      try {
+-        runner(this);
+-      } on Exception catch (e) {
+-        showDialog(
+-            context: context,
+-            builder: (BuildContext ctx) {
+-              return Dialog(
+-                child: Center(child: Text("An exception occured: $e")),
+-              );
+-            });
+-      } catch (k) {
+-        showDialog(
+-            context: context,
+-            builder: (BuildContext ctx) {
+-              return showError(context, ["\nAt $name:\n${k.toString()}"],
+-                  height: 160);
+-            });
+-      }
+-    } catch (e) {
+-      debugPrint(
+-          "BuildContext did not passed to EditorController! \n[Error]: $e");
+-    }
+-  }
+-
+ }
+ 
+ class NodesManager {
+@@ -257,6 +243,10 @@ class NodesManager {
+     }
+   }
+ 
++  void addProperty(String nodeName, Property property) {
++    nodes[nodeName]?.addProperty(property);
++  }
++
+   Size getNodeWidgetSize(String nodeName) {
+     NodeModel? nodeModel = nodes[nodeName];
+     if (nodeModel == null) {
+diff --git a/lib/ui/port_widget.dart b/lib/src/port.dart
+similarity index 100%
+rename from lib/ui/port_widget.dart
+rename to lib/src/port.dart
+diff --git a/lib/ui/position.dart b/lib/src/position.dart
+similarity index 100%
+rename from lib/ui/position.dart
+rename to lib/src/position.dart
+diff --git a/lib/src/properties.dart b/lib/src/properties.dart
+new file mode 100644
+index 0000000..f331ca4
+--- /dev/null
++++ b/lib/src/properties.dart
+@@ -0,0 +1,27 @@
++import 'package:flutter/material.dart';
++
++import 'controller.dart';
++import 'inherit.dart';
++import 'node_widget.dart';
++import 'nodes.dart';
++
++mixin PropertyMixin<T> {
++  late Property property;
++  late String nodeName;
++  late NodeEditorController controller;
++
++  void registerProperty(BuildContext context, String name, T defaultValue) {
++    WidgetsBinding.instance.addPostFrameCallback((_) {
++      property = Property(name: name, value: defaultValue);
++      controller = ControllerInheritedWidget.of(context).controller;
++      NodeEditorInheritedWidget node = NodeEditorInheritedWidget.of(context);
++      nodeName = node.blueprintNode.name;
++      controller.addProperty(nodeName, property);
++    });
++  }
++
++  void setPropertyValue(T value) {
++    property.value = value;
++    controller.addProperty(nodeName, property);
++  }
++}
+diff --git a/lib/src/properties/checkbox.dart b/lib/src/properties/checkbox.dart
+new file mode 100644
+index 0000000..5072e04
+--- /dev/null
++++ b/lib/src/properties/checkbox.dart
+@@ -0,0 +1,325 @@
++import 'package:flutter/material.dart';
++
++import '../properties.dart';
++
++class CheckBoxProperty extends StatefulWidget {
++  const CheckBoxProperty({
++    Key? key,
++    required this.name,
++    this.startValue,
++    this.onChanged,
++    this.mouseCursor,
++    this.activeColor,
++    this.fillColor,
++    this.checkColor,
++    this.materialTapTargetSize,
++    this.visualDensity,
++    this.focusColor,
++    this.hoverColor,
++    this.overlayColor,
++    this.splashRadius,
++    this.focusNode,
++    this.autofocus = false,
++    this.shape,
++    this.side,
++    this.isError = false,
++  }) : super(key: key);
++
++  final String name;
++
++  /// Whether this checkbox is checked.
++  ///
++  /// When [tristate] is true, a value of null corresponds to the mixed state.
++  /// When [tristate] is false, this value must not be null.
++  final bool? startValue;
++
++  /// Called when the value of the checkbox should change.
++  ///
++  /// The checkbox passes the new value to the callback but does not actually
++  /// change state until the parent widget rebuilds the checkbox with the new
++  /// value.
++  ///
++  /// If this callback is null, the checkbox will be displayed as disabled
++  /// and will not respond to input gestures.
++  ///
++  /// When the checkbox is tapped, if [tristate] is false (the default) then
++  /// the [onChanged] callback will be applied to `!value`. If [tristate] is
++  /// true this callback cycle from false to true to null.
++  ///
++  /// The callback provided to [onChanged] should update the state of the parent
++  /// [StatefulWidget] using the [State.setState] method, so that the parent
++  /// gets rebuilt; for example:
++  ///
++  /// ```dart
++  /// Checkbox(
++  ///   value: _throwShotAway,
++  ///   onChanged: (bool? newValue) {
++  ///     setState(() {
++  ///       _throwShotAway = newValue!;
++  ///     });
++  ///   },
++  /// )
++  /// ```
++  final ValueChanged<bool?>? onChanged;
++
++  /// {@template flutter.material.checkbox.mouseCursor}
++  /// The cursor for a mouse pointer when it enters or is hovering over the
++  /// widget.
++  ///
++  /// If [mouseCursor] is a [MaterialStateProperty<MouseCursor>],
++  /// [MaterialStateProperty.resolve] is used for the following [MaterialState]s:
++  ///
++  ///  * [MaterialState.selected].
++  ///  * [MaterialState.hovered].
++  ///  * [MaterialState.focused].
++  ///  * [MaterialState.disabled].
++  /// {@endtemplate}
++  ///
++  /// When [startValue] is null and [tristate] is true, [MaterialState.selected] is
++  /// included as a state.
++  ///
++  /// If null, then the value of [CheckboxThemeData.mouseCursor] is used. If
++  /// that is also null, then [MaterialStateMouseCursor.clickable] is used.
++  ///
++  /// See also:
++  ///
++  ///  * [MaterialStateMouseCursor], a [MouseCursor] that implements
++  ///    `MaterialStateProperty` which is used in APIs that need to accept
++  ///    either a [MouseCursor] or a [MaterialStateProperty<MouseCursor>].
++  final MouseCursor? mouseCursor;
++
++  /// The color to use when this checkbox is checked.
++  ///
++  /// Defaults to [ColorScheme.secondary].
++  ///
++  /// If [fillColor] returns a non-null color in the [MaterialState.selected]
++  /// state, it will be used instead of this color.
++  final Color? activeColor;
++
++  /// {@template flutter.material.checkbox.fillColor}
++  /// The color that fills the checkbox, in all [MaterialState]s.
++  ///
++  /// Resolves in the following states:
++  ///  * [MaterialState.selected].
++  ///  * [MaterialState.hovered].
++  ///  * [MaterialState.focused].
++  ///  * [MaterialState.disabled].
++  ///
++  /// {@tool snippet}
++  /// This example resolves the [fillColor] based on the current [MaterialState]
++  /// of the [Checkbox], providing a different [Color] when it is
++  /// [MaterialState.disabled].
++  ///
++  /// ```dart
++  /// Checkbox(
++  ///   value: true,
++  ///   onChanged: (_){},
++  ///   fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
++  ///     if (states.contains(MaterialState.disabled)) {
++  ///       return Colors.orange.withOpacity(.32);
++  ///     }
++  ///     return Colors.orange;
++  ///   })
++  /// )
++  /// ```
++  /// {@end-tool}
++  /// {@endtemplate}
++  ///
++  /// If null, then the value of [activeColor] is used in the selected
++  /// state. If that is also null, the value of [CheckboxThemeData.fillColor]
++  /// is used. If that is also null, then [ThemeData.disabledColor] is used in
++  /// the disabled state, [ColorScheme.secondary] is used in the
++  /// selected state, and [ThemeData.unselectedWidgetColor] is used in the
++  /// default state.
++  final MaterialStateProperty<Color?>? fillColor;
++
++  /// {@template flutter.material.checkbox.checkColor}
++  /// The color to use for the check icon when this checkbox is checked.
++  /// {@endtemplate}
++  ///
++  /// If null, then the value of [CheckboxThemeData.checkColor] is used. If
++  /// that is also null, then Color(0xFFFFFFFF) is used.
++  final Color? checkColor;
++
++  /// {@template flutter.material.checkbox.materialTapTargetSize}
++  /// Configures the minimum size of the tap target.
++  /// {@endtemplate}
++  ///
++  /// If null, then the value of [CheckboxThemeData.materialTapTargetSize] is
++  /// used. If that is also null, then the value of
++  /// [ThemeData.materialTapTargetSize] is used.
++  ///
++  /// See also:
++  ///
++  ///  * [MaterialTapTargetSize], for a description of how this affects tap targets.
++  final MaterialTapTargetSize? materialTapTargetSize;
++
++  /// {@template flutter.material.checkbox.visualDensity}
++  /// Defines how compact the checkbox's layout will be.
++  /// {@endtemplate}
++  ///
++  /// {@macro flutter.material.themedata.visualDensity}
++  ///
++  /// If null, then the value of [CheckboxThemeData.visualDensity] is used. If
++  /// that is also null, then the value of [ThemeData.visualDensity] is used.
++  ///
++  /// See also:
++  ///
++  ///  * [ThemeData.visualDensity], which specifies the [visualDensity] for all
++  ///    widgets within a [Theme].
++  final VisualDensity? visualDensity;
++
++  /// The color for the checkbox's [Material] when it has the input focus.
++  ///
++  /// If [overlayColor] returns a non-null color in the [MaterialState.focused]
++  /// state, it will be used instead.
++  ///
++  /// If null, then the value of [CheckboxThemeData.overlayColor] is used in the
++  /// focused state. If that is also null, then the value of
++  /// [ThemeData.focusColor] is used.
++  final Color? focusColor;
++
++  /// {@template flutter.material.checkbox.hoverColor}
++  /// The color for the checkbox's [Material] when a pointer is hovering over it.
++  ///
++  /// If [overlayColor] returns a non-null color in the [MaterialState.hovered]
++  /// state, it will be used instead.
++  /// {@endtemplate}
++  ///
++  /// If null, then the value of [CheckboxThemeData.overlayColor] is used in the
++  /// hovered state. If that is also null, then the value of
++  /// [ThemeData.hoverColor] is used.
++  final Color? hoverColor;
++
++  /// {@template flutter.material.checkbox.overlayColor}
++  /// The color for the checkbox's [Material].
++  ///
++  /// Resolves in the following states:
++  ///  * [MaterialState.pressed].
++  ///  * [MaterialState.selected].
++  ///  * [MaterialState.hovered].
++  ///  * [MaterialState.focused].
++  /// {@endtemplate}
++  ///
++  /// If null, then the value of [activeColor] with alpha
++  /// [kRadialReactionAlpha], [focusColor] and [hoverColor] is used in the
++  /// pressed, focused and hovered state. If that is also null,
++  /// the value of [CheckboxThemeData.overlayColor] is used. If that is
++  /// also null, then the value of [ColorScheme.secondary] with alpha
++  /// [kRadialReactionAlpha], [ThemeData.focusColor] and [ThemeData.hoverColor]
++  /// is used in the pressed, focused and hovered state.
++  final MaterialStateProperty<Color?>? overlayColor;
++
++  /// {@template flutter.material.checkbox.splashRadius}
++  /// The splash radius of the circular [Material] ink response.
++  /// {@endtemplate}
++  ///
++  /// If null, then the value of [CheckboxThemeData.splashRadius] is used. If
++  /// that is also null, then [kRadialReactionRadius] is used.
++  final double? splashRadius;
++
++  /// {@macro flutter.widgets.Focus.focusNode}
++  final FocusNode? focusNode;
++
++  /// {@macro flutter.widgets.Focus.autofocus}
++  final bool autofocus;
++
++  /// {@template flutter.material.checkbox.shape}
++  /// The shape of the checkbox's [Material].
++  /// {@endtemplate}
++  ///
++  /// If this property is null then [CheckboxThemeData.shape] of [ThemeData.checkboxTheme]
++  /// is used. If that's null then the shape will be a [RoundedRectangleBorder]
++  /// with a circular corner radius of 1.0 in Material 2, and 2.0 in Material 3.
++  final OutlinedBorder? shape;
++
++  /// {@template flutter.material.checkbox.side}
++  /// The color and width of the checkbox's border.
++  ///
++  /// This property can be a [MaterialStateBorderSide] that can
++  /// specify different border color and widths depending on the
++  /// checkbox's state.
++  ///
++  /// Resolves in the following states:
++  ///  * [MaterialState.pressed].
++  ///  * [MaterialState.selected].
++  ///  * [MaterialState.hovered].
++  ///  * [MaterialState.focused].
++  ///  * [MaterialState.disabled].
++  ///  * [MaterialState.error].
++  ///
++  /// If this property is not a [MaterialStateBorderSide] and it is
++  /// non-null, then it is only rendered when the checkbox's value is
++  /// false. The difference in interpretation is for backwards
++  /// compatibility.
++  /// {@endtemplate}
++  ///
++  /// If this property is null, then [CheckboxThemeData.side] of
++  /// [ThemeData.checkboxTheme] is used. If that is also null, then the side
++  /// will be width 2.
++  final BorderSide? side;
++
++  /// {@template flutter.material.checkbox.isError}
++  /// True if this checkbox wants to show an error state.
++  ///
++  /// The checkbox will have different default container color and check color when
++  /// this is true. This is only used when [ThemeData.useMaterial3] is set to true.
++  /// {@endtemplate}
++  ///
++  /// Must not be null. Defaults to false.
++  final bool isError;
++
++  /// The width of a checkbox widget.
++  static const double width = 18.0;
++
++  @override
++  State<CheckBoxProperty> createState() => _CheckBoxPropertyState();
++}
++
++class _CheckBoxPropertyState extends State<CheckBoxProperty>
++    with PropertyMixin<bool?> {
++  ValueNotifier<bool?> checkValue = ValueNotifier<bool?>(false);
++
++  @override
++  void initState() {
++    registerProperty(context, widget.name, false);
++    WidgetsBinding.instance.addPostFrameCallback((_) {
++      // After build, set the value of widget to the start value.
++      // This must be executed just one time.
++      checkValue.value = widget.startValue ?? false;
++    });
++    super.initState();
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return ValueListenableBuilder(
++      valueListenable: checkValue,
++      builder: (context, value, child) {
++        return Checkbox(
++          value: checkValue.value,
++          onChanged: (bool? newValue) {
++            checkValue.value = newValue;
++            setPropertyValue(newValue);
++            widget.onChanged?.call(newValue);
++          },
++          mouseCursor: widget.mouseCursor,
++          autofocus: widget.autofocus,
++          focusNode: widget.focusNode,
++          hoverColor: widget.hoverColor,
++          fillColor: widget.fillColor,
++          checkColor: widget.checkColor,
++          activeColor: widget.activeColor,
++          focusColor: widget.focusColor,
++          isError: widget.isError,
++          materialTapTargetSize: widget.materialTapTargetSize,
++          overlayColor: widget.overlayColor,
++          shape: widget.shape,
++          side: widget.side,
++          splashRadius: widget.splashRadius,
++          visualDensity: widget.visualDensity,
++        );
++      },
++    );
++  }
++}
+diff --git a/lib/src/properties/color_picker.dart b/lib/src/properties/color_picker.dart
+new file mode 100644
+index 0000000..e69de29
+diff --git a/lib/src/properties/dropdown.dart b/lib/src/properties/dropdown.dart
+new file mode 100644
+index 0000000..fe1aa80
+--- /dev/null
++++ b/lib/src/properties/dropdown.dart
+@@ -0,0 +1,320 @@
++import 'package:flutter/material.dart';
++
++import '../../node_editor.dart';
++
++class DropdownMenuProperty<T> extends StatefulWidget {
++  const DropdownMenuProperty({
++    Key? key,
++    required this.name,
++    required this.items,
++    this.selectedItemBuilder,
++    this.startValue,
++    this.hint,
++    this.disabledHint,
++    required this.onChanged,
++    this.onTap,
++    this.elevation = 8,
++    this.style,
++    this.underline,
++    this.icon,
++    this.iconDisabledColor,
++    this.iconEnabledColor,
++    this.iconSize = 24.0,
++    this.isDense = false,
++    this.isExpanded = false,
++    this.itemHeight = kMinInteractiveDimension,
++    this.focusColor,
++    this.focusNode,
++    this.autofocus = false,
++    this.dropdownColor,
++    this.menuMaxHeight,
++    this.enableFeedback,
++    this.alignment = AlignmentDirectional.centerStart,
++    this.borderRadius,
++    this.padding,
++  }) : super(key: key);
++
++  /// Name of the property
++  ///
++  /// This name is used to access the property
++  final String name;
++
++  /// The list of items the user can select.
++  ///
++  /// If the [onChanged] callback is null or the list of items is null
++  /// then the dropdown button will be disabled, i.e. its arrow will be
++  /// displayed in grey and it will not respond to input.
++  final List<DropdownMenuItem<T>>? items;
++
++  /// The value of the currently selected [DropdownMenuItem].
++  ///
++  /// If [startValue] is null and the button is enabled, [hint] will be displayed
++  /// if it is non-null.
++  ///
++  /// If [startValue] is null and the button is disabled, [disabledHint] will be displayed
++  /// if it is non-null. If [disabledHint] is null, then [hint] will be displayed
++  /// if it is non-null.
++  final T? startValue;
++
++  /// A placeholder widget that is displayed by the dropdown button.
++  ///
++  /// If [startValue] is null and the dropdown is enabled ([items] and [onChanged] are non-null),
++  /// this widget is displayed as a placeholder for the dropdown button's value.
++  ///
++  /// If [startValue] is null and the dropdown is disabled and [disabledHint] is null,
++  /// this widget is used as the placeholder.
++  final Widget? hint;
++
++  /// A preferred placeholder widget that is displayed when the dropdown is disabled.
++  ///
++  /// If [startValue] is null, the dropdown is disabled ([items] or [onChanged] is null),
++  /// this widget is displayed as a placeholder for the dropdown button's value.
++  final Widget? disabledHint;
++
++  /// {@template flutter.material.dropdownButton.onChanged}
++  /// Called when the user selects an item.
++  ///
++  /// If the [onChanged] callback is null or the list of [DropdownButton.items]
++  /// is null then the dropdown button will be disabled, i.e. its arrow will be
++  /// displayed in grey and it will not respond to input. A disabled button
++  /// will display the [DropdownButton.disabledHint] widget if it is non-null.
++  /// If [DropdownButton.disabledHint] is also null but [DropdownButton.hint] is
++  /// non-null, [DropdownButton.hint] will instead be displayed.
++  /// {@endtemplate}
++  final ValueChanged<T?>? onChanged;
++
++  /// Called when the dropdown button is tapped.
++  ///
++  /// This is distinct from [onChanged], which is called when the user
++  /// selects an item from the dropdown.
++  ///
++  /// The callback will not be invoked if the dropdown button is disabled.
++  final VoidCallback? onTap;
++
++  /// A builder to customize the dropdown buttons corresponding to the
++  /// [DropdownMenuItem]s in [items].
++  ///
++  /// When a [DropdownMenuItem] is selected, the widget that will be displayed
++  /// from the list corresponds to the [DropdownMenuItem] of the same index
++  /// in [items].
++  ///
++  /// {@tool dartpad}
++  /// This sample shows a `DropdownButton` with a button with [Text] that
++  /// corresponds to but is unique from [DropdownMenuItem].
++  ///
++  /// ** See code in examples/api/lib/material/dropdown/dropdown_button.selected_item_builder.0.dart **
++  /// {@end-tool}
++  ///
++  /// If this callback is null, the [DropdownMenuItem] from [items]
++  /// that matches [startValue] will be displayed.
++  final DropdownButtonBuilder? selectedItemBuilder;
++
++  /// The z-coordinate at which to place the menu when open.
++  ///
++  /// The following elevations have defined shadows: 1, 2, 3, 4, 6, 8, 9, 12,
++  /// 16, and 24. See [kElevationToShadow].
++  ///
++  /// Defaults to 8, the appropriate elevation for dropdown buttons.
++  final int elevation;
++
++  /// The text style to use for text in the dropdown button and the dropdown
++  /// menu that appears when you tap the button.
++  ///
++  /// To use a separate text style for selected item when it's displayed within
++  /// the dropdown button, consider using [selectedItemBuilder].
++  ///
++  /// {@tool dartpad}
++  /// This sample shows a `DropdownButton` with a dropdown button text style
++  /// that is different than its menu items.
++  ///
++  /// ** See code in examples/api/lib/material/dropdown/dropdown_button.style.0.dart **
++  /// {@end-tool}
++  ///
++  /// Defaults to the [TextTheme.titleMedium] value of the current
++  /// [ThemeData.textTheme] of the current [Theme].
++  final TextStyle? style;
++
++  /// The widget to use for drawing the drop-down button's underline.
++  ///
++  /// Defaults to a 0.0 width bottom border with color 0xFFBDBDBD.
++  final Widget? underline;
++
++  /// The widget to use for the drop-down button's icon.
++  ///
++  /// Defaults to an [Icon] with the [Icons.arrow_drop_down] glyph.
++  final Widget? icon;
++
++  /// The color of any [Icon] descendant of [icon] if this button is disabled,
++  /// i.e. if [onChanged] is null.
++  ///
++  /// Defaults to [MaterialColor.shade400] of [Colors.grey] when the theme's
++  /// [ThemeData.brightness] is [Brightness.light] and to
++  /// [Colors.white10] when it is [Brightness.dark]
++  final Color? iconDisabledColor;
++
++  /// The color of any [Icon] descendant of [icon] if this button is enabled,
++  /// i.e. if [onChanged] is defined.
++  ///
++  /// Defaults to [MaterialColor.shade700] of [Colors.grey] when the theme's
++  /// [ThemeData.brightness] is [Brightness.light] and to
++  /// [Colors.white70] when it is [Brightness.dark]
++  final Color? iconEnabledColor;
++
++  /// The size to use for the drop-down button's down arrow icon button.
++  ///
++  /// Defaults to 24.0.
++  final double iconSize;
++
++  /// Reduce the button's height.
++  ///
++  /// By default this button's height is the same as its menu items' heights.
++  /// If isDense is true, the button's height is reduced by about half. This
++  /// can be useful when the button is embedded in a container that adds
++  /// its own decorations, like [InputDecorator].
++  final bool isDense;
++
++  /// Set the dropdown's inner contents to horizontally fill its parent.
++  ///
++  /// By default this button's inner width is the minimum size of its contents.
++  /// If [isExpanded] is true, the inner width is expanded to fill its
++  /// surrounding container.
++  final bool isExpanded;
++
++  /// If null, then the menu item heights will vary according to each menu item's
++  /// intrinsic height.
++  ///
++  /// The default value is [kMinInteractiveDimension], which is also the minimum
++  /// height for menu items.
++  ///
++  /// If this value is null and there isn't enough vertical room for the menu,
++  /// then the menu's initial scroll offset may not align the selected item with
++  /// the dropdown button. That's because, in this case, the initial scroll
++  /// offset is computed as if all of the menu item heights were
++  /// [kMinInteractiveDimension].
++  final double? itemHeight;
++
++  /// The color for the button's [Material] when it has the input focus.
++  final Color? focusColor;
++
++  /// {@macro flutter.widgets.Focus.focusNode}
++  final FocusNode? focusNode;
++
++  /// {@macro flutter.widgets.Focus.autofocus}
++  final bool autofocus;
++
++  /// The background color of the dropdown.
++  ///
++  /// If it is not provided, the theme's [ThemeData.canvasColor] will be used
++  /// instead.
++  final Color? dropdownColor;
++
++  /// Padding around the visible portion of the dropdown widget.
++  ///
++  /// As the padding increases, the size of the [DropdownButton] will also
++  /// increase. The padding is included in the clickable area of the dropdown
++  /// widget, so this can make the widget easier to click.
++  ///
++  /// Padding can be useful when used with a custom border. The clickable
++  /// area will stay flush with the border, as opposed to an external [Padding]
++  /// widget which will leave a non-clickable gap.
++  final EdgeInsetsGeometry? padding;
++
++  /// The maximum height of the menu.
++  ///
++  /// The maximum height of the menu must be at least one row shorter than
++  /// the height of the app's view. This ensures that a tappable area
++  /// outside of the simple menu is present so the user can dismiss the menu.
++  ///
++  /// If this property is set above the maximum allowable height threshold
++  /// mentioned above, then the menu defaults to being padded at the top
++  /// and bottom of the menu by at one menu item's height.
++  final double? menuMaxHeight;
++
++  /// Whether detected gestures should provide acoustic and/or haptic feedback.
++  ///
++  /// For example, on Android a tap will produce a clicking sound and a
++  /// long-press will produce a short vibration, when feedback is enabled.
++  ///
++  /// By default, platform-specific feedback is enabled.
++  ///
++  /// See also:
++  ///
++  ///  * [Feedback] for providing platform-specific feedback to certain actions.
++  final bool? enableFeedback;
++
++  /// Defines how the hint or the selected item is positioned within the button.
++  ///
++  /// This property must not be null. It defaults to [AlignmentDirectional.centerStart].
++  ///
++  /// See also:
++  ///
++  ///  * [Alignment], a class with convenient constants typically used to
++  ///    specify an [AlignmentGeometry].
++  ///  * [AlignmentDirectional], like [Alignment] for specifying alignments
++  ///    relative to text direction.
++  final AlignmentGeometry alignment;
++
++  /// Defines the corner radii of the menu's rounded rectangle shape.
++  final BorderRadius? borderRadius;
++
++  @override
++  State<DropdownMenuProperty<T>> createState() =>
++      _DropDownMenuPropertyState<T>();
++}
++
++class _DropDownMenuPropertyState<T> extends State<DropdownMenuProperty<T>>
++    with PropertyMixin<T?> {
++  ValueNotifier<T?> selectedValue = ValueNotifier<T?>(null);
++
++  @override
++  void initState() {
++    registerProperty(context, widget.name, widget.startValue);
++    WidgetsBinding.instance.addPostFrameCallback((_) {
++      // After build, set the value of widget to the start value.
++      // This must be executed just one time.
++      selectedValue.value = widget.startValue;
++    });
++    super.initState();
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return ValueListenableBuilder(
++      valueListenable: selectedValue,
++      builder: (context, value, child) {
++        return DropdownButton<T>(
++          items: widget.items,
++          onChanged: (T? newValue) {
++            selectedValue.value = newValue;
++            setPropertyValue(newValue);
++            widget.onChanged?.call(newValue);
++          },
++          autofocus: widget.autofocus,
++          focusNode: widget.focusNode,
++          focusColor: widget.focusColor,
++          style: widget.style,
++          onTap: widget.onTap,
++          icon: widget.icon,
++          padding: widget.padding,
++          hint: widget.hint,
++          alignment: widget.alignment,
++          value: selectedValue.value,
++          dropdownColor: widget.dropdownColor,
++          borderRadius: widget.borderRadius,
++          disabledHint: widget.disabledHint,
++          elevation: widget.elevation,
++          enableFeedback: widget.enableFeedback,
++          iconDisabledColor: widget.iconDisabledColor,
++          iconEnabledColor: widget.iconEnabledColor,
++          iconSize: widget.iconSize,
++          isDense: widget.isDense,
++          isExpanded: widget.isExpanded,
++          itemHeight: widget.itemHeight,
++          menuMaxHeight: widget.menuMaxHeight,
++          underline: widget.underline,
++          selectedItemBuilder: widget.selectedItemBuilder,
++        );
++      },
++    );
++  }
++}
+diff --git a/lib/src/properties/slider.dart b/lib/src/properties/slider.dart
+new file mode 100644
+index 0000000..9389741
+--- /dev/null
++++ b/lib/src/properties/slider.dart
+@@ -0,0 +1,365 @@
++import 'package:flutter/material.dart';
++
++import '../../node_editor.dart';
++
++class SliderProperty extends StatefulWidget {
++  const SliderProperty(
++      {Key? key,
++      required this.name,
++      required this.value,
++      this.secondaryTrackValue,
++      this.onChanged,
++      this.onChangeStart,
++      this.onChangeEnd,
++      required this.min,
++      required this.max,
++      this.divisions,
++      this.label,
++      this.activeColor,
++      this.inactiveColor,
++      this.secondaryActiveColor,
++      this.thumbColor,
++      this.overlayColor,
++      this.mouseCursor,
++      this.semanticFormatterCallback,
++      this.focusNode,
++      required this.autofocus})
++      : super(key: key);
++
++  final String name;
++
++  /// The currently selected value for this slider.
++  ///
++  /// The slider's thumb is drawn at a position that corresponds to this value.
++  final double value;
++
++  /// The secondary track value for this slider.
++  ///
++  /// If not null, a secondary track using [Slider.secondaryActiveColor] color
++  /// is drawn between the thumb and this value, over the inactive track.
++  ///
++  /// If less than [Slider.value], then the secondary track is not shown.
++  ///
++  /// It can be ideal for media scenarios such as showing the buffering progress
++  /// while the [Slider.value] shows the play progress.
++  final double? secondaryTrackValue;
++
++  /// Called during a drag when the user is selecting a new value for the slider
++  /// by dragging.
++  ///
++  /// The slider passes the new value to the callback but does not actually
++  /// change state until the parent widget rebuilds the slider with the new
++  /// value.
++  ///
++  /// If null, the slider will be displayed as disabled.
++  ///
++  /// The callback provided to onChanged should update the state of the parent
++  /// [StatefulWidget] using the [State.setState] method, so that the parent
++  /// gets rebuilt; for example:
++  ///
++  /// {@tool snippet}
++  ///
++  /// ```dart
++  /// Slider(
++  ///   value: _duelCommandment.toDouble(),
++  ///   min: 1.0,
++  ///   max: 10.0,
++  ///   divisions: 10,
++  ///   label: '$_duelCommandment',
++  ///   onChanged: (double newValue) {
++  ///     setState(() {
++  ///       _duelCommandment = newValue.round();
++  ///     });
++  ///   },
++  /// )
++  /// ```
++  /// {@end-tool}
++  ///
++  /// See also:
++  ///
++  ///  * [onChangeStart] for a callback that is called when the user starts
++  ///    changing the value.
++  ///  * [onChangeEnd] for a callback that is called when the user stops
++  ///    changing the value.
++  final ValueChanged<double>? onChanged;
++
++  /// Called when the user starts selecting a new value for the slider.
++  ///
++  /// This callback shouldn't be used to update the slider [value] (use
++  /// [onChanged] for that), but rather to be notified when the user has started
++  /// selecting a new value by starting a drag or with a tap.
++  ///
++  /// The value passed will be the last [value] that the slider had before the
++  /// change began.
++  ///
++  /// {@tool snippet}
++  ///
++  /// ```dart
++  /// Slider(
++  ///   value: _duelCommandment.toDouble(),
++  ///   min: 1.0,
++  ///   max: 10.0,
++  ///   divisions: 10,
++  ///   label: '$_duelCommandment',
++  ///   onChanged: (double newValue) {
++  ///     setState(() {
++  ///       _duelCommandment = newValue.round();
++  ///     });
++  ///   },
++  ///   onChangeStart: (double startValue) {
++  ///     print('Started change at $startValue');
++  ///   },
++  /// )
++  /// ```
++  /// {@end-tool}
++  ///
++  /// See also:
++  ///
++  ///  * [onChangeEnd] for a callback that is called when the value change is
++  ///    complete.
++  final ValueChanged<double>? onChangeStart;
++
++  /// Called when the user is done selecting a new value for the slider.
++  ///
++  /// This callback shouldn't be used to update the slider [value] (use
++  /// [onChanged] for that), but rather to know when the user has completed
++  /// selecting a new [value] by ending a drag or a click.
++  ///
++  /// {@tool snippet}
++  ///
++  /// ```dart
++  /// Slider(
++  ///   value: _duelCommandment.toDouble(),
++  ///   min: 1.0,
++  ///   max: 10.0,
++  ///   divisions: 10,
++  ///   label: '$_duelCommandment',
++  ///   onChanged: (double newValue) {
++  ///     setState(() {
++  ///       _duelCommandment = newValue.round();
++  ///     });
++  ///   },
++  ///   onChangeEnd: (double newValue) {
++  ///     print('Ended change on $newValue');
++  ///   },
++  /// )
++  /// ```
++  /// {@end-tool}
++  ///
++  /// See also:
++  ///
++  ///  * [onChangeStart] for a callback that is called when a value change
++  ///    begins.
++  final ValueChanged<double>? onChangeEnd;
++
++  /// The minimum value the user can select.
++  ///
++  /// Defaults to 0.0. Must be less than or equal to [max].
++  ///
++  /// If the [max] is equal to the [min], then the slider is disabled.
++  final double min;
++
++  /// The maximum value the user can select.
++  ///
++  /// Defaults to 1.0. Must be greater than or equal to [min].
++  ///
++  /// If the [max] is equal to the [min], then the slider is disabled.
++  final double max;
++
++  /// The number of discrete divisions.
++  ///
++  /// Typically used with [label] to show the current discrete value.
++  ///
++  /// If null, the slider is continuous.
++  final int? divisions;
++
++  /// A label to show above the slider when the slider is active and
++  /// [SliderThemeData.showValueIndicator] is satisfied.
++  ///
++  /// It is used to display the value of a discrete slider, and it is displayed
++  /// as part of the value indicator shape.
++  ///
++  /// The label is rendered using the active [ThemeData]'s [TextTheme.bodyLarge]
++  /// text style, with the theme data's [ColorScheme.onPrimary] color. The
++  /// label's text style can be overridden with
++  /// [SliderThemeData.valueIndicatorTextStyle].
++  ///
++  /// If null, then the value indicator will not be displayed.
++  ///
++  /// Ignored if this slider is created with [Slider.adaptive].
++  ///
++  /// See also:
++  ///
++  ///  * [SliderComponentShape] for how to create a custom value indicator
++  ///    shape.
++  final String? label;
++
++  /// The color to use for the portion of the slider track that is active.
++  ///
++  /// The "active" side of the slider is the side between the thumb and the
++  /// minimum value.
++  ///
++  /// If null, [SliderThemeData.activeTrackColor] of the ambient
++  /// [SliderTheme] is used. If that is null, [ColorScheme.primary] of the
++  /// surrounding [ThemeData] is used.
++  ///
++  /// Using a [SliderTheme] gives much more fine-grained control over the
++  /// appearance of various components of the slider.
++  final Color? activeColor;
++
++  /// The color for the inactive portion of the slider track.
++  ///
++  /// The "inactive" side of the slider is the side between the thumb and the
++  /// maximum value.
++  ///
++  /// If null, [SliderThemeData.inactiveTrackColor] of the ambient [SliderTheme]
++  /// is used. If that is null and [ThemeData.useMaterial3] is true,
++  /// [ColorScheme.surfaceVariant] will be used, otherwise [ColorScheme.primary]
++  /// with an opacity of 0.24 will be used.
++  ///
++  /// Using a [SliderTheme] gives much more fine-grained control over the
++  /// appearance of various components of the slider.
++  ///
++  /// Ignored if this slider is created with [Slider.adaptive].
++  final Color? inactiveColor;
++
++  /// The color to use for the portion of the slider track between the thumb and
++  /// the [Slider.secondaryTrackValue].
++  ///
++  /// Defaults to the [SliderThemeData.secondaryActiveTrackColor] of the current
++  /// [SliderTheme].
++  ///
++  /// If that is also null, defaults to [ColorScheme.primary] with an
++  /// opacity of 0.54.
++  ///
++  /// Using a [SliderTheme] gives much more fine-grained control over the
++  /// appearance of various components of the slider.
++  ///
++  /// Ignored if this slider is created with [Slider.adaptive].
++  final Color? secondaryActiveColor;
++
++  /// The color of the thumb.
++  ///
++  /// If this color is null, [Slider] will use [activeColor], If [activeColor]
++  /// is also null, [Slider] will use [SliderThemeData.thumbColor].
++  ///
++  /// If that is also null, defaults to [ColorScheme.primary].
++  ///
++  /// * [CupertinoSlider] will have a white thumb
++  /// (like the native default iOS slider).
++  final Color? thumbColor;
++
++  /// The highlight color that's typically used to indicate that
++  /// the slider thumb is focused, hovered, or dragged.
++  ///
++  /// If this property is null, [Slider] will use [activeColor] with
++  /// an opacity of 0.12, If null, [SliderThemeData.overlayColor]
++  /// will be used.
++  ///
++  /// If that is also null, If [ThemeData.useMaterial3] is true,
++  /// Slider will use [ColorScheme.primary] with an opacity of 0.08 when
++  /// slider thumb is hovered and with an opacity of 0.12 when slider thumb
++  /// is focused or dragged, If [ThemeData.useMaterial3] is false, defaults
++  /// to [ColorScheme.primary] with an opacity of 0.12.
++  final MaterialStateProperty<Color?>? overlayColor;
++
++  /// {@template flutter.material.slider.mouseCursor}
++  /// The cursor for a mouse pointer when it enters or is hovering over the
++  /// widget.
++  ///
++  /// If [mouseCursor] is a [MaterialStateProperty<MouseCursor>],
++  /// [MaterialStateProperty.resolve] is used for the following [MaterialState]s:
++  ///
++  ///  * [MaterialState.dragged].
++  ///  * [MaterialState.hovered].
++  ///  * [MaterialState.focused].
++  ///  * [MaterialState.disabled].
++  /// {@endtemplate}
++  ///
++  /// If null, then the value of [SliderThemeData.mouseCursor] is used. If that
++  /// is also null, then [MaterialStateMouseCursor.clickable] is used.
++  ///
++  /// See also:
++  ///
++  ///  * [MaterialStateMouseCursor], which can be used to create a [MouseCursor]
++  ///    that is also a [MaterialStateProperty<MouseCursor>].
++  final MouseCursor? mouseCursor;
++
++  /// The callback used to create a semantic value from a slider value.
++  ///
++  /// Defaults to formatting values as a percentage.
++  ///
++  /// This is used by accessibility frameworks like TalkBack on Android to
++  /// inform users what the currently selected value is with more context.
++  ///
++  /// {@tool snippet}
++  ///
++  /// In the example below, a slider for currency values is configured to
++  /// announce a value with a currency label.
++  ///
++  /// ```dart
++  /// Slider(
++  ///   value: _dollars.toDouble(),
++  ///   min: 20.0,
++  ///   max: 330.0,
++  ///   label: '$_dollars dollars',
++  ///   onChanged: (double newValue) {
++  ///     setState(() {
++  ///       _dollars = newValue.round();
++  ///     });
++  ///   },
++  ///   semanticFormatterCallback: (double newValue) {
++  ///     return '${newValue.round()} dollars';
++  ///   }
++  ///  )
++  /// ```
++  /// {@end-tool}
++  ///
++  /// Ignored if this slider is created with [Slider.adaptive]
++  final SemanticFormatterCallback? semanticFormatterCallback;
++
++  /// {@macro flutter.widgets.Focus.focusNode}
++  final FocusNode? focusNode;
++
++  /// {@macro flutter.widgets.Focus.autofocus}
++  final bool autofocus;
++
++  @override
++  State<SliderProperty> createState() => _SliderPropertyState();
++}
++
++class _SliderPropertyState extends State<SliderProperty>
++    with PropertyMixin<double?> {
++  @override
++  void initState() {
++    registerProperty(context, widget.name, null);
++    super.initState();
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return Slider(
++      value: widget.value,
++      onChanged: (double value) {
++        setPropertyValue(value);
++        widget.onChanged?.call(value);
++      },
++      overlayColor: widget.overlayColor,
++      activeColor: widget.activeColor,
++      focusNode: widget.focusNode,
++      autofocus: widget.autofocus,
++      mouseCursor: widget.mouseCursor,
++      inactiveColor: widget.inactiveColor,
++      divisions: widget.divisions,
++      label: widget.label,
++      max: widget.max,
++      min: widget.min,
++      onChangeEnd: widget.onChangeEnd,
++      onChangeStart: widget.onChangeStart,
++      secondaryActiveColor: widget.secondaryActiveColor,
++      secondaryTrackValue: widget.secondaryTrackValue,
++      semanticFormatterCallback: widget.semanticFormatterCallback,
++      thumbColor: widget.thumbColor,
++    );
++  }
++}
+diff --git a/lib/src/properties/text_edit.dart b/lib/src/properties/text_edit.dart
+new file mode 100644
+index 0000000..36bc412
+--- /dev/null
++++ b/lib/src/properties/text_edit.dart
+@@ -0,0 +1,593 @@
++import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
++
++import 'package:flutter/gestures.dart';
++import 'package:flutter/material.dart';
++import 'package:flutter/services.dart';
++
++import '../../node_editor.dart';
++
++class TextEditProperty extends StatefulWidget {
++  const TextEditProperty({
++    Key? key,
++    required this.name,
++    this.controller,
++    this.focusNode,
++    this.undoController,
++    this.decoration = const InputDecoration(),
++    this.textInputAction,
++    this.textCapitalization = TextCapitalization.none,
++    this.style,
++    this.strutStyle,
++    this.textAlign = TextAlign.start,
++    this.textAlignVertical,
++    this.textDirection,
++    this.readOnly = false,
++    @Deprecated(
++      'Use `contextMenuBuilder` instead. '
++      'This feature was deprecated after v3.3.0-0.5.pre.',
++    )
++    this.toolbarOptions,
++    this.showCursor,
++    this.autofocus = false,
++    this.obscuringCharacter = '•',
++    this.obscureText = false,
++    this.autocorrect = true,
++    this.enableSuggestions = true,
++    this.maxLines = 1,
++    this.minLines,
++    this.expands = false,
++    this.maxLength,
++    this.maxLengthEnforcement,
++    this.onChanged,
++    this.onEditingComplete,
++    this.onSubmitted,
++    this.onAppPrivateCommand,
++    this.inputFormatters,
++    this.enabled,
++    this.cursorWidth = 2.0,
++    this.cursorHeight,
++    this.cursorRadius,
++    this.cursorOpacityAnimates,
++    this.cursorColor,
++    this.selectionHeightStyle = ui.BoxHeightStyle.tight,
++    this.selectionWidthStyle = ui.BoxWidthStyle.tight,
++    this.keyboardAppearance,
++    this.scrollPadding = const EdgeInsets.all(20.0),
++    this.dragStartBehavior = DragStartBehavior.start,
++    this.enableInteractiveSelection,
++    this.selectionControls,
++    this.onTap,
++    this.onTapOutside,
++    this.mouseCursor,
++    this.buildCounter,
++    this.scrollController,
++    this.scrollPhysics,
++    this.autofillHints = const <String>[],
++    this.contentInsertionConfiguration,
++    this.clipBehavior = Clip.hardEdge,
++    this.restorationId,
++    this.scribbleEnabled = true,
++    this.enableIMEPersonalizedLearning = true,
++    this.canRequestFocus = true,
++    this.spellCheckConfiguration,
++    this.magnifierConfiguration,
++    this.keyboardType,
++    this.smartDashesType,
++    this.smartQuotesType,
++  }) : super(key: key);
++
++  final String name;
++
++  /// {@macro flutter.widgets.magnifier.TextMagnifierConfiguration.intro}
++  ///
++  /// {@macro flutter.widgets.magnifier.intro}
++  ///
++  /// {@macro flutter.widgets.magnifier.TextMagnifierConfiguration.details}
++  ///
++  /// By default, builds a [CupertinoTextMagnifier] on iOS and [TextMagnifier]
++  /// on Android, and builds nothing on all other platforms. If it is desired to
++  /// suppress the magnifier, consider passing [TextMagnifierConfiguration.disabled].
++  ///
++  /// {@tool dartpad}
++  /// This sample demonstrates how to customize the magnifier that this text field uses.
++  ///
++  /// ** See code in examples/api/lib/widgets/text_magnifier/text_magnifier.0.dart **
++  /// {@end-tool}
++  final TextMagnifierConfiguration? magnifierConfiguration;
++
++  /// Controls the text being edited.
++  ///
++  /// If null, this widget will create its own [TextEditingController].
++  final TextEditingController? controller;
++
++  /// Defines the keyboard focus for this widget.
++  ///
++  /// The [focusNode] is a long-lived object that's typically managed by a
++  /// [StatefulWidget] parent. See [FocusNode] for more information.
++  ///
++  /// To give the keyboard focus to this widget, provide a [focusNode] and then
++  /// use the current [FocusScope] to request the focus:
++  ///
++  /// ```dart
++  /// FocusScope.of(context).requestFocus(myFocusNode);
++  /// ```
++  ///
++  /// This happens automatically when the widget is tapped.
++  ///
++  /// To be notified when the widget gains or loses the focus, add a listener
++  /// to the [focusNode]:
++  ///
++  /// ```dart
++  /// myFocusNode.addListener(() { print(myFocusNode.hasFocus); });
++  /// ```
++  ///
++  /// If null, this widget will create its own [FocusNode].
++  ///
++  /// ## Keyboard
++  ///
++  /// Requesting the focus will typically cause the keyboard to be shown
++  /// if it's not showing already.
++  ///
++  /// On Android, the user can hide the keyboard - without changing the focus -
++  /// with the system back button. They can restore the keyboard's visibility
++  /// by tapping on a text field. The user might hide the keyboard and
++  /// switch to a physical keyboard, or they might just need to get it
++  /// out of the way for a moment, to expose something it's
++  /// obscuring. In this case requesting the focus again will not
++  /// cause the focus to change, and will not make the keyboard visible.
++  ///
++  /// This widget builds an [EditableText] and will ensure that the keyboard is
++  /// showing when it is tapped by calling [EditableTextState.requestKeyboard()].
++  final FocusNode? focusNode;
++
++  /// The decoration to show around the text field.
++  ///
++  /// By default, draws a horizontal line under the text field but can be
++  /// configured to show an icon, label, hint text, and error text.
++  ///
++  /// Specify null to remove the decoration entirely (including the
++  /// extra padding introduced by the decoration to save space for the labels).
++  final InputDecoration? decoration;
++
++  /// {@macro flutter.widgets.editableText.keyboardType}
++  final TextInputType? keyboardType;
++
++  /// The type of action button to use for the keyboard.
++  ///
++  /// Defaults to [TextInputAction.newline] if [keyboardType] is
++  /// [TextInputType.multiline] and [TextInputAction.done] otherwise.
++  final TextInputAction? textInputAction;
++
++  /// {@macro flutter.widgets.editableText.textCapitalization}
++  final TextCapitalization textCapitalization;
++
++  /// The style to use for the text being edited.
++  ///
++  /// This text style is also used as the base style for the [decoration].
++  ///
++  /// If null, defaults to the `titleMedium` text style from the current [Theme].
++  final TextStyle? style;
++
++  /// {@macro flutter.widgets.editableText.strutStyle}
++  final StrutStyle? strutStyle;
++
++  /// {@macro flutter.widgets.editableText.textAlign}
++  final TextAlign textAlign;
++
++  /// {@macro flutter.material.InputDecorator.textAlignVertical}
++  final TextAlignVertical? textAlignVertical;
++
++  /// {@macro flutter.widgets.editableText.textDirection}
++  final TextDirection? textDirection;
++
++  /// {@macro flutter.widgets.editableText.autofocus}
++  final bool autofocus;
++
++  /// {@macro flutter.widgets.editableText.obscuringCharacter}
++  final String obscuringCharacter;
++
++  /// {@macro flutter.widgets.editableText.obscureText}
++  final bool obscureText;
++
++  /// {@macro flutter.widgets.editableText.autocorrect}
++  final bool autocorrect;
++
++  /// {@macro flutter.services.TextInputConfiguration.smartDashesType}
++  final SmartDashesType? smartDashesType;
++
++  /// {@macro flutter.services.TextInputConfiguration.smartQuotesType}
++  final SmartQuotesType? smartQuotesType;
++
++  /// {@macro flutter.services.TextInputConfiguration.enableSuggestions}
++  final bool enableSuggestions;
++
++  /// {@macro flutter.widgets.editableText.maxLines}
++  ///  * [expands], which determines whether the field should fill the height of
++  ///    its parent.
++  final int? maxLines;
++
++  /// {@macro flutter.widgets.editableText.minLines}
++  ///  * [expands], which determines whether the field should fill the height of
++  ///    its parent.
++  final int? minLines;
++
++  /// {@macro flutter.widgets.editableText.expands}
++  final bool expands;
++
++  /// {@macro flutter.widgets.editableText.readOnly}
++  final bool readOnly;
++
++  /// Configuration of toolbar options.
++  ///
++  /// If not set, select all and paste will default to be enabled. Copy and cut
++  /// will be disabled if [obscureText] is true. If [readOnly] is true,
++  /// paste and cut will be disabled regardless.
++  @Deprecated(
++    'Use `contextMenuBuilder` instead. '
++    'This feature was deprecated after v3.3.0-0.5.pre.',
++  )
++  final ToolbarOptions? toolbarOptions;
++
++  /// {@macro flutter.widgets.editableText.showCursor}
++  final bool? showCursor;
++
++  /// If [maxLength] is set to this value, only the "current input length"
++  /// part of the character counter is shown.
++  static const int noMaxLength = -1;
++
++  /// The maximum number of characters (Unicode grapheme clusters) to allow in
++  /// the text field.
++  ///
++  /// If set, a character counter will be displayed below the
++  /// field showing how many characters have been entered. If set to a number
++  /// greater than 0, it will also display the maximum number allowed. If set
++  /// to [TextField.noMaxLength] then only the current character count is displayed.
++  ///
++  /// After [maxLength] characters have been input, additional input
++  /// is ignored, unless [maxLengthEnforcement] is set to
++  /// [MaxLengthEnforcement.none].
++  ///
++  /// The text field enforces the length with a [LengthLimitingTextInputFormatter],
++  /// which is evaluated after the supplied [inputFormatters], if any.
++  ///
++  /// This value must be either null, [TextField.noMaxLength], or greater than 0.
++  /// If null (the default) then there is no limit to the number of characters
++  /// that can be entered. If set to [TextField.noMaxLength], then no limit will
++  /// be enforced, but the number of characters entered will still be displayed.
++  ///
++  /// Whitespace characters (e.g. newline, space, tab) are included in the
++  /// character count.
++  ///
++  /// If [maxLengthEnforcement] is [MaxLengthEnforcement.none], then more than
++  /// [maxLength] characters may be entered, but the error counter and divider
++  /// will switch to the [decoration]'s [InputDecoration.errorStyle] when the
++  /// limit is exceeded.
++  ///
++  /// {@macro flutter.services.lengthLimitingTextInputFormatter.maxLength}
++  final int? maxLength;
++
++  /// Determines how the [maxLength] limit should be enforced.
++  ///
++  /// {@macro flutter.services.textFormatter.effectiveMaxLengthEnforcement}
++  ///
++  /// {@macro flutter.services.textFormatter.maxLengthEnforcement}
++  final MaxLengthEnforcement? maxLengthEnforcement;
++
++  /// {@macro flutter.widgets.editableText.onChanged}
++  ///
++  /// See also:
++  ///
++  ///  * [inputFormatters], which are called before [onChanged]
++  ///    runs and can validate and change ("format") the input value.
++  ///  * [onEditingComplete], [onSubmitted]:
++  ///    which are more specialized input change notifications.
++  final ValueChanged<String>? onChanged;
++
++  /// {@macro flutter.widgets.editableText.onEditingComplete}
++  final VoidCallback? onEditingComplete;
++
++  /// {@macro flutter.widgets.editableText.onSubmitted}
++  ///
++  /// See also:
++  ///
++  ///  * [TextInputAction.next] and [TextInputAction.previous], which
++  ///    automatically shift the focus to the next/previous focusable item when
++  ///    the user is done editing.
++  final ValueChanged<String>? onSubmitted;
++
++  /// {@macro flutter.widgets.editableText.onAppPrivateCommand}
++  final AppPrivateCommandCallback? onAppPrivateCommand;
++
++  /// {@macro flutter.widgets.editableText.inputFormatters}
++  final List<TextInputFormatter>? inputFormatters;
++
++  /// If false the text field is "disabled": it ignores taps and its
++  /// [decoration] is rendered in grey.
++  ///
++  /// If non-null this property overrides the [decoration]'s
++  /// [InputDecoration.enabled] property.
++  final bool? enabled;
++
++  /// {@macro flutter.widgets.editableText.cursorWidth}
++  final double cursorWidth;
++
++  /// {@macro flutter.widgets.editableText.cursorHeight}
++  final double? cursorHeight;
++
++  /// {@macro flutter.widgets.editableText.cursorRadius}
++  final Radius? cursorRadius;
++
++  /// {@macro flutter.widgets.editableText.cursorOpacityAnimates}
++  final bool? cursorOpacityAnimates;
++
++  /// The color of the cursor.
++  ///
++  /// The cursor indicates the current location of text insertion point in
++  /// the field.
++  ///
++  /// If this is null it will default to the ambient
++  /// [DefaultSelectionStyle.cursorColor]. If that is null, and the
++  /// [ThemeData.platform] is [TargetPlatform.iOS] or [TargetPlatform.macOS]
++  /// it will use [CupertinoThemeData.primaryColor]. Otherwise it will use
++  /// the value of [ColorScheme.primary] of [ThemeData.colorScheme].
++  final Color? cursorColor;
++
++  /// Controls how tall the selection highlight boxes are computed to be.
++  ///
++  /// See [ui.BoxHeightStyle] for details on available styles.
++  final ui.BoxHeightStyle selectionHeightStyle;
++
++  /// Controls how wide the selection highlight boxes are computed to be.
++  ///
++  /// See [ui.BoxWidthStyle] for details on available styles.
++  final ui.BoxWidthStyle selectionWidthStyle;
++
++  /// The appearance of the keyboard.
++  ///
++  /// This setting is only honored on iOS devices.
++  ///
++  /// If unset, defaults to [ThemeData.brightness].
++  final Brightness? keyboardAppearance;
++
++  /// {@macro flutter.widgets.editableText.scrollPadding}
++  final EdgeInsets scrollPadding;
++
++  /// {@macro flutter.widgets.editableText.enableInteractiveSelection}
++  final bool? enableInteractiveSelection;
++
++  /// {@macro flutter.widgets.editableText.selectionControls}
++  final TextSelectionControls? selectionControls;
++
++  /// {@macro flutter.widgets.scrollable.dragStartBehavior}
++  final DragStartBehavior dragStartBehavior;
++
++  /// {@template flutter.material.textfield.onTap}
++  /// Called for each distinct tap except for every second tap of a double tap.
++  ///
++  /// The text field builds a [GestureDetector] to handle input events like tap,
++  /// to trigger focus requests, to move the caret, adjust the selection, etc.
++  /// Handling some of those events by wrapping the text field with a competing
++  /// GestureDetector is problematic.
++  ///
++  /// To unconditionally handle taps, without interfering with the text field's
++  /// internal gesture detector, provide this callback.
++  ///
++  /// If the text field is created with [enabled] false, taps will not be
++  /// recognized.
++  ///
++  /// To be notified when the text field gains or loses the focus, provide a
++  /// [focusNode] and add a listener to that.
++  ///
++  /// To listen to arbitrary pointer events without competing with the
++  /// text field's internal gesture detector, use a [Listener].
++  /// {@endtemplate}
++  final GestureTapCallback? onTap;
++
++  /// {@macro flutter.widgets.editableText.onTapOutside}
++  ///
++  /// {@tool dartpad}
++  /// This example shows how to use a `TextFieldTapRegion` to wrap a set of
++  /// "spinner" buttons that increment and decrement a value in the [TextField]
++  /// without causing the text field to lose keyboard focus.
++  ///
++  /// This example includes a generic `SpinnerField<T>` class that you can copy
++  /// into your own project and customize.
++  ///
++  /// ** See code in examples/api/lib/widgets/tap_region/text_field_tap_region.0.dart **
++  /// {@end-tool}
++  ///
++  /// See also:
++  ///
++  ///  * [TapRegion] for how the region group is determined.
++  final TapRegionCallback? onTapOutside;
++
++  /// The cursor for a mouse pointer when it enters or is hovering over the
++  /// widget.
++  ///
++  /// If [mouseCursor] is a [MaterialStateProperty<MouseCursor>],
++  /// [MaterialStateProperty.resolve] is used for the following [MaterialState]s:
++  ///
++  ///  * [MaterialState.error].
++  ///  * [MaterialState.hovered].
++  ///  * [MaterialState.focused].
++  ///  * [MaterialState.disabled].
++  ///
++  /// If this property is null, [MaterialStateMouseCursor.textable] will be used.
++  ///
++  /// The [mouseCursor] is the only property of [TextField] that controls the
++  /// appearance of the mouse pointer. All other properties related to "cursor"
++  /// stand for the text cursor, which is usually a blinking vertical line at
++  /// the editing position.
++  final MouseCursor? mouseCursor;
++
++  /// Callback that generates a custom [InputDecoration.counter] widget.
++  ///
++  /// See [InputCounterWidgetBuilder] for an explanation of the passed in
++  /// arguments. The returned widget will be placed below the line in place of
++  /// the default widget built when [InputDecoration.counterText] is specified.
++  ///
++  /// The returned widget will be wrapped in a [Semantics] widget for
++  /// accessibility, but it also needs to be accessible itself. For example,
++  /// if returning a Text widget, set the [Text.semanticsLabel] property.
++  ///
++  /// {@tool snippet}
++  /// ```dart
++  /// Widget counter(
++  ///   BuildContext context,
++  ///   {
++  ///     required int currentLength,
++  ///     required int? maxLength,
++  ///     required bool isFocused,
++  ///   }
++  /// ) {
++  ///   return Text(
++  ///     '$currentLength of $maxLength characters',
++  ///     semanticsLabel: 'character count',
++  ///   );
++  /// }
++  /// ```
++  /// {@end-tool}
++  ///
++  /// If buildCounter returns null, then no counter and no Semantics widget will
++  /// be created at all.
++  final InputCounterWidgetBuilder? buildCounter;
++
++  /// {@macro flutter.widgets.editableText.scrollPhysics}
++  final ScrollPhysics? scrollPhysics;
++
++  /// {@macro flutter.widgets.editableText.scrollController}
++  final ScrollController? scrollController;
++
++  /// {@macro flutter.widgets.editableText.autofillHints}
++  /// {@macro flutter.services.AutofillConfiguration.autofillHints}
++  final Iterable<String>? autofillHints;
++
++  /// {@macro flutter.material.Material.clipBehavior}
++  ///
++  /// Defaults to [Clip.hardEdge].
++  final Clip clipBehavior;
++
++  /// {@template flutter.material.textfield.restorationId}
++  /// Restoration ID to save and restore the state of the text field.
++  ///
++  /// If non-null, the text field will persist and restore its current scroll
++  /// offset and - if no [controller] has been provided - the content of the
++  /// text field. If a [controller] has been provided, it is the responsibility
++  /// of the owner of that controller to persist and restore it, e.g. by using
++  /// a [RestorableTextEditingController].
++  ///
++  /// The state of this widget is persisted in a [RestorationBucket] claimed
++  /// from the surrounding [RestorationScope] using the provided restoration ID.
++  ///
++  /// See also:
++  ///
++  ///  * [RestorationManager], which explains how state restoration works in
++  ///    Flutter.
++  /// {@endtemplate}
++  final String? restorationId;
++
++  /// {@macro flutter.widgets.editableText.scribbleEnabled}
++  final bool scribbleEnabled;
++
++  /// {@macro flutter.services.TextInputConfiguration.enableIMEPersonalizedLearning}
++  final bool enableIMEPersonalizedLearning;
++
++  /// {@macro flutter.widgets.editableText.contentInsertionConfiguration}
++  final ContentInsertionConfiguration? contentInsertionConfiguration;
++
++  /// Determine whether this text field can request the primary focus.
++  ///
++  /// Defaults to true. If false, the text field will not request focus
++  /// when tapped, or when its context menu is displayed. If false it will not
++  /// be possible to move the focus to the text field with tab key.
++  final bool canRequestFocus;
++
++  /// {@macro flutter.widgets.undoHistory.controller}
++  final UndoHistoryController? undoController;
++
++  /// {@macro flutter.widgets.EditableText.spellCheckConfiguration}
++  ///
++  /// If [SpellCheckConfiguration.misspelledTextStyle] is not specified in this
++  /// configuration, then [materialMisspelledTextStyle] is used by default.
++  final SpellCheckConfiguration? spellCheckConfiguration;
++
++  @override
++  State<TextEditProperty> createState() => _TextEditState();
++}
++
++class _TextEditState extends State<TextEditProperty>
++    with PropertyMixin<String> {
++  @override
++  void initState() {
++    registerProperty(context, widget.name, '');
++    super.initState();
++  }
++
++  @override
++  Widget build(BuildContext context) {
++    return TextField(
++      controller: widget.controller,
++      onTap: widget.onTap,
++      focusNode: widget.focusNode,
++      obscureText: widget.obscureText,
++      onChanged: (String value) {
++        setPropertyValue(value);
++        widget.onChanged?.call(value);
++      },
++      inputFormatters: widget.inputFormatters,
++      keyboardType: widget.keyboardType,
++      style: widget.style,
++      enabled: widget.enabled,
++      scrollController: widget.scrollController,
++      autofocus: widget.autofocus,
++      textAlign: widget.textAlign,
++      maxLines: widget.maxLines,
++      onSubmitted: widget.onSubmitted,
++      textInputAction: widget.textInputAction,
++      autocorrect: widget.autocorrect,
++      autofillHints: widget.autofillHints,
++      buildCounter: widget.buildCounter,
++      canRequestFocus: widget.canRequestFocus,
++      clipBehavior: widget.clipBehavior,
++      contentInsertionConfiguration: widget.contentInsertionConfiguration,
++      cursorColor: widget.cursorColor,
++      cursorHeight: widget.cursorHeight,
++      cursorRadius: widget.cursorRadius,
++      cursorOpacityAnimates: widget.cursorOpacityAnimates,
++      cursorWidth: widget.cursorWidth,
++      decoration: widget.decoration,
++      dragStartBehavior: widget.dragStartBehavior,
++      enableSuggestions: widget.enableSuggestions,
++      enableInteractiveSelection: widget.enableInteractiveSelection,
++      expands: widget.expands,
++      keyboardAppearance: widget.keyboardAppearance,
++      enableIMEPersonalizedLearning: widget.enableIMEPersonalizedLearning,
++      maxLength: widget.maxLength,
++      minLines: widget.minLines,
++      mouseCursor: widget.mouseCursor,
++      maxLengthEnforcement: widget.maxLengthEnforcement,
++      readOnly: widget.readOnly,
++      obscuringCharacter: widget.obscuringCharacter,
++      magnifierConfiguration: widget.magnifierConfiguration,
++      onAppPrivateCommand: widget.onAppPrivateCommand,
++      onEditingComplete: widget.onEditingComplete,
++      scrollPadding: widget.scrollPadding,
++      onTapOutside: widget.onTapOutside,
++      restorationId: widget.restorationId,
++      scribbleEnabled: widget.scribbleEnabled,
++      scrollPhysics: widget.scrollPhysics,
++      selectionControls: widget.selectionControls,
++      selectionHeightStyle: widget.selectionHeightStyle,
++      selectionWidthStyle: widget.selectionWidthStyle,
++      showCursor: widget.showCursor,
++      smartDashesType: widget.smartDashesType,
++      smartQuotesType: widget.smartQuotesType,
++      spellCheckConfiguration: widget.spellCheckConfiguration,
++      strutStyle: widget.strutStyle,
++      textAlignVertical: widget.textAlignVertical,
++      textCapitalization: widget.textCapitalization,
++      textDirection: widget.textDirection,
++      undoController: widget.undoController,
++    );
++  }
++}
+diff --git a/lib/ui/render_info.dart b/lib/src/render_info.dart
+similarity index 100%
+rename from lib/ui/render_info.dart
+rename to lib/src/render_info.dart
+diff --git a/lib/ui/node_widget.dart b/lib/ui/node_widget.dart
+deleted file mode 100644
+index ce0e7c0..0000000
+--- a/lib/ui/node_widget.dart
++++ /dev/null
+@@ -1,88 +0,0 @@
+-import 'package:flutter/material.dart';
+-
+-import 'controller.dart';
+-import 'inherit.dart';
+-import 'nodes.dart';
+-
+-abstract class NodeItemWidgetInterface {
+-  NodeItem get nodeInfo;
+-}
+-
+-class NodeWidgetAtt {
+-  bool selected = false;
+-}
+-
+-/// Base class to create NodeWidgets
+-abstract class NodeWidgetBase {
+-  NodeWidgetBase(
+-      {required this.width, required this.name, required this.typeName});
+-
+-  final String name;
+-  final String typeName;
+-  final double width;
+-
+-  @protected
+-  final NodeWidgetAtt att = NodeWidgetAtt();
+-
+-  Widget customBuild(BuildContext context);
+-
+-  /// Flag to specify if the node is selected
+-  bool get isSelected => att.selected;
+-
+-  /// Mark node as selected
+-  ///
+-  /// The node must be marked as selected on the controller
+-  /// so the controller is called, and the name of the node is given
+-  /// as argument, so the controller mark the node as selected
+-  void selectNode(BuildContext context) {
+-    NodeEditorController controller =
+-        ControllerInheritedWidget.of(context).controller;
+-    controller.selectNodeAction(name);
+-  }
+-}
+-
+-class NodeEditorInheritedWidget extends InheritedWidget {
+-  NodeEditorInheritedWidget({
+-    super.key,
+-    required this.blueprintNode,
+-  }) : super(
+-            child: NodeWidget(
+-              blueprintNode: blueprintNode,
+-            ));
+-
+-  final NodeWidgetBase blueprintNode;
+-
+-  static NodeEditorInheritedWidget of(BuildContext context) {
+-    final NodeEditorInheritedWidget? result =
+-        context.dependOnInheritedWidgetOfExactType<NodeEditorInheritedWidget>();
+-    assert(result != null, 'No NodeEditorInheritedWidget found in context');
+-    return result!;
+-  }
+-
+-  @override
+-  bool updateShouldNotify(NodeEditorInheritedWidget oldWidget) {
+-    return blueprintNode != oldWidget.blueprintNode;
+-  }
+-}
+-
+-class NodeWidget extends StatelessWidget {
+-  const NodeWidget({super.key, required this.blueprintNode});
+-
+-  final NodeWidgetBase blueprintNode;
+-
+-  @override
+-  Widget build(BuildContext context) {
+-    NodeEditorController controller =
+-        ControllerInheritedWidget.of(context).controller;
+-    return AnimatedBuilder(
+-      animation: controller,
+-      builder: (BuildContext context, Widget? child) {
+-        // check if the node is selected
+-        blueprintNode.att.selected =
+-            controller.nodesManager.nodes[blueprintNode.name]?.selected ??
+-                false;
+-        return blueprintNode.customBuild(context);
+-      },
+-    );
+-  }
+-}
+diff --git a/lib/ui/utils.dart b/lib/ui/utils.dart
+deleted file mode 100644
+index 387ea86..0000000
+--- a/lib/ui/utils.dart
++++ /dev/null
+@@ -1,111 +0,0 @@
+-import 'package:flutter/material.dart';
+-
+-String idGenerator() {
+-  final now = DateTime.now();
+-  return now.microsecondsSinceEpoch.toString();
+-}
+-
+-Widget showError(BuildContext context, List<String> errors, {double? height}) {
+-  return Dialog(
+-    child: Container(
+-      width: MediaQuery.of(context).size.width / 3,
+-      height: height ?? 270,
+-      padding: const EdgeInsets.all(10.0),
+-      decoration: BoxDecoration(
+-        gradient: LinearGradient(
+-          colors: [Colors.lightBlue.shade100, Colors.lightBlue.shade50],
+-          begin: Alignment.topLeft,
+-          end: Alignment.bottomRight,
+-        ),
+-        borderRadius: BorderRadius.circular(20),
+-        boxShadow: [
+-          BoxShadow(
+-            color: Colors.grey.withOpacity(0.3),
+-            spreadRadius: 3,
+-            blurRadius: 5,
+-          ),
+-        ],
+-      ),
+-      child: Column(
+-        children: [
+-          Container(
+-            decoration: BoxDecoration(
+-              color: Colors.blue.shade200,
+-              borderRadius: const BorderRadius.only(
+-                topLeft: Radius.circular(15),
+-                topRight: Radius.circular(15),
+-              ),
+-            ),
+-            child: const Padding(
+-              padding:
+-                  EdgeInsets.only(left: 10.0, right: 10.0, top: 2, bottom: 4),
+-              child: Row(
+-                mainAxisAlignment: MainAxisAlignment.center,
+-                children: [
+-                  DefaultTextStyle(
+-                    style: TextStyle(
+-                      fontSize: 16.0,
+-                      fontWeight: FontWeight.bold,
+-                      color: Colors.black,
+-                    ),
+-                    child: Text(
+-                      "Error",
+-                      style: TextStyle(
+-                          color: Color.fromARGB(255, 35, 6, 80),
+-                          fontWeight: FontWeight.bold,
+-                          fontSize: 24),
+-                    ),
+-                  ),
+-                ],
+-              ),
+-            ),
+-          ),
+-          DefaultTextStyle(
+-            style: const TextStyle(
+-              color: Color.fromARGB(255, 35, 6, 80),
+-            ),
+-            maxLines: 2,
+-            child: Container(
+-              decoration: BoxDecoration(
+-                color: Colors.blue.shade100,
+-                borderRadius: const BorderRadius.only(
+-                  bottomLeft: Radius.circular(15),
+-                  bottomRight: Radius.circular(15),
+-                ),
+-              ),
+-              child: Padding(
+-                padding: const EdgeInsets.all(4.0),
+-                child: SizedBox(
+-                  width: double.maxFinite,
+-                  height: height == null ? 208 : height - 62,
+-                  child: ListView.builder(
+-                      itemCount: errors.length,
+-                      itemBuilder: (context, index) {
+-                        return Column(
+-                          children: [
+-                            RichText(
+-                                text: TextSpan(children: [
+-                              TextSpan(
+-                                  text: "[ERROR-${index + 1}] ",
+-                                  style: const TextStyle(
+-                                      fontWeight: FontWeight.bold,
+-                                      color: Colors.black)),
+-                              TextSpan(
+-                                  text: errors[index],
+-                                  style: TextStyle(color: Colors.red.shade400))
+-                            ])),
+-                            const SizedBox(
+-                              height: 10,
+-                            )
+-                          ],
+-                        );
+-                      }),
+-                ),
+-              ),
+-            ),
+-          ),
+-        ],
+-      ),
+-    ),
+-  );
+-}

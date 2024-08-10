@@ -16,10 +16,9 @@ and the Flutter guide for
 <p align="center">A highly customizable node editor for Flutter</p>
 
 
-https://github.com/user-attachments/assets/60980604-69ad-477f-900f-deec0219b913
-
-<img src="https://raw.githubusercontent.com/alexst07/flutter_node_editor/master/midia/nodes.png"/>
-
+<p align="center">
+        <img src="https://raw.githubusercontent.com/alexst07/flutter_node_editor/master/midia/nodes.png"/>
+</p>
 
 ## Features
 

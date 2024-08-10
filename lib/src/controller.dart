@@ -176,6 +176,13 @@ class NodeEditorController with ChangeNotifier {
     return nodesManager.getPort(nodeName, portName);
   }
 
+  void addProperty(
+    String nodeName,
+    Property property,
+  ) {
+    nodesManager.nodes[nodeName]!.addProperty(property);
+  }
+
   void selectOnTap(Offset tapPosition) {
     nodesManager.unselectAllNodes();
     connectionsManager.selectOnTap(this, tapPosition);
